@@ -3,7 +3,7 @@ package Hapi;
 import javax.swing.*;
 
 /**
- * Created by klk94 on 11.03.2016. f
+ * Created by klk94 on 11.03.2016. fcgfhg
  */
 public class EditPassword extends JFrame {
     private JTextField textField1;
