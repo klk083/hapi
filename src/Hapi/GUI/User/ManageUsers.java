@@ -3,7 +3,7 @@ package Hapi.GUI.User;
 import Hapi.GUI.MainMenu.CEO;
 import Hapi.GUI.User.CreateUser;
 import Hapi.GUI.User.EditPassword;
-import Hapi.Methods2;
+import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -65,7 +65,7 @@ public class ManageUsers extends JFrame{
 
 
 
-                ArrayList<String> list = Methods2.listEmployees(text.getText());
+                ArrayList<String> list = Methods.listEmployees(text.getText());
 
 
                     DefaultListModel listModel = new DefaultListModel();
@@ -85,7 +85,7 @@ public class ManageUsers extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textf1;
 
-                ArrayList<String> list = Methods2.listEmployees(text.getText());
+                ArrayList<String> list = Methods.listEmployees(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();
