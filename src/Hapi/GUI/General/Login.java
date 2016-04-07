@@ -1,4 +1,4 @@
-package Hapi.GUI.Generel;
+package Hapi.GUI.General;
 
 
 import Hapi.GUI.MainMenu.CEO;
@@ -12,13 +12,13 @@ import static javax.swing.JOptionPane.showMessageDialog;
 /**
  * Created by klk94 on 10.03.2016.
  */
-public class LoggIn extends JFrame {
+public class Login extends JFrame {
     private JPanel panel1;
     private JTextField textField2;
     private JPasswordField passwordField1;
     private JButton signInButton;
 
-    public LoggIn() {
+    public Login() {
         super("Sign In");
         setContentPane(panel1);
         pack();
