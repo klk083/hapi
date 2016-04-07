@@ -61,7 +61,7 @@ public class ManageUsers extends JFrame{
 
 
 
-                ArrayList<String> list = Methods2.listEmployees(text.getText());
+                ArrayList<String> list = Methods.listEmployees(text.getText());
 
 
                     DefaultListModel listModel = new DefaultListModel();
@@ -81,7 +81,7 @@ public class ManageUsers extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textf1;
 
-                ArrayList<String> list = Methods2.listEmployees(text.getText());
+                ArrayList<String> list = Methods.listEmployees(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();

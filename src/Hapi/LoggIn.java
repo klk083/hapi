@@ -34,7 +34,7 @@ public class LoggIn extends JFrame {
 
 
 
-                if(Methods2.login(user.getText(), pass.getText())) {
+                if(Methods.login(user.getText(), pass.getText())) {
 
                     CEO test = new CEO();
                     dispose();
@@ -53,7 +53,7 @@ public class LoggIn extends JFrame {
 
 
 
-                if(Methods2.login(user.getText(), pass.getText())) {
+                if(Methods.login(user.getText(), pass.getText())) {
 
                     CEO test = new CEO();
                     dispose();
