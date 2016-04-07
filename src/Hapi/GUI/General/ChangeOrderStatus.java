@@ -1,4 +1,4 @@
-package Hapi.GUI.Generel;
+package Hapi.GUI.General;
 
 import javax.swing.*;
 

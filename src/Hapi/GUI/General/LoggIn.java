@@ -2,7 +2,7 @@ package Hapi.GUI.Generel;
 
 
 import Hapi.GUI.MainMenu.CEO;
-import Hapi.Methods2;
+import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
