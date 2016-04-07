@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Methods extends SQLConnection {
-    private static Connection con = openConnection();
+public class Methods {
+    private static Connection con = SQLConnection.openConnection();
     private static PreparedStatement stm = null;
     private static ResultSet res = null;
 
@@ -51,11 +51,11 @@ public class Methods extends SQLConnection {
             saltFromDatabase = res.getString("password_salt");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during login, Code: 8000001";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
         }
 
         String hash = generateHash(password, saltFromDatabase);
@@ -90,13 +90,13 @@ public class Methods extends SQLConnection {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during password change, Code: 8000002";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return ok;
         }
@@ -124,13 +124,13 @@ public class Methods extends SQLConnection {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during user creation, Code: 8000003";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return ok;
         }
@@ -148,13 +148,13 @@ public class Methods extends SQLConnection {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during user deleting, Code: 8000004";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return ok;
         }
@@ -174,11 +174,11 @@ public class Methods extends SQLConnection {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers, Code: 8000005";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return customers;
         }
@@ -199,11 +199,11 @@ public class Methods extends SQLConnection {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return customers;
         }
@@ -223,11 +223,11 @@ public class Methods extends SQLConnection {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees, Code: 8000007";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return employees;
         }
@@ -248,11 +248,11 @@ public class Methods extends SQLConnection {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return employees;
         }
@@ -275,13 +275,13 @@ public class Methods extends SQLConnection {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during customer creation, Code: 8000009";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return ok;
         }
@@ -303,13 +303,13 @@ public class Methods extends SQLConnection {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during change of customer discount, Code: 8000010";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return ok;
         }
@@ -333,13 +333,13 @@ public class Methods extends SQLConnection {
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of role ID, Code: 8000011";
-            writeMessage(e, errorMessage);
+            SQLConnection.writeMessage(e, errorMessage);
 
             output = -1;
         } finally {
-            closeResSet(res);
-            closePreparedStatement(stm);
-            closeConnection(con);
+            SQLConnection.closeResSet(res);
+            SQLConnection.losePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
 
             return output;
         }
@@ -349,98 +349,4 @@ public class Methods extends SQLConnection {
 
     }
 */
-}
-
-class SQLConnection {
-
-    public static Connection openConnection() {
-        String databaseDriver = "com.mysql.jdbc.Driver";
-        String username = "kehildre", password = "3kMBJrQ2";
-
-        Connection con = null;
-        try {
-            Class.forName(databaseDriver);
-            String databaseName = "jdbc:mysql://mysql.stud.iie.ntnu.no:3306/" + username + "?user=" + username + "&password=" + password;
-            con = DriverManager.getConnection(databaseName);
-        } catch (Exception e) {
-            String errorMessage = "Exception during connection to database, Code: 8000000";
-            writeMessage(e, errorMessage);
-        }
-        return con;
-    }
-
-    public static void closeResSet(ResultSet res) {
-        try {
-            if (res != null) {
-                res.close();
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "closeResSet()");
-        }
-    }
-
-    public static void closeStatement(Statement stm) {
-        try {
-            if (stm != null) {
-                stm.close();
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "closeStatement()");
-        }
-    }
-
-    public static void closePreparedStatement(PreparedStatement stm) {
-        try {
-            if (stm != null) {
-                stm.close();
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "closePreparedStatement()");
-        }
-    }
-
-    public static void closeConnection(Connection con) {
-        try {
-            if (con != null) {
-                con.close();
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "closeConnection()");
-        }
-    }
-
-    public static void rollback(Connection con) {
-        try {
-            if (con != null && !con.getAutoCommit()) {
-                con.rollback();
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "rollback()");
-        }
-    }
-
-    public static void setAutoCommitOn(Connection con) {
-        try {
-            if (con != null && !con.getAutoCommit()) {
-                con.setAutoCommit(true);
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "setAutoCommit()");
-        }
-    }
-
-    public static void setAutoCommitOff(Connection con) {
-        try {
-            if (con != null && con.getAutoCommit()) {
-                con.setAutoCommit(false);
-            }
-        } catch (SQLException e) {
-            writeMessage(e, "setAutoCommit()");
-        }
-    }
-
-    public static void writeMessage(Exception e, String message) {
-        System.err.println("*** Error occured: " + message + ". ***");
-        e.printStackTrace(System.err);
-    }
 }
