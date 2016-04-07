@@ -1,18 +1,17 @@
 package Hapi;
-import javax.swing.*;
-import java.security.SecureRandom;
+
 import java.math.BigInteger;
-import java.sql.*;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
-class Methods2 {
-    private static Connection con = null;
+class Methods extends SQLConnection {
+    private static Connection con = openConnection();
     private static PreparedStatement stm = null;
     private static ResultSet res = null;
 
     private static String generateHash(String password, String salt) {
         // requires Apache Commons Codec 1.10, check internet or Password Hashing page in OneNote for info and download
-        String hash = org.apache.commons.codec.digest.DigestUtils.sha512Hex(password + salt);
+        String hash = org.apache.commons.codec.digest.Crypt.crypt(password + salt);
 
         return hash;
     }
@@ -25,9 +24,9 @@ class Methods2 {
 
         SecureRandom random = new SecureRandom();
 
-        BigInteger bigInt = new BigInteger(640, random);
+        BigInteger bigInt = new BigInteger(65, random);
 
-        String salt = bigInt.toString(32);
+        String salt = "$6$" + bigInt.toString(32);		// "$6$" for crypt()-function, used to specify SHA512
 
         return salt;
     }
@@ -35,7 +34,6 @@ class Methods2 {
     public static boolean login(String username, String password) {
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
-            con = SQLConnection.openConnection();
             String selectSQL = "SELECT password_hash, password_salt FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, username);
@@ -52,11 +50,11 @@ class Methods2 {
             saltFromDatabase = res.getString("password_salt");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during login, Code: 8000001";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
         }
 
         String hash = generateHash(password, saltFromDatabase);
@@ -80,7 +78,6 @@ class Methods2 {
         // return false if password is not changed for some reason (should not be possible, except for SQLException)
 
         try {
-            con = SQLConnection.openConnection();
             String updateSQL = "UPDATE employee SET employee.password_hash = ?, employee.password_salt = ? WHERE username = ?";
             stm = con.prepareStatement(updateSQL);
             stm.setString(1, hash);
@@ -92,13 +89,13 @@ class Methods2 {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during password change, Code: 8000002";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return ok;
         }
@@ -109,12 +106,11 @@ class Methods2 {
         String hash = generateHash(password, salt);
         boolean ok = false;
 
-        if (username.equals("") || name.equals("") || password.equals(""))  {
+        if (username.equals("") || name.equals("") || password.equals("")) {
             return false;
         }
 
         try {
-            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO employee VALUES(DEFAULT, ?, ?, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, roleID);
@@ -127,13 +123,13 @@ class Methods2 {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during user creation, Code: 8000003";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return ok;
         }
@@ -143,7 +139,6 @@ class Methods2 {
         boolean ok = false;
 
         try {
-            con = SQLConnection.openConnection();
             String deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setString(1, username);
@@ -152,13 +147,13 @@ class Methods2 {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during user deleting, Code: 8000004";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return ok;
         }
@@ -168,7 +163,6 @@ class Methods2 {
         ArrayList<String> customers = new ArrayList<String>();
 
         try {
-            con = SQLConnection.openConnection();
             String selectSQL = "SELECT customer_name FROM customer";
             stm = con.prepareStatement(selectSQL);
 
@@ -179,11 +173,11 @@ class Methods2 {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers, Code: 8000005";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return customers;
         }
@@ -194,7 +188,6 @@ class Methods2 {
         String forSQL = "%" + partName + "%";
 
         try {
-            con = SQLConnection.openConnection();
             String selectSQL = "SELECT customer_name FROM customer WHERE customer_name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
@@ -205,11 +198,11 @@ class Methods2 {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return customers;
         }
@@ -219,7 +212,6 @@ class Methods2 {
         ArrayList<String> employees = new ArrayList<String>();
 
         try {
-            con = SQLConnection.openConnection();
             String selectSQL = "SELECT name FROM employee";
             stm = con.prepareStatement(selectSQL);
 
@@ -230,11 +222,11 @@ class Methods2 {
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees, Code: 8000007";
-            SQLConnection.writeMessage(e, errorMessage);
+            writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return employees;
         }
@@ -245,7 +237,6 @@ class Methods2 {
         String forSQL = "%" + partName + "%";
 
         try {
-            con = SQLConnection.openConnection();
             String selectSQL = "SELECT name FROM employee WHERE name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
@@ -255,19 +246,111 @@ class Methods2 {
                 employees.add(res.getString("name"));
             }
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of employees by search, Code: 8000006";
-            SQLConnection.writeMessage(e, errorMessage);
+            String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
+            writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
 
             return employees;
         }
     }
+
+    public static boolean createCustomer(String name, String address, String tlf) {
+        if (name.equals("") || address.equals("") || tlf.equals("")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setString(2, address);
+            stm.setString(3, tlf);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during customer creation, Code: 8000009";
+            writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
+
+            return ok;
+        }
+    }
+
+    public static boolean setCustomerDiscount(int customerID, int discount) {
+        if (customerID < 0 || discount < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            String updateSQL = "UPDATE customer SET customer.discount = ? WHERE customer.customer_id = ?";
+            stm = con.prepareStatement(updateSQL);
+            stm.setInt(1, discount);
+            stm.setInt(2, customerID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during change of customer discount, Code: 8000010";
+            writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
+
+            return ok;
+        }
+    }
+
+    public static int getRoleID(String username) {
+        if (username.equals("")) {
+            return -1;
+        }
+
+        int output = -1;
+        try {
+            String selectSQL = "SELECT role FROM employee WHERE username = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, username);
+            res = stm.executeQuery();
+
+            res.next();
+
+            output = res.getInt("role");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of role ID, Code: 8000011";
+            writeMessage(e, errorMessage);
+
+            output = -1;
+        } finally {
+            closeResSet(res);
+            closePreparedStatement(stm);
+            closeConnection(con);
+
+            return output;
+        }
+    }
+
+    public static boolean createOrder(int orderID, int customerID, String deliveryTime) {
+
+    }
 }
 
 class SQLConnection {
+
     public static Connection openConnection() {
         String databaseDriver = "com.mysql.jdbc.Driver";
         String username = "kehildre", password = "3kMBJrQ2";
@@ -283,6 +366,7 @@ class SQLConnection {
         }
         return con;
     }
+
     public static void closeResSet(ResultSet res) {
         try {
             if (res != null) {
@@ -357,4 +441,4 @@ class SQLConnection {
         System.err.println("*** Error occured: " + message + ". ***");
         e.printStackTrace(System.err);
     }
-}
+}}
