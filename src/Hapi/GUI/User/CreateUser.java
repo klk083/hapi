@@ -1,6 +1,6 @@
 package Hapi.GUI.User;
 
-import Hapi.Methods2;
+import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +42,7 @@ public class CreateUser extends JFrame {
 
 
                 try {
-                    if (Methods2.createUser(user.getText(), passord.getText(), name.getText(), Integer.parseInt(role.getText())) && passord.getText().equals(rpassord.getText()
+                    if (Methods.createUser(user.getText(), passord.getText(), name.getText(), Integer.parseInt(role.getText())) && passord.getText().equals(rpassord.getText()
                     )) {
                         showMessageDialog(null, "Brukeren din er registrert: " + name.getText());
                         dispose();

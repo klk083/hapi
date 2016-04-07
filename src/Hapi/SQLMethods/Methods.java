@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 
-class Methods extends SQLConnection {
+public class Methods extends SQLConnection {
     private static Connection con = openConnection();
     private static PreparedStatement stm = null;
     private static ResultSet res = null;
