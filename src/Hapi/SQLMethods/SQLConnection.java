@@ -1,6 +1,6 @@
 package Hapi.SQLMethods;
 
-import java.sql.*
+import java.sql.*;
 
 class SQLConnection {
 

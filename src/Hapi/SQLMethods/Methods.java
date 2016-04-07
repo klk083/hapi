@@ -338,7 +338,7 @@ public class Methods {
             output = -1;
         } finally {
             SQLConnection.closeResSet(res);
-            SQLConnection.losePreparedStatement(stm);
+            SQLConnection.closePreparedStatement(stm);
             SQLConnection.closeConnection(con);
 
             return output;
