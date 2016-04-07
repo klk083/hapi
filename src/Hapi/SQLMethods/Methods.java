@@ -348,9 +348,34 @@ public class Methods {
             return output;
         }
     }
-/*
-    public static boolean createOrder(int orderID, int customerID, String deliveryTime) {
 
+    public static boolean createOrder(int customerID, String deliveryTime) {
+        if (customerID == null || customerID < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            String insertSQL = "INSERT INTO orders VALUES(DEFAULT, ?, ?, false)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, customerID);
+            stm.setString(2, deliveryTime);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during order creation, Code: 8000012";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
     }
-*/
+
+
 }
