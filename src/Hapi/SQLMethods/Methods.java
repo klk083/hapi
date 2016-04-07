@@ -377,5 +377,33 @@ public class Methods {
         }
     }
 
+    public static boolean addMenuToOrder(int orderID, int menuID, int quantity, String description) {
+        if (orderID < 0 || menuID < 0) {
+            return false;
+        }
 
+        boolean ok = false;
+        try {
+            String insertSQL = "INSERT INTO menu_order VALUES(?, ?, ?, ?, false)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, orderID);
+            stm.setInt(2, menuID);
+            stm.setInt(3, quantity);
+            stm.setInt(4, description);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of menu to order, Code: 8000013";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
 }
