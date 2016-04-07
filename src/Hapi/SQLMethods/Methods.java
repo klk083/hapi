@@ -1,4 +1,4 @@
-package Hapi.SQLMethodes;
+package Hapi.SQLMethods;
 
 import java.security.SecureRandom;
 import java.math.BigInteger;
