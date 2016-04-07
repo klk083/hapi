@@ -139,6 +139,10 @@ public class Methods {
     public static boolean deleteUser(String username) {
         boolean ok = false;
 
+        if (username.equals("admin")) {
+            return false;
+        }
+
         try {
             String deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
