@@ -344,10 +344,11 @@ class Methods extends SQLConnection {
             return output;
         }
     }
-
+/*
     public static boolean createOrder(int orderID, int customerID, String deliveryTime) {
 
     }
+*/
 }
 
 class SQLConnection {
