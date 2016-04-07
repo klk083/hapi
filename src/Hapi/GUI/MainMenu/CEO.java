@@ -11,14 +11,7 @@ import java.awt.event.ActionListener;
  */
 public class CEO extends JFrame {
     private JButton manageUsersButton;
-    private JButton manageTablesButton;
-    private JButton manageCustomersButton;
-    private JCheckBox checkBox1;
-    private JCheckBox checkBox2;
-    private JCheckBox checkBox3;
-    private JButton lookAtOrdersButton;
-    private JButton changeOrderStatusButton;
-    private JCheckBox checkBox4;
+    private JButton ordersButton;
     private JPanel CEO;
 
     public CEO() {
