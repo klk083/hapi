@@ -23,7 +23,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Name"/>
+          <text value="admin"/>
         </properties>
       </component>
       <component id="95196" class="javax.swing.JLabel">
@@ -49,7 +49,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="Password"/>
+          <text value="admin"/>
         </properties>
       </component>
       <component id="8c7f4" class="javax.swing.JButton" binding="signInButton" default-binding="true">
@@ -62,7 +62,7 @@
       </component>
       <component id="621e9" class="javax.swing.JLabel">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=" "/>
