@@ -54,7 +54,8 @@ public class ManageUsers extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                EditPassword edit = new EditPassword();
+
+                EditPassword edit = new EditPassword((String)list1.getSelectedValue());
             }
         });
         textf1.addActionListener(new ActionListener() {

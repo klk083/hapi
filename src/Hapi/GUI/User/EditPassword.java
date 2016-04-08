@@ -1,6 +1,11 @@
 package Hapi.GUI.User;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static Hapi.SQLMethods.Methods.changePassword;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by klk94 on 11.03.2016.
@@ -11,13 +16,30 @@ public class EditPassword extends JFrame {
     private JButton changeButton;
     private JButton cancelButton;
     private JPanel editPasswordPanel;
+    private String userName;
 
-    public EditPassword() {
+    public EditPassword(String userName) {
         super("EditPassword");
         setContentPane(editPasswordPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        changeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(changePassword(userName, textField2.getText())) {
+                    showMessageDialog(null, "Password changed");
+                }
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ManageUsers users = new ManageUsers();
+            }
+        });
     }
 }
 
