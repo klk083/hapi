@@ -137,12 +137,11 @@ public class Methods {
     }
 
     public static boolean deleteUser(String username) {
-        boolean ok = false;
-
         if (username.equals("admin")) {
             return false;
         }
 
+        boolean ok = false;
         try {
             String deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
@@ -425,6 +424,34 @@ public class Methods {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of subscription to order, Code: 8000014";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
+
+    public static boolean removeMenuFromOrder(int orderID, int menuID) {
+        if(orderID < 0 || menuID < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            String deleteSQL = "DELETE FROM menu_order WHERE order_id = ? AND menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, orderID);
+            stm.SetInt(2, menuID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of menu from order, Code: 8000015";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
