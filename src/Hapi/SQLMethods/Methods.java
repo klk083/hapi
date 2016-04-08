@@ -249,13 +249,13 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name FROM employee WHERE name LIKE ?";
+            String selectSQL = "SELECT name FROM employee WHERE username LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
             while (res.next()) {
-                employees.add(res.getString("name"));
+                employees.add(res.getString("username"));
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
