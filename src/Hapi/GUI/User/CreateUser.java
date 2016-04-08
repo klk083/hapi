@@ -46,6 +46,7 @@ public class CreateUser extends JFrame {
                     )) {
                         showMessageDialog(null, "Brukeren din er registrert: " + name.getText());
                         dispose();
+                        ManageUsers users = new ManageUsers();
                     } else {
                         showMessageDialog(null, "Ugyldig innfylling");
                     }

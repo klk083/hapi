@@ -28,9 +28,14 @@ public class EditPassword extends JFrame {
         changeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(changePassword(userName, textField2.getText())) {
-                    showMessageDialog(null, "Password changed");
+                if(textField1.getText().equals(textField2.getText())){
+                     if(changePassword(userName, textField2.getText())) {
+                         showMessageDialog(null, "Password changed");
+                         dispose();
+                         ManageUsers users = new ManageUsers();
+                     }
                 }
+                else showMessageDialog(null, "Kenneth sier nei");
             }
         });
         cancelButton.addActionListener(new ActionListener() {

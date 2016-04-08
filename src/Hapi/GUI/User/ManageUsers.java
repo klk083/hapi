@@ -35,6 +35,20 @@ public class ManageUsers extends JFrame{
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+        ArrayList<String> list = Methods.listEmployees();
+
+
+        DefaultListModel listModel = new DefaultListModel();
+
+        //    String[] user = list;
+        for (String enuser : list) {
+            listModel.addElement(enuser);
+        }
+        list1.setModel(listModel);
+
+
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,9 +67,13 @@ public class ManageUsers extends JFrame{
         editPasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-
-                EditPassword edit = new EditPassword((String)list1.getSelectedValue());
+                if(list1.isSelectionEmpty() ) {
+                    showMessageDialog(null, "DO ar dum din tolling");
+                }
+                else {
+                    EditPassword edit = new EditPassword((String) list1.getSelectedValue());
+                    dispose();
+                }
             }
         });
         textf1.addActionListener(new ActionListener() {
