@@ -276,7 +276,7 @@ public class Methods {
         }
     }
 
-    public static boolean createCustomer(String name, String address, String tlf) {
+    public static boolean createCustomer(String name, String address, String tlf, boolean isCompany) {
         if (name.equals("") || address.equals("") || tlf.equals("")) {
             return false;
         }
@@ -284,11 +284,12 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0)";
+            String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
             stm.setString(2, address);
             stm.setString(3, tlf);
+            stm.setBoolean(4, isCompany);
 
             stm.executeUpdate();
             ok = true;
