@@ -39,8 +39,3 @@ public class CEO extends JFrame {
  
 }
 
-class testUser {
-    public static void main (String[] args) {
-        CEO ceo = new CEO();
-    }
-}
