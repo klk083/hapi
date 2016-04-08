@@ -249,7 +249,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name FROM employee WHERE username LIKE ?";
+            String selectSQL = "SELECT username FROM employee WHERE username LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
