@@ -406,4 +406,34 @@ public class Methods {
             return ok;
         }
     }
+
+    public static boolean addSubToOrder(int subID, int orderID, String fromTime, String toTime) {
+        if (subID < 0 || orderID < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            String insertSQL = "INSERT INTO subscription_order VALUES(?, ?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, subID);
+            stm.setInt(2, orderID);
+            stm.setString(3, fromTime);
+            stm.setString(4, toTime);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of subscription to order, Code: 8000014";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
 }
