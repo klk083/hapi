@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Methods {
-    private static Connection con = SQLConnection.openConnection();
+    private static Connection con = null;
     private static PreparedStatement stm = null;
     private static ResultSet res = null;
 
@@ -35,6 +35,7 @@ public class Methods {
     public static boolean login(String username, String password) {
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT password_hash, password_salt FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, username);
@@ -79,6 +80,7 @@ public class Methods {
         // return false if password is not changed for some reason (should not be possible, except for SQLException)
 
         try {
+            con = SQLConnection.openConnection();
             String updateSQL = "UPDATE employee SET employee.password_hash = ?, employee.password_salt = ? WHERE username = ?";
             stm = con.prepareStatement(updateSQL);
             stm.setString(1, hash);
@@ -112,6 +114,7 @@ public class Methods {
         }
 
         try {
+            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO employee VALUES(DEFAULT, ?, ?, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, roleID);
@@ -143,6 +146,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setString(1, username);
@@ -167,6 +171,7 @@ public class Methods {
         ArrayList<String> customers = new ArrayList<String>();
 
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT customer_name FROM customer";
             stm = con.prepareStatement(selectSQL);
 
@@ -192,6 +197,7 @@ public class Methods {
         String forSQL = "%" + partName + "%";
 
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT customer_name FROM customer WHERE customer_name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
@@ -216,6 +222,7 @@ public class Methods {
         ArrayList<String> employees = new ArrayList<String>();
 
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT name FROM employee";
             stm = con.prepareStatement(selectSQL);
 
@@ -241,6 +248,7 @@ public class Methods {
         String forSQL = "%" + partName + "%";
 
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT name FROM employee WHERE name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
@@ -268,6 +276,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0)";
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
@@ -297,6 +306,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String updateSQL = "UPDATE customer SET customer.discount = ? WHERE customer.customer_id = ?";
             stm = con.prepareStatement(updateSQL);
             stm.setInt(1, discount);
@@ -325,6 +335,7 @@ public class Methods {
 
         int output = -1;
         try {
+            con = SQLConnection.openConnection();
             String selectSQL = "SELECT role FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, username);
@@ -355,6 +366,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO orders VALUES(DEFAULT, ?, ?, false)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, customerID);
@@ -383,6 +395,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO menu_order VALUES(?, ?, ?, ?, false)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, orderID);
@@ -413,6 +426,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO subscription_order VALUES(?, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, subID);
@@ -443,6 +457,7 @@ public class Methods {
 
         boolean ok = false;
         try {
+            con = SQLConnection.openConnection();
             String deleteSQL = "DELETE FROM menu_order WHERE order_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, orderID);
