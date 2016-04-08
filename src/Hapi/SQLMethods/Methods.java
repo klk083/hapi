@@ -11,7 +11,7 @@ public class Methods {
     private static ResultSet res = null;
 
     private static String generateHash(String password, String salt) {
-        // requires Apache Commons Codec 1.10, check internet or Password Hashing page in OneNote for info and download ggggggg
+        // requires Apache Commons Codec 1.10, check internet or Password Hashing page in OneNote for info and download
         String hash = org.apache.commons.codec.digest.Crypt.crypt(password, salt);
 
         return hash;
@@ -249,13 +249,13 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name FROM employee WHERE name LIKE ?";
+            String selectSQL = "SELECT name FROM employee WHERE username LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
             while (res.next()) {
-                employees.add(res.getString("name"));
+                employees.add(res.getString("username"));
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
