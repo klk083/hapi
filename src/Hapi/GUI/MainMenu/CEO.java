@@ -3,6 +3,7 @@ package Hapi.GUI.MainMenu;
 import Hapi.GUI.User.ManageUsers;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,6 +21,8 @@ public class CEO extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         manageUsersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,8 +39,3 @@ public class CEO extends JFrame {
  
 }
 
-class testUser {
-    public static void main (String[] args) {
-        CEO ceo = new CEO();
-    }
-}
