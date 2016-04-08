@@ -33,6 +33,7 @@ public class Methods {
     }
 
     public static boolean login(String username, String password) {
+        username.toLowerCase();
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
             con = SQLConnection.openConnection();
@@ -69,6 +70,7 @@ public class Methods {
     }
 
     public static boolean changePassword(String username, String password) {
+        username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
         boolean ok = false;
@@ -105,6 +107,7 @@ public class Methods {
     }
 
     public static boolean createUser(String username, String password, String name, int roleID) {
+        username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
         boolean ok = false;
@@ -140,6 +143,8 @@ public class Methods {
     }
 
     public static boolean deleteUser(String username) {
+        username.toLowerCase();
+
         if (username.equals("admin")) {
             return false;
         }
@@ -193,6 +198,7 @@ public class Methods {
     }
 
     public static ArrayList<String> listCustomers(String partName) {
+        partName.toLowerCase();
         ArrayList<String> customers = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
 
@@ -244,6 +250,7 @@ public class Methods {
     }
 
     public static ArrayList<String> listEmployees(String partName) {
+        partName.toLowerCase();
         ArrayList<String> employees = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
 
@@ -329,6 +336,8 @@ public class Methods {
     }
 
     public static int getRoleID(String username) {
+        username.toLowerCase();
+
         if (username.equals("")) {
             return -1;
         }
