@@ -229,13 +229,13 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name FROM employee";
+            String selectSQL = "SELECT username FROM employee";
             stm = con.prepareStatement(selectSQL);
 
             res = stm.executeQuery();
 
             while (res.next()) {
-                employees.add(res.getString("name"));
+                employees.add(res.getString("username"));
             }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees, Code: 8000007";
@@ -487,4 +487,5 @@ public class Methods {
             return ok;
         }
     }
+
 }
