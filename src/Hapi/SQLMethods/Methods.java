@@ -349,7 +349,7 @@ public class Methods {
     }
 
     public static boolean createOrder(int customerID, String deliveryTime) {
-        if (customerID == null || customerID < 0) {
+        if (deliveryTime == null || customerID < 0) {
             return false;
         }
 
@@ -388,7 +388,7 @@ public class Methods {
             stm.setInt(1, orderID);
             stm.setInt(2, menuID);
             stm.setInt(3, quantity);
-            stm.setInt(4, description);
+            stm.setString(4, description);
 
             stm.executeUpdate();
             ok = true;
@@ -446,7 +446,7 @@ public class Methods {
             String deleteSQL = "DELETE FROM menu_order WHERE order_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, orderID);
-            stm.SetInt(2, menuID);
+            stm.setInt(2, menuID);
 
             stm.executeUpdate();
             ok = true;
