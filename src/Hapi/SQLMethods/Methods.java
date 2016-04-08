@@ -11,7 +11,7 @@ public class Methods {
     private static ResultSet res = null;
 
     private static String generateHash(String password, String salt) {
-        // requires Apache Commons Codec 1.10, check internet or Password Hashing page in OneNote for info and download
+        // requires Apache Commons Codec 1.10, check internet or Password Hashing page in OneNote for info and download ggggggg
         String hash = org.apache.commons.codec.digest.Crypt.crypt(password, salt);
 
         return hash;
