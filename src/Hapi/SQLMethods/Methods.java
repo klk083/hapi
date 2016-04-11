@@ -519,7 +519,7 @@ public class Methods {
     }
 
     public static boolean removeIngredient(int ingredientID) {
-        if (ingredientID < 1 ||) {
+        if (ingredientID < 1) {
             return false;
         }
 
