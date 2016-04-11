@@ -308,7 +308,7 @@ public class Methods {
     }
 
     public static boolean setCustomerDiscount(int customerID, int discount) {
-        if (customerID < 0 || discount < 0) {
+        if (customerID < 1 || discount < 1) {
             return false;
         }
 
@@ -370,7 +370,7 @@ public class Methods {
     }
 
     public static boolean createOrder(int customerID, String deliveryTime) {
-        if (deliveryTime == null || customerID < 0) {
+        if (deliveryTime == null || customerID < 1) {
             return false;
         }
 
@@ -399,7 +399,7 @@ public class Methods {
     }
 
     public static boolean addMenuToOrder(int orderID, int menuID, int quantity, String description) {
-        if (orderID < 0 || menuID < 0) {
+        if (orderID < 1 || menuID < 1 || quantity < 1) {
             return false;
         }
 
@@ -430,7 +430,7 @@ public class Methods {
     }
 
     public static boolean addSubToOrder(int subID, int orderID, String fromTime, String toTime) {
-        if (subID < 0 || orderID < 0) {
+        if (subID < 1 || orderID < 1) {
             return false;
         }
 
@@ -461,7 +461,7 @@ public class Methods {
     }
 
     public static boolean removeMenuFromOrder(int orderID, int menuID) {
-        if(orderID < 0 || menuID < 0) {
+        if(orderID < 1 || menuID < 1) {
             return false;
         }
 
@@ -489,4 +489,90 @@ public class Methods {
         }
     }
 
+    public static boolean addIngredient(String name, String unit) {
+        if (name.equals("") || unit.equals("")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO ingredient VALUES(DEFAULT, ?, ?, )";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setString(2, unit);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of new ingredient, Code: 8000016";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
+
+    public static boolean removeIngredient(int ingredientID) {
+        if (ingredientID < 1 ||) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM ingredient WHERE ingredient_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, ingredientID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of ingredient, Code: 8000017";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
+
+    public static boolean createMenu(String name, String description, int price) {
+        if (name.equals("") || description.equals("") || price < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO menu VALUES(DEFAULT, ?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setInt(2, price);
+            stm.setString(3, description);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during creation of menu, Code: 8000018";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
 }
