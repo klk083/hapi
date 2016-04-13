@@ -32,6 +32,12 @@ public class Methods {
         return salt;
     }
 
+    private static void closeSQL() {
+        SQLConnection.closeResSet(res);
+        SQLConnection.closePreparedStatement(stm);
+        SQLConnection.closeConnection(con);
+    }
+
     public static boolean login(String username, String password) {
         username.toLowerCase();
         String hashFromDatabase = "", saltFromDatabase = "";
@@ -55,9 +61,7 @@ public class Methods {
             String errorMessage = "SQL Exception during login, Code: 8000001";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
         }
 
         String hash = generateHash(password, saltFromDatabase);
@@ -98,9 +102,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -134,9 +136,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -159,14 +159,12 @@ public class Methods {
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during user deleting, Code: 8000004";
+            String errorMessage = "SQL Exception during user deletion, Code: 8000004";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -189,14 +187,12 @@ public class Methods {
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during user deleting, Code: 8000004";
+            String errorMessage = "SQL Exception during customer deletion, Code: 8000019";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -219,9 +215,7 @@ public class Methods {
             String errorMessage = "SQL Exception during listing of customers, Code: 8000005";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return customers;
         }
@@ -246,9 +240,7 @@ public class Methods {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return customers;
         }
@@ -271,9 +263,7 @@ public class Methods {
             String errorMessage = "SQL Exception during listing of employees, Code: 8000007";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return employees;
         }
@@ -298,9 +288,7 @@ public class Methods {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return employees;
         }
@@ -329,9 +317,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -358,9 +344,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -391,9 +375,7 @@ public class Methods {
 
             output = -1;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return output;
         }
@@ -451,9 +433,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -482,9 +462,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -511,9 +489,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -540,9 +516,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -568,9 +542,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -598,9 +570,35 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean addIngredientToMenu(int menuID, int ingredientID, int quantity) {
+        if (menuID < 1 || ingredientID < 1 || quantity < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO menu_ingredient VALUES(?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, ingredientID);
+            stm.setInt(2, menuID);
+            stm.setInt(3, quantity);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000020";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
 
             return ok;
         }
