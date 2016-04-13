@@ -236,6 +236,8 @@ public class Methods {
             while (res.next()) {
                 customers.add(res.getString("customer_name"));
             }
+
+            customers.remove("Dummybruker");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
             SQLConnection.writeMessage(e, errorMessage);
@@ -284,6 +286,8 @@ public class Methods {
             while (res.next()) {
                 employees.add(res.getString("username"));
             }
+
+            employees.remove("admin");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
             SQLConnection.writeMessage(e, errorMessage);
