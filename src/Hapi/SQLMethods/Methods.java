@@ -170,19 +170,17 @@ public class Methods {
         }
     }
 
-    public static boolean deleteCustomer(String customer) {
-        customer.toLowerCase();
-
-        if (customer.equals("admin")) {
+    public static boolean deleteCustomer(int customerID) {
+        if (customerID < 1) {
             return false;
         }
 
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM customer WHERE customer_name = ?";
+            String deleteSQL = "DELETE FROM customer WHERE customer_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setString(1, customer);
+            stm.setInt(1, customerID);
 
             stm.executeUpdate();
             ok = true;
