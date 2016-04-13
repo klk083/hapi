@@ -233,15 +233,19 @@ public class Methods {
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
             int temp;
             while (res.next()) {
-                customers.get(0).add(res.getString("customer_name"));
+                navn.add(res.getString("customer_name"));
                 temp = res.getInt("customer_id");
-                customers.get(1).add(Integer.toString(temp));
+                id.add(Integer.toString(temp));
             }
 
-            customers.get(0).remove("Dummybruker");
-            customers.get(1).remove("0");
+            navn.remove("Dummybruker");
+            id.remove("0");
+
+            customers.add(navn);
+            customers.add(id);
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
             SQLConnection.writeMessage(e, errorMessage);
@@ -663,4 +667,6 @@ public class Methods {
             return info;
         }
     }
+
+
 }
