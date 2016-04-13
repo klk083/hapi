@@ -5,6 +5,7 @@ import Hapi.GUI.MainMenu.CEO;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -25,6 +26,9 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JTextField user = textField2;
         JPasswordField pass = passwordField1;
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
         signInButton.addActionListener(new ActionListener() {
             /**
