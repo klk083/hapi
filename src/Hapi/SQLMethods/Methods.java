@@ -382,7 +382,7 @@ public class Methods {
     }
 
     public static boolean createOrder(int customerID, String deliveryTime) {
-        if (deliveryTime == null || customerID < 1) {
+        if (deliveryTime.equals("") || customerID < 1) {
             return false;
         }
 
@@ -402,9 +402,7 @@ public class Methods {
 
             ok = false;
         } finally {
-            SQLConnection.closeResSet(res);
-            SQLConnection.closePreparedStatement(stm);
-            SQLConnection.closeConnection(con);
+            closeSQL();
 
             return ok;
         }
@@ -594,6 +592,28 @@ public class Methods {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000020";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean createSubscription(String description) {
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, description);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during subscription creation, Code: 8000021";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
