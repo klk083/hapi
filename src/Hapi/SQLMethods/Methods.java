@@ -299,7 +299,7 @@ public class Methods {
                 id.add(Integer.toString(temp));
             }
 
-            navn.remove("Dummybruker");
+            navn.remove("admin");
             id.remove("0");
 
             employees.add(navn);
