@@ -39,13 +39,13 @@ public class ManageUsers extends JFrame{
         setVisible(true);
         textf1.setText("Search");
 
-        ArrayList<String> list = Methods.listEmployees("");
+        ArrayList<ArrayList<String>> list = Methods.listEmployees("");
 
 
         DefaultListModel listModel = new DefaultListModel();
 
         //    String[] user = list;
-        for (String enuser : list) {
+        for (String enuser : list.get(0)) {
             listModel.addElement(enuser);
         }
         list1.setModel(listModel);
@@ -112,13 +112,13 @@ public class ManageUsers extends JFrame{
 
 
 
-                ArrayList<String> list = Methods.listEmployees(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listEmployees(text.getText());
 
 
                     DefaultListModel listModel = new DefaultListModel();
 
                 //    String[] user = list;
-                    for (String enuser : list) {
+                    for (String enuser : list.get(0)) {
                         listModel.addElement(enuser);
                     }
                     list1.setModel(listModel);
@@ -132,13 +132,13 @@ public class ManageUsers extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textf1;
 
-                ArrayList<String> list = Methods.listEmployees(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listEmployees(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();
 
                 //    String[] user = list;
-                for (String enuser : list) {
+                for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
                 list1.setModel(listModel);

@@ -35,13 +35,13 @@ public class ManageCustomers extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        ArrayList<String> list = Methods.listCustomers("");
+        ArrayList<ArrayList<String>> list = Methods.listCustomers("");
 
 
         DefaultListModel listModel = new DefaultListModel();
 
         //    String[] user = list;
-        for (String enuser : list) {
+        for (String enuser : list.get(0)) {
             listModel.addElement(enuser);
         }
         list1.setModel(listModel);
@@ -53,13 +53,13 @@ public class ManageCustomers extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<String> list = Methods.listCustomers(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();
 
                 //    String[] user = list;
-                for (String enuser : list) {
+                for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
                 list1.setModel(listModel);
@@ -72,13 +72,13 @@ public class ManageCustomers extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<String> list = Methods.listCustomers(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();
 
                 //    String[] user = list;
-                for (String enuser : list) {
+                for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
                 list1.setModel(listModel);
@@ -122,12 +122,11 @@ public class ManageCustomers extends JFrame {
                     showMessageDialog(null, "DO ar dum din tolling");
                 }
                 else {
-                    EditCustomer edit = new EditCustomer((String) list1.getSelectedValue());
+                    ArrayList<String> info = Methods.getCustomerContactInfo(list1.getSelectedIndex());
+                    EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
                     dispose();
                 }
             }
         });
     }
-
-
 }
