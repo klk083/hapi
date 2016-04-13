@@ -4,6 +4,7 @@ import Hapi.GUI.Customer.CreateCustomer;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class CreateOrder extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
         ArrayList<ArrayList<String>> list = Methods.listCustomers("");
 
