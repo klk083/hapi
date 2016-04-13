@@ -4,6 +4,7 @@ import Hapi.GUI.MainMenu.CEO;
 import Hapi.GUI.User.CreateUser;
 import Hapi.GUI.User.EditPassword;
 import Hapi.SQLMethods.Methods;
+import jdk.nashorn.internal.runtime.options.Options;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,7 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.util.ArrayList;
 
-import static javax.swing.JOptionPane.showMessageDialog;
+import static Hapi.SQLMethods.Methods.deleteUser;
+import static javax.swing.JOptionPane.*;
 
 /**
  * Created by klk94 on 11.03.2016.
@@ -36,7 +38,7 @@ public class ManageUsers extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        ArrayList<String> list = Methods.listEmployees();
+        ArrayList<String> list = Methods.listEmployees("");
 
 
         DefaultListModel listModel = new DefaultListModel();
@@ -76,6 +78,31 @@ public class ManageUsers extends JFrame{
                 }
             }
         });
+
+        deleteUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(list1.isSelectionEmpty() ) {
+                    showMessageDialog(null, "DO ar dum din tolling");
+                }
+                else {
+                    int choice = showOptionDialog(null,
+                            "You really want to delete that user?",
+                            "Quit?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null, null, null);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        deleteUser((String) list1.getSelectedValue());
+                        dispose();
+                        ManageUsers users = new ManageUsers();
+
+                    }
+                }
+
+            }
+        });
+
         textf1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,7 +154,6 @@ public class ManageUsers extends JFrame{
 
             }
         });
-
 
     }
 

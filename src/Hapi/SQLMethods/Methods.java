@@ -172,6 +172,36 @@ public class Methods {
         }
     }
 
+    public static boolean deleteCustomer(String customer) {
+        customer.toLowerCase();
+
+        if (customer.equals("admin")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM customer WHERE customer_name = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setString(1, customer);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during user deleting, Code: 8000004";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            SQLConnection.closeResSet(res);
+            SQLConnection.closePreparedStatement(stm);
+            SQLConnection.closeConnection(con);
+
+            return ok;
+        }
+    }
+
     public static ArrayList<String> listCustomers() {
         ArrayList<String> customers = new ArrayList<String>();
 

@@ -1,5 +1,6 @@
 package Hapi.GUI.MainMenu;
 
+import Hapi.GUI.Customer.ManageCustomers;
 import Hapi.GUI.User.ManageUsers;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class CEO extends JFrame {
     private JButton manageUsersButton;
+    private JButton customersButton;
     private JButton ordersButton;
     private JPanel CEO;
 
@@ -23,6 +25,7 @@ public class CEO extends JFrame {
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
         manageUsersButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,6 +35,13 @@ public class CEO extends JFrame {
             }
         });
 
+        customersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ManageCustomers customers = new ManageCustomers();
+            }
+        });
     }
 
 
