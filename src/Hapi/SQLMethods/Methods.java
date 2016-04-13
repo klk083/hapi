@@ -221,9 +221,9 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> listCustomers(String partName) {
+    public static ArrayList<ArrayList<String>> listCustomers(String partName) {
         partName.toLowerCase();
-        ArrayList<String> customers = new ArrayList<String>();
+        ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
         String forSQL = "%" + partName + "%";
 
         try {
@@ -233,11 +233,15 @@ public class Methods {
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
+            int temp;
             while (res.next()) {
-                customers.add(res.getString("customer_name"));
+                customers.get(0).add(res.getString("customer_name"));
+                temp = res.getInt("customer_id");
+                customers.get(1).add(Integer.toString(temp));
             }
 
-            customers.remove("Dummybruker");
+            customers.get(0).remove("Dummybruker");
+            customers.get(1).remove("0");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
             SQLConnection.writeMessage(e, errorMessage);
@@ -271,9 +275,9 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> listEmployees(String partName) {
+    public static ArrayList<ArrayList<String>> listEmployees(String partName) {
         partName.toLowerCase();
-        ArrayList<String> employees = new ArrayList<String>();
+        ArrayList<ArrayList<String>> employees = new ArrayList<ArrayList<String>>();
         String forSQL = "%" + partName + "%";
 
         try {
@@ -283,11 +287,15 @@ public class Methods {
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
+            int temp;
             while (res.next()) {
-                employees.add(res.getString("username"));
+                employees.get(0).add(res.getString("username"));
+                temp = res.getInt("employee_id");
+                employees.get(1).add(Integer.toString(temp));
             }
 
-            employees.remove("admin");
+            employees.get(0).remove("admin");
+            employees.get(1).remove("0");
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
             SQLConnection.writeMessage(e, errorMessage);
@@ -625,6 +633,34 @@ public class Methods {
             closeSQL();
 
             return ok;
+        }
+    }
+
+    public static ArrayList<String> getCustomerContactInfo(int customerID) {
+        if (customerID < 1) {
+            return null;
+        }
+
+        ArrayList<String> info = new ArrayList<String>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT customer_address, customer_tlf FROM customer WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+
+            res = stm.executeQuery();
+            res.next();
+
+            info.add(res.getString("customer_address"));
+            info.add(res.getString("customer_tlf"));
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000022";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
         }
     }
 }
