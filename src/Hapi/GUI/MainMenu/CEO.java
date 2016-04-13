@@ -1,6 +1,7 @@
 package Hapi.GUI.MainMenu;
 
 import Hapi.GUI.Customer.ManageCustomers;
+import Hapi.GUI.General.ManageOrders;
 import Hapi.GUI.User.ManageUsers;
 
 import javax.swing.*;
@@ -40,6 +41,14 @@ public class CEO extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 ManageCustomers customers = new ManageCustomers();
+            }
+        });
+
+        ordersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ManageOrders customers = new ManageOrders();
             }
         });
     }
