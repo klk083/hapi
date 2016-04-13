@@ -1,5 +1,6 @@
 package Hapi.GUI.Customer;
 
+import Hapi.GUI.MainMenu.CEO;
 import Hapi.GUI.User.EditPassword;
 import Hapi.SQLMethods.Methods;
 
@@ -106,7 +107,7 @@ public class ManageCustomers extends JFrame {
                             JOptionPane.QUESTION_MESSAGE,
                             null, null, null);
                     if (choice == JOptionPane.YES_OPTION) {
-                        deleteCustomer((String) list1.getSelectedValue());
+                        deleteCustomer(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
                         dispose();
                         ManageCustomers customers = new ManageCustomers();
 
@@ -122,10 +123,17 @@ public class ManageCustomers extends JFrame {
                     showMessageDialog(null, "DO ar dum din tolling");
                 }
                 else {
-                    ArrayList<String> info = Methods.getCustomerContactInfo(list1.getSelectedIndex());
+                    ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
                     EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
                     dispose();
                 }
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                CEO ceo = new CEO();
             }
         });
     }

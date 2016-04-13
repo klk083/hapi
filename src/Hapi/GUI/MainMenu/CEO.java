@@ -1,6 +1,8 @@
 package Hapi.GUI.MainMenu;
 
 import Hapi.GUI.Customer.ManageCustomers;
+import Hapi.GUI.General.Login;
+import Hapi.GUI.General.ManageOrders;
 import Hapi.GUI.User.ManageUsers;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ public class CEO extends JFrame {
     private JButton customersButton;
     private JButton ordersButton;
     private JPanel CEO;
+    private JButton signOut;
 
     public CEO() {
         super("Sign In");
@@ -40,6 +43,21 @@ public class CEO extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 ManageCustomers customers = new ManageCustomers();
+            }
+        });
+
+        ordersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ManageOrders customers = new ManageOrders();
+            }
+        });
+        signOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Login login = new Login();
             }
         });
     }

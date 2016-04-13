@@ -170,19 +170,17 @@ public class Methods {
         }
     }
 
-    public static boolean deleteCustomer(String customer) {
-        customer.toLowerCase();
-
-        if (customer.equals("admin")) {
+    public static boolean deleteCustomer(int customerID) {
+        if (customerID < 1) {
             return false;
         }
 
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM customer WHERE customer_name = ?";
+            String deleteSQL = "DELETE FROM customer WHERE customer_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setString(1, customer);
+            stm.setInt(1, customerID);
 
             stm.executeUpdate();
             ok = true;
@@ -286,20 +284,24 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT username FROM employee WHERE username LIKE ?";
+            String selectSQL = "SELECT username, employee_id FROM employee WHERE username LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
             int temp;
             while (res.next()) {
-                employees.get(0).add(res.getString("username"));
+                navn.add(res.getString("username"));
                 temp = res.getInt("employee_id");
-                employees.get(1).add(Integer.toString(temp));
+                id.add(Integer.toString(temp));
             }
 
-            employees.get(0).remove("admin");
-            employees.get(1).remove("0");
+            navn.remove("admin");
+            id.remove("0");
+
+            employees.add(navn);
+            employees.add(id);
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of employees by search, Code: 8000008";
             SQLConnection.writeMessage(e, errorMessage);
