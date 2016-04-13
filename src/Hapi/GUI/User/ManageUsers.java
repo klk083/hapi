@@ -37,6 +37,7 @@ public class ManageUsers extends JFrame{
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        textf1.setText("Search");
 
         ArrayList<String> list = Methods.listEmployees("");
 
