@@ -19,6 +19,7 @@ public class CreateCustomer extends JFrame{
     private JButton cancelButton;
     private JButton OKButton;
     private JPanel CreateCustomerpannel;
+    private JCheckBox companyCheckBox;
 
     public CreateCustomer() {
         super("Create customer");
@@ -34,13 +35,23 @@ public class CreateCustomer extends JFrame{
                 JTextField name = textField1;
                 JTextField address = textField2;
                 JTextField phone = textField3;
+                JCheckBox isCompany = companyCheckBox;
 
-                if (Methods.createCustomer(name.getText(), address.getText(), phone.getText())
+                if (Methods.createCustomer(name.getText(), address.getText(), phone.getText(), isCompany.isSelected())
                 ) {
-                    showMessageDialog(null, "Customer is registered: " + name.getText());
-                    dispose();
-                    ManageCustomers customers = new ManageCustomers();
-                } else {
+                   if(isCompany.isSelected() == true) {
+                       showMessageDialog(null, "Customer(firm) is registered: " + name.getText());
+                       dispose();
+                       ManageCustomers customers = new ManageCustomers();
+                   }
+                    else {
+                       showMessageDialog(null, "Customer is registered: " + name.getText());
+                       dispose();
+                       ManageCustomers customers = new ManageCustomers();
+                   }
+                }
+
+                else {
                     showMessageDialog(null, "Invalid");
                 }
 
@@ -52,6 +63,12 @@ public class CreateCustomer extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 ManageCustomers customers = new ManageCustomers();
+            }
+        });
+        companyCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
