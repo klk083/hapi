@@ -1,9 +1,14 @@
 package Hapi.GUI.Customer;
 
+import Hapi.GUI.User.ManageUsers;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static Hapi.SQLMethods.Methods.changePassword;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by Knut on 11.04.2016.
@@ -29,6 +34,17 @@ public class EditCustomer extends JFrame {
 
         oldAdress.setText(adress);
         oldPhone.setText(tlfNr);
+        changeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(oldAdress.getText().equals(textField2.getText())){
+                    showMessageDialog(null, "This address is already registered");
+                }
+                if(oldPhone.getText().equals(textField3.getText())) {
+                    showMessageDialog(null, "This phonenumber is already registered");
+                }
+            }
+        });
 
         cancleButton.addActionListener(new ActionListener() {
             @Override

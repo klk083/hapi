@@ -21,6 +21,8 @@ public class CreateOrder extends JFrame {
     private JButton createNewCustomerButton;
     private JButton createSubOrderButton;
     private JPanel createOrderPannel;
+    private JButton createOrderButton;
+    private JButton createCustomerButton;
 
     public CreateOrder() {
         super("Create order");
