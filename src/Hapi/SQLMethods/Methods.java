@@ -743,4 +743,43 @@ public class Methods {
             return menu;
         }
     }
+
+    public static ArrayList<ArrayList<String>> listIngredientsInMenu(int menuID) {
+        if (menuID < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id, unit FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id LIKE ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>(), quantity = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("ingredient_id");
+                id.add(Integer.toString(temp));
+                unit.add(res.getString("unit"));
+                temp = res.getInt("quantity");
+                quantity.add(Integer.toString(temp));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+            ingredients.add(unit);
+            ingredients.add(quantity);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
+        }
+    }
 }
