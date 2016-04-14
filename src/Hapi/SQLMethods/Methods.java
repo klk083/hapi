@@ -690,7 +690,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ?";
+            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ? ORDER BY menu_name DESC";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
