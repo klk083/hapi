@@ -204,6 +204,35 @@ public class Methods {
         }
     }
 
+    public static boolean createCustomer(String name, String address, String tlf, boolean isCompany) {
+        if (name.equals("") || address.equals("") || tlf.equals("")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setString(2, address);
+            stm.setString(3, tlf);
+            stm.setBoolean(4, isCompany);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during customer creation, Code: 8000009";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
     public static boolean deleteCustomer(int customerID) {
         if (customerID < 1) {
             return false;
@@ -255,6 +284,77 @@ public class Methods {
             closeSQL();
 
             return orders;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listMenu(String partName) {
+        partName.toLowerCase();
+        ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
+        String forSQL = "%" + partName + "%";
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ? ORDER BY menu_name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("menu_name"));
+                temp = res.getInt("menu_id");
+                id.add(Integer.toString(temp));
+            }
+
+            menu.add(navn);
+            menu.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return menu;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listIngredientsInMenu(int menuID) {
+        if (menuID < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id, unit, quantity FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id = ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>(), quantity = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("ingredient_id");
+                id.add(Integer.toString(temp));
+                unit.add(res.getString("unit"));
+                temp = res.getInt("quantity");
+                quantity.add(Integer.toString(temp));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+            ingredients.add(unit);
+            ingredients.add(quantity);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ingredients in menu, Code: 8000026";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
         }
     }
 
@@ -323,35 +423,6 @@ public class Methods {
             closeSQL();
 
             return employees;
-        }
-    }
-
-    public static boolean createCustomer(String name, String address, String tlf, boolean isCompany) {
-        if (name.equals("") || address.equals("") || tlf.equals("")) {
-            return false;
-        }
-
-        boolean ok = false;
-        try {
-            con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO customer VALUES(DEFAULT, ?, ?, ?, 0, ?)";
-            stm = con.prepareStatement(insertSQL);
-            stm.setString(1, name);
-            stm.setString(2, address);
-            stm.setString(3, tlf);
-            stm.setBoolean(4, isCompany);
-
-            stm.executeUpdate();
-            ok = true;
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during customer creation, Code: 8000009";
-            SQLConnection.writeMessage(e, errorMessage);
-
-            ok = false;
-        } finally {
-            closeSQL();
-
-            return ok;
         }
     }
 
@@ -768,77 +839,6 @@ public class Methods {
             closeSQL();
 
             return info;
-        }
-    }
-
-    public static ArrayList<ArrayList<String>> listMenu(String partName) {
-        partName.toLowerCase();
-        ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
-        String forSQL = "%" + partName + "%";
-
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ? ORDER BY menu_name ASC";
-            stm = con.prepareStatement(selectSQL);
-            stm.setString(1, forSQL);
-            res = stm.executeQuery();
-
-            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
-            int temp;
-            while (res.next()) {
-                navn.add(res.getString("menu_name"));
-                temp = res.getInt("menu_id");
-                id.add(Integer.toString(temp));
-            }
-
-            menu.add(navn);
-            menu.add(id);
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return menu;
-        }
-    }
-
-    public static ArrayList<ArrayList<String>> listIngredientsInMenu(int menuID) {
-        if (menuID < 1) {
-            return null;
-        }
-
-        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
-
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id, unit, quantity FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id = ? ORDER BY name ASC";
-            stm = con.prepareStatement(selectSQL);
-            stm.setInt(1, menuID);
-            res = stm.executeQuery();
-
-            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>(), quantity = new ArrayList<String>();
-            int temp;
-            while (res.next()) {
-                navn.add(res.getString("name"));
-                temp = res.getInt("ingredient_id");
-                id.add(Integer.toString(temp));
-                unit.add(res.getString("unit"));
-                temp = res.getInt("quantity");
-                quantity.add(Integer.toString(temp));
-            }
-
-            ingredients.add(navn);
-            ingredients.add(id);
-            ingredients.add(unit);
-            ingredients.add(quantity);
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of ingredients in menu, Code: 8000026";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return ingredients;
         }
     }
 

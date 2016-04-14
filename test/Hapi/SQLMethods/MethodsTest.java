@@ -1,5 +1,6 @@
 package Hapi.SQLMethods;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,21 +10,34 @@ import static org.junit.Assert.*;
  */
 public class MethodsTest {
     @Test
+    public void createUser() throws Exception {
+        String username = "test-test", password = "test", name = "Tester McTest";
+        int role = 1;
+        boolean test = Methods.createUser(username, password, name, role);
+
+        assertEquals(true, test);
+    }
+
+    @Test
     public void login() throws Exception {
-        System.out.println("login");
-        boolean test = Methods.login("admin", "admin");
+        boolean test = Methods.login("test-test", "test");
 
         assertEquals(true, test);
     }
 
     @Test
     public void changePassword() throws Exception {
+        String username ="test-test", password = "test-test";
+        boolean test = Methods.changePassword(username, password);
 
+        assertEquals(true, test);
     }
 
     @Test
-    public void createUser() throws Exception {
+    public void login2() throws Exception {
+        boolean test = Methods.login("test-test", "test-test");
 
+        assertEquals(true, test);
     }
 
     @Test
@@ -36,18 +50,9 @@ public class MethodsTest {
 
     }
 
-    @Test
-    public void listCustomers1() throws Exception {
-
-    }
 
     @Test
     public void listEmployees() throws Exception {
-
-    }
-
-    @Test
-    public void listEmployees1() throws Exception {
 
     }
 
