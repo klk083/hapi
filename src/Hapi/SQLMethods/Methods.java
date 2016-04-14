@@ -812,7 +812,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id, unit, quantity FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id LIKE ? ORDER BY name ASC";
+            String selectSQL = "SELECT name, ingredient_id, unit, quantity FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id = ? ORDER BY name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, menuID);
             res = stm.executeQuery();
@@ -839,6 +839,33 @@ public class Methods {
             closeSQL();
 
             return ingredients;
+        }
+    }
+
+    public static boolean isMenuInOrder(int menuID) {
+        if (menuID < 1) {
+            return false;
+        }
+        boolean result=false;
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT * FROM menu NATURAL JOIN menu_order NATURAL JOIN orders WHERE delivered = FALSE AND menu_id = ?  ";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+            res = stm.executeQuery();
+
+            if(res.next()) {
+                result=true;
+            }
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during check if menu in active order, Code: 8000027";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return result;
         }
     }
 
