@@ -37,7 +37,7 @@ public class ManageCustomers extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         ArrayList<ArrayList<String>> list = Methods.listCustomers("");
 
@@ -49,7 +49,6 @@ public class ManageCustomers extends JFrame {
             listModel.addElement(enuser);
         }
         list1.setModel(listModel);
-
 
 
         searchButton.addActionListener(new ActionListener() {
@@ -99,10 +98,9 @@ public class ManageCustomers extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() ) {
+                if (list1.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
-                }
-                else {
+                } else {
                     int choice = showOptionDialog(null,
                             "You really want to delete that customer?",
                             "Quit?",
@@ -122,12 +120,11 @@ public class ManageCustomers extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() ) {
+                if (list1.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
-                }
-                else {
+                } else {
                     ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
-                    EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
+                    EditCustomer edit = new EditCustomer(info.get(0), info.get(1));
                     dispose();
                 }
             }
