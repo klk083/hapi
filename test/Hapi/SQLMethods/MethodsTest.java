@@ -19,7 +19,7 @@ public class MethodsTest {
     }
 
     @Test
-    public void login() throws Exception {
+    public void login1() throws Exception {
         boolean test = Methods.login("test-test", "test");
 
         assertEquals(true, test);
@@ -41,8 +41,21 @@ public class MethodsTest {
     }
 
     @Test
-    public void deleteUser() throws Exception {
+    public void listEmployees1() throws Exception {
 
+    }
+
+    @Test
+    public void listEmployees2() throws Exception {
+
+    }
+
+    @Test
+    public void deleteUser() throws Exception {
+        String username = "test-test";
+        boolean test = Methods.deleteUser(username);
+
+        assertEquals(true, test);
     }
 
     @Test
