@@ -74,6 +74,9 @@ public class Methods {
     }
 
     public static boolean changePassword(String username, String password) {
+        if (username.equals("") || password.equals("")) {
+            return false;
+        }
         username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
