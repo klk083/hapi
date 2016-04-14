@@ -53,7 +53,7 @@ public class Methods {
 
             res.next();
 
-            output = res.getInt("role");
+            output = res.getInt("price");
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of menu cost price, Code: 8000027";
