@@ -112,6 +112,7 @@ public class Courses extends JFrame{
                     showMessageDialog(null, "You forgot to select a course");
                 } else {
                     CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    dispose();
                 }
             }
         });
