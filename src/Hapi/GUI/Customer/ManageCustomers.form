@@ -53,7 +53,7 @@
       <hspacer id="93b9f">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="5" height="-1"/>
+            <preferred-size width="3" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
@@ -137,7 +137,7 @@
       <hspacer id="c7723">
         <constraints>
           <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="5" height="-1"/>
+            <preferred-size width="3" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
