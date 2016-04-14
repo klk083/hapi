@@ -1,4 +1,4 @@
-package Hapi.GUI.General;
+package Hapi.GUI.Order;
 
 import Hapi.GUI.Customer.CreateCustomer;
 import Hapi.SQLMethods.Methods;

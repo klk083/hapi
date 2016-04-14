@@ -3,7 +3,7 @@ package Hapi.GUI.MainMenu;
 import Hapi.GUI.Course.Courses;
 import Hapi.GUI.Customer.ManageCustomers;
 import Hapi.GUI.General.Login;
-import Hapi.GUI.General.ManageOrders;
+import Hapi.GUI.Order.ManageOrders;
 import Hapi.GUI.User.ManageUsers;
 
 import javax.swing.*;

@@ -1,6 +1,7 @@
-package Hapi.GUI.General;
+package Hapi.GUI.Order;
 
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.Order.CreateOrder;
 
 import javax.swing.*;
 import java.awt.*;
