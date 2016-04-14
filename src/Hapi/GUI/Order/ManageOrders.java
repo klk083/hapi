@@ -19,7 +19,7 @@ public class ManageOrders extends JFrame {
     private JPanel ordersPannel;
 
     public ManageOrders() {
-        super("Manage orders");
+        super("eFood");
         setContentPane(ordersPannel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
