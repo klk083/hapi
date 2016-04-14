@@ -74,6 +74,9 @@ public class Methods {
     }
 
     public static boolean changePassword(String username, String password) {
+        if (username.equals("") || password.equals("")) {
+            return false;
+        }
         username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
@@ -196,32 +199,6 @@ public class Methods {
         }
     }
 
-/*
-****Deprecated****
-* Use search method with blank search instead
-    public static ArrayList<String> listCustomers() {
-        ArrayList<String> customers = new ArrayList<String>();
-
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT customer_name FROM customer";
-            stm = con.prepareStatement(selectSQL);
-
-            res = stm.executeQuery();
-
-            while (res.next()) {
-                customers.add(res.getString("customer_name"));
-            }
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of customers, Code: 8000005";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return customers;
-        }
-    }
-*/
     public static ArrayList<ArrayList<String>> listCustomers(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
@@ -256,33 +233,6 @@ public class Methods {
             return customers;
         }
     }
-
-/*
-****Deprecated****
-* Use search method with blank search instead
-    public static ArrayList<String> listEmployees() {
-        ArrayList<String> employees = new ArrayList<String>();
-
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT username FROM employee";
-            stm = con.prepareStatement(selectSQL);
-
-            res = stm.executeQuery();
-
-            while (res.next()) {
-                employees.add(res.getString("username"));
-            }
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of employees, Code: 8000007";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return employees;
-        }
-    }
-*/
 
     public static ArrayList<ArrayList<String>> listEmployees(String partName) {
         partName.toLowerCase();
@@ -349,7 +299,7 @@ public class Methods {
     }
 
     public static boolean setCustomerDiscount(int customerID, int discount) {
-        if (customerID < 1 || discount < 1) {
+        if (customerID < 1 || discount < 0) {
             return false;
         }
 
@@ -599,6 +549,35 @@ public class Methods {
         }
     }
 
+    public static boolean changeMenu(int menuID, String name, String description, int price) {
+        if (menuID < 1 || name.equals("") || description.equals("") || price < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "UPDATE menu SET menu.name = ?, menu.description = ?, menu.price = ? WHERE menu_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setString(2, description);
+            stm.setInt(3, price);
+            stm.setInt(4, menuID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during change of menu, Code: 8000024";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
     public static boolean addIngredientToMenu(int menuID, int ingredientID, int quantity) {
         if (menuID < 1 || ingredientID < 1 || quantity < 1) {
             return false;
@@ -617,6 +596,33 @@ public class Methods {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000020";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean removeIngredientFromMenu(int menuID, int ingredientID) {
+        if(menuID < 1 || ingredientID < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM menu_ingredient WHERE order_id = ? AND menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, menuID);
+            stm.setInt(2, ingredientID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of menu from order, Code: 8000024";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -684,7 +690,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM customer WHERE menu_name LIKE ?";
+            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();

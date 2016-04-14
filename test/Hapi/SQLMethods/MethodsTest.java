@@ -10,7 +10,10 @@ import static org.junit.Assert.*;
 public class MethodsTest {
     @Test
     public void login() throws Exception {
+        System.out.println("login");
+        boolean test = Methods.login("admin", "admin");
 
+        assertEquals(true, test);
     }
 
     @Test
