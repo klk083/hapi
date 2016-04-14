@@ -1,5 +1,6 @@
 package Hapi.GUI.Course;
 
+import Hapi.GUI.Customer.EditCustomer;
 import Hapi.GUI.General.Login;
 import Hapi.GUI.MainMenu.CEO;
 import Hapi.SQLMethods.Methods;
@@ -9,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by klk94 on 13.04.2016.
@@ -89,6 +92,7 @@ public class Courses extends JFrame{
 
             }
         });
+
         viewCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -97,9 +101,18 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(list1.isSelectionEmpty() ) {
+                    showMessageDialog(null, "You forgot to select a course");
+                }
+                else {
+                   // ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                   // EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
+                    //dispose();
+                    ViewCourse viewCourse = new ViewCourse();
+                }
             }
         });
+
         createCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
