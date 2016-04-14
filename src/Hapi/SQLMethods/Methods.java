@@ -27,7 +27,7 @@ public class Methods {
 
         BigInteger bigInt = new BigInteger(65, random);
 
-        String salt = "$6$" + bigInt.toString(32);		// "$6$" for crypt()-function, used to specify SHA512
+        String salt = "$6$" + bigInt.toString(32);		// "$6$" for crypt()-method, used to specify SHA512
 
         return salt;
     }
@@ -196,6 +196,9 @@ public class Methods {
         }
     }
 
+/*
+****Deprecated****
+* Use search method with blank search instead
     public static ArrayList<String> listCustomers() {
         ArrayList<String> customers = new ArrayList<String>();
 
@@ -218,7 +221,7 @@ public class Methods {
             return customers;
         }
     }
-
+*/
     public static ArrayList<ArrayList<String>> listCustomers(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
@@ -254,6 +257,9 @@ public class Methods {
         }
     }
 
+/*
+****Deprecated****
+* Use search method with blank search instead
     public static ArrayList<String> listEmployees() {
         ArrayList<String> employees = new ArrayList<String>();
 
@@ -276,6 +282,7 @@ public class Methods {
             return employees;
         }
     }
+*/
 
     public static ArrayList<ArrayList<String>> listEmployees(String partName) {
         partName.toLowerCase();
@@ -670,5 +677,35 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listMenu(String partName) {
+        partName.toLowerCase();
+        ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
+        String forSQL = "%" + partName + "%";
 
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_name, menu_id FROM customer WHERE menu_name LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("menu_name"));
+                temp = res.getInt("menu_id");
+                id.add(Integer.toString(temp));
+            }
+
+            menu.add(navn);
+            menu.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return menu;
+        }
+    }
 }
