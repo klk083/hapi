@@ -578,6 +578,35 @@ public class Methods {
         }
     }
 
+    public static ArrayList<String> getMenuInfo(int menuID) {
+        if (menuID < 1) {
+            return null;
+        }
+
+        ArrayList<String> info = new ArrayList<String>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_name, menu_description, menu_price FROM menu WHERE menu_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+
+            res = stm.executeQuery();
+            res.next();
+
+            info.add(res.getString("menu_name"));
+            info.add(res.getString("menu_description"));
+            info.add(res.getString("menu_price"));
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
+        }
+    }
+
     public static boolean addIngredientToMenu(int menuID, int ingredientID, int quantity) {
         if (menuID < 1 || ingredientID < 1 || quantity < 1) {
             return false;
