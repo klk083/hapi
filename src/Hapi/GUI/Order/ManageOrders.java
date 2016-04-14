@@ -64,5 +64,12 @@ public class ManageOrders extends JFrame {
             }
         });
 
+        createCustomerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                CreateCustomer customer = new CreateCustomer(1);
+            }
+        });
     }
 }

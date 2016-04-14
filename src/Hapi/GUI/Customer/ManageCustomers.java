@@ -1,7 +1,6 @@
 package Hapi.GUI.Customer;
 
 import Hapi.GUI.MainMenu.CEO;
-import Hapi.GUI.User.EditPassword;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -11,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static Hapi.SQLMethods.Methods.deleteCustomer;
-import static Hapi.SQLMethods.Methods.deleteUser;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showOptionDialog;
 
@@ -91,7 +89,7 @@ public class ManageCustomers extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                CreateCustomer customer = new CreateCustomer();
+                CreateCustomer customer = new CreateCustomer(2);
             }
         });
 
