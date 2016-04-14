@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CreateCourse extends JFrame{
     private JTextField textField1;
     private JButton searchButton;
-    private JList ingridientsNotInCourse;
+    private JList ingredientsIsNotInCourse;
     private JList ingredientIsInCourse;
     private JButton addButton;
     private JButton removeButton;
@@ -25,7 +25,10 @@ public class CreateCourse extends JFrame{
     private JTextField textField5;
     private JButton createButton;
     private JPanel createCourse;
-    private JButton createIngredientChangeIngredientButton;
+    private JButton createIngredientButton;
+    private JButton changeIngredientButton;
+
+    int selectedTest;
 
     public CreateCourse() {
         super("eFood");
@@ -45,7 +48,7 @@ public class CreateCourse extends JFrame{
         for (String enuser : list.get(0)) {
             listModel.addElement(enuser);
         }
-        ingridientsNotInCourse.setModel(listModel);
+        ingredientsIsNotInCourse.setModel(listModel);
 
 
         searchButton.addActionListener(new ActionListener() {
@@ -67,7 +70,7 @@ public class CreateCourse extends JFrame{
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
-                ingridientsNotInCourse.setModel(listModel);
+                ingredientsIsNotInCourse.setModel(listModel);
             }
         });
         addButton.addActionListener(new ActionListener() {
@@ -115,6 +118,7 @@ public class CreateCourse extends JFrame{
                 dispose();
             }
         });
+
     }
 
 

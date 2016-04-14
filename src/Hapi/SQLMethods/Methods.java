@@ -900,4 +900,29 @@ public class Methods {
             return ingredients;
         }
     }
+
+    public static boolean deleteMenu(int menuID) {
+        if(menuID<1) {
+            return false;
+        }
+        boolean ok =false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM menu WHERE menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setString(1, menuID+"");
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during menu deletion, Code: 8000029";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
 }

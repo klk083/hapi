@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -80,7 +81,22 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "You have not selected a course");
+                } else {
+                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                        showMessageDialog(null,"The course you are trying to delete has active orders");
+                    }
+                    if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
+                       if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                           showMessageDialog(null,"Course deleted");
+                           dispose();
+                           Courses temp = new Courses();
+                       } else {
+                           showMessageDialog(null,"Course not deleted");
+                       }
+                    }
+                }
             }
         });
 
