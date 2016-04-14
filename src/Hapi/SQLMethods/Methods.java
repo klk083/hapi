@@ -38,6 +38,35 @@ public class Methods {
         SQLConnection.closeConnection(con);
     }
 
+    private static int getMenuCostPrice(int menuID) {
+        if (menuID < 1) {
+            return -1;
+        }
+
+        int output = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT sum(price) FROM ingredient NATURAL JOIN menu_ingredient WHERE menu_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+            res = stm.executeQuery();
+
+            res.next();
+
+            output = res.getInt("role");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of menu cost price, Code: 8000027";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            output = -1;
+        } finally {
+            closeSQL();
+
+            return output;
+        }
+    }
+
     public static boolean login(String username, String password) {
         username.toLowerCase();
         String hashFromDatabase = "", saltFromDatabase = "";
@@ -468,18 +497,19 @@ public class Methods {
         }
     }
 
-    public static boolean addIngredient(String name, String unit) {
-        if (name.equals("") || unit.equals("")) {
+    public static boolean addIngredient(String name, String unit, int price) {
+        if (name.equals("") || unit.equals("") || price < 0) {
             return false;
         }
 
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO ingredient VALUES(DEFAULT, ?, ?, )";
+            String insertSQL = "INSERT INTO ingredient VALUES(DEFAULT, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
             stm.setString(2, unit);
+            stm.setInt(3, price);
 
             stm.executeUpdate();
             ok = true;
@@ -597,6 +627,7 @@ public class Methods {
             info.add(res.getString("menu_name"));
             info.add(res.getString("menu_description"));
             info.add(res.getString("menu_price"));
+            info.add(Integer.toString(getMenuCostPrice(menuID)));
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);
@@ -782,4 +813,6 @@ public class Methods {
             return ingredients;
         }
     }
+
+
 }
