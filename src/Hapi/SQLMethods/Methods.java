@@ -27,7 +27,7 @@ public class Methods {
 
         BigInteger bigInt = new BigInteger(65, random);
 
-        String salt = "$6$" + bigInt.toString(32);		// "$6$" for crypt()-function, used to specify SHA512
+        String salt = "$6$" + bigInt.toString(32);		// "$6$" for crypt()-method, used to specify SHA512
 
         return salt;
     }
