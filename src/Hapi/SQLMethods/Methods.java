@@ -872,5 +872,35 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listIngredients(String partName) {
+        partName.toLowerCase();
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+        String forSQL = "%" + partName + "%";
 
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id FROM ingredient WHERE name LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("ingredient_id");
+                id.add(Integer.toString(temp));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ingredients by search, Code: 8000028";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
+        }
+    }
 }

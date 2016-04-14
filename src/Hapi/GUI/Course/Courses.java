@@ -29,7 +29,7 @@ public class Courses extends JFrame{
     private JPanel Courses;
 
     public Courses() {
-        super("Sign In");
+        super("eFood");
         setContentPane(Courses);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,6 +71,7 @@ public class Courses extends JFrame{
                 list1.setModel(listModel);
             }
         });
+
         deleteCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -82,6 +83,7 @@ public class Courses extends JFrame{
 
             }
         });
+
         editCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -123,9 +125,11 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateCourse temp = new CreateCourse();
+                dispose();
             }
         });
+
         mainMenuButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.

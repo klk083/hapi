@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Hapi.GUI.Course.CreateCourse">
-  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="11" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="createCourse" layout-manager="GridLayoutManager" row-count="11" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="608" height="429"/>
+      <xy x="20" y="20" width="608" height="431"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -41,7 +41,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b666e" class="javax.swing.JList" binding="list1" default-binding="true">
+          <component id="b666e" class="javax.swing.JList" binding="ingridientsNotInCourse">
             <constraints/>
             <properties/>
           </component>
@@ -54,7 +54,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="cab32" class="javax.swing.JList" binding="list2" default-binding="true">
+          <component id="cab32" class="javax.swing.JList" binding="ingridientInCourse">
             <constraints/>
             <properties/>
           </component>
@@ -74,14 +74,6 @@
         </constraints>
         <properties>
           <text value="Create course"/>
-        </properties>
-      </component>
-      <component id="347c7" class="javax.swing.JButton" binding="createIngredientChangeIngredientButton" default-binding="true">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Create Ingredient / Change Ingredient"/>
         </properties>
       </component>
       <component id="6213" class="javax.swing.JButton" binding="addButton" default-binding="true">
@@ -190,12 +182,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="df33b" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-          </component>
           <component id="d69c9" class="javax.swing.JTextField" binding="textField5" default-binding="true">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -218,6 +204,14 @@
             </constraints>
             <properties>
               <text value="Quantity"/>
+            </properties>
+          </component>
+          <component id="acf34" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="unit"/>
             </properties>
           </component>
         </children>
@@ -258,6 +252,32 @@
           <text value="Create"/>
         </properties>
       </component>
+      <grid id="c9676" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="289c1" class="javax.swing.JButton" binding="createIngridientButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Create Ingridient"/>
+            </properties>
+          </component>
+          <component id="a5ce1" class="javax.swing.JButton" binding="changeIngridientButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Change Ingridient"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

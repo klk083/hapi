@@ -32,7 +32,7 @@ public class ViewCourse extends JFrame{
         nameL.setText(name);
         descL.setText(desc);
         priceL.setText(price+" kr");
-        costPL.setText(costP);
+        costPL.setText(costP+" kr");
         ArrayList<ArrayList<String>>  list = ingridientList;
 
 
