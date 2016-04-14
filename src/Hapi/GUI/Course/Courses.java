@@ -158,8 +158,9 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+
                 CEO ceo = new CEO();
+                dispose();
             }
         });
     }

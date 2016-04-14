@@ -246,24 +246,39 @@ public class CreateCourse extends JFrame{
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
                         try {
-                            if (Methods.addIngredientToMenu(menuId,Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
-                                ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-                                DefaultListModel listModel = new DefaultListModel();
-                                for (String anIngredient : list.get(0)) {
-                                    listModel.addElement(anIngredient);
+                            boolean existInCourse=false;
+                            for(int i=0;i<list1.size();i++) {
+                                if(list1.get(1).get(i)==list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())) {
+                                    existInCourse =true;
                                 }
-                                ingredientsIsNotInCourse.setModel(listModel);
+                            }
+                            if(existInCourse) {
+                               if(Methods.removeIngredientFromMenu(menuId,
+                                        Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())))){
 
-                                ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-                                DefaultListModel listModel1 = new DefaultListModel();
-                                for (String anIngredient : list1.get(0)) {
-                                    listModel1.addElement(anIngredient);
-                                }
-                                ingredientsIsInCourse.setModel(listModel1);
-                                ArrayList<String> info = Methods.getMenuInfo(menuId);
-                                costP.setText(info.get(3));
-                            } else {
-                                showMessageDialog(null, "Something went wrong");
+                                   if (Methods.addIngredientToMenu(menuId,Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                                       ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+                                       DefaultListModel listModel = new DefaultListModel();
+                                       for (String anIngredient : list.get(0)) {
+                                           listModel.addElement(anIngredient);
+                                       }
+                                       ingredientsIsNotInCourse.setModel(listModel);
+
+                                       ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
+                                       DefaultListModel listModel1 = new DefaultListModel();
+                                       for (String anIngredient : list1.get(0)) {
+                                           listModel1.addElement(anIngredient);
+                                       }
+                                       ingredientsIsInCourse.setModel(listModel1);
+                                       ArrayList<String> info = Methods.getMenuInfo(menuId);
+                                       costP.setText(info.get(3));
+                                   } else {
+                                       showMessageDialog(null, "Something went wrong");
+                                   }
+
+                                } else {
+                                   showMessageDialog(null, "something wrong with removing existing ingredient");
+                               }
                             }
                         } catch (IllegalFormatException t) {
                             System.out.println(t + "Wrong input in quantity");

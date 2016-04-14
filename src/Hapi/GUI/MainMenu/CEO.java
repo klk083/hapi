@@ -25,7 +25,7 @@ public class CEO extends JFrame {
     private JButton subscriptionButton;
 
     public CEO() {
-        super("Sign In");
+        super("eFood");
         setContentPane(CEO);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
