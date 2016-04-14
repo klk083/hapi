@@ -299,7 +299,7 @@ public class Methods {
     }
 
     public static boolean setCustomerDiscount(int customerID, int discount) {
-        if (customerID < 1 || discount < 1) {
+        if (customerID < 1 || discount < 0) {
             return false;
         }
 
@@ -690,7 +690,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM customer WHERE menu_name LIKE ?";
+            String selectSQL = "SELECT menu_name, menu_id FROM menu WHERE menu_name LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
