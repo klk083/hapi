@@ -228,6 +228,35 @@ public class Methods {
         }
     }
 
+    public static ArrayList<String> listOrders(String partName) {
+        partName.toLowerCase();
+        ArrayList<String> orders = new ArrayList<String>();
+        String forSQL = "%" + partName + "%";
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id FROM orders NATURAL JOIN customer WHERE customer_name LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+
+
+            while (res.next()) {
+                orders.add(res.getString("order_id"));
+                }
+
+
+            } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return orders;
+        }
+    }
+
     public static ArrayList<ArrayList<String>> listCustomers(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
