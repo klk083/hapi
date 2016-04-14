@@ -15,18 +15,17 @@ public class CreateCourse extends JFrame{
     private JTextField textField1;
     private JButton searchButton;
     private JList ingridientsNotInCourse;
-    private JList ingridientInCourse;
+    private JList ingredientIsInCourse;
     private JButton addButton;
     private JButton removeButton;
     private JTextField textField3;
     private JTextField textField2;
-    private JButton mainMenuButton;
+    private JButton backButton;
     private JTextField textField4;
     private JTextField textField5;
     private JButton createButton;
-    private JButton createIngridientButton;
-    private JButton changeIngridientButton;
     private JPanel createCourse;
+    private JButton createIngredientChangeIngredientButton;
 
     public CreateCourse() {
         super("eFood");
@@ -71,28 +70,6 @@ public class CreateCourse extends JFrame{
                 ingridientsNotInCourse.setModel(listModel);
             }
         });
-        createIngridientButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        changeIngridientButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         addButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -126,7 +103,7 @@ public class CreateCourse extends JFrame{
 
             }
         });
-        mainMenuButton.addActionListener(new ActionListener() {
+        backButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              *
@@ -139,4 +116,6 @@ public class CreateCourse extends JFrame{
             }
         });
     }
+
+
 }
