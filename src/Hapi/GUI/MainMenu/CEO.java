@@ -1,5 +1,6 @@
 package Hapi.GUI.MainMenu;
 
+import Hapi.GUI.Course.Courses;
 import Hapi.GUI.Customer.ManageCustomers;
 import Hapi.GUI.General.Login;
 import Hapi.GUI.General.ManageOrders;
@@ -19,6 +20,7 @@ public class CEO extends JFrame {
     private JButton ordersButton;
     private JPanel CEO;
     private JButton signOut;
+    private JButton coursesButton;
 
     public CEO() {
         super("Sign In");
@@ -58,6 +60,18 @@ public class CEO extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 Login login = new Login();
+            }
+        });
+        coursesButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Courses courses = new Courses();
             }
         });
     }
