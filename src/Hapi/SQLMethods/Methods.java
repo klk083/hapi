@@ -549,7 +549,7 @@ public class Methods {
         }
     }
 
-    public static boolean changeMenu(int menuID, String name, String description, int price) {
+    public static boolean changeMenu(int menuID, String name, int price, String description) {
         if (menuID < 1 || name.equals("") || description.equals("") || price < 1) {
             return false;
         }
@@ -595,8 +595,8 @@ public class Methods {
             res.next();
 
             info.add(res.getString("menu_name"));
-            info.add(res.getString("menu_description"));
             info.add(res.getString("menu_price"));
+            info.add(res.getString("menu_description"));
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);
