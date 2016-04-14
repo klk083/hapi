@@ -108,7 +108,11 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(list1.isSelectionEmpty()){
+                    showMessageDialog(null, "You forgot to select a course");
+                } else {
+                    CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                }
             }
         });
 

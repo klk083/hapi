@@ -925,4 +925,32 @@ public class Methods {
             return ok;
         }
     }
+
+    public static ArrayList<String> getIngredientInfo (String ingredientID) {
+        ArrayList<String> info = new ArrayList();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id,unit FROM ingredient WHERE ingredient_id LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, ingredientID);
+            res = stm.executeQuery();
+
+
+            while (res.next()) {
+                info.add(res.getString("name"));
+                info.add(ingredientID);
+                info.add(res.getString("unit"));
+            }
+
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during info collection of ingredient by id, Code: 8000030";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
+        }
+
+    }
 }
