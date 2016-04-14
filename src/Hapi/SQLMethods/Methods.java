@@ -231,7 +231,6 @@ public class Methods {
     }
 
     public static ArrayList<String> listOrders(String partName) {
-        partName.toLowerCase();
         ArrayList<String> orders = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
 
@@ -260,7 +259,6 @@ public class Methods {
     }
 
     public static ArrayList<ArrayList<String>> listCustomers(String partName) {
-        partName.toLowerCase();
         ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
         String forSQL = "%" + partName + "%";
 
@@ -280,7 +278,7 @@ public class Methods {
             }
 
             navn.remove("Dummybruker");
-            id.remove("0");
+            id.remove("1");
 
             customers.add(navn);
             customers.add(id);
@@ -295,7 +293,6 @@ public class Methods {
     }
 
     public static ArrayList<ArrayList<String>> listEmployees(String partName) {
-        partName.toLowerCase();
         ArrayList<ArrayList<String>> employees = new ArrayList<ArrayList<String>>();
         String forSQL = "%" + partName + "%";
 
@@ -315,7 +312,7 @@ public class Methods {
             }
 
             navn.remove("admin");
-            id.remove("0");
+            id.remove("1");
 
             employees.add(navn);
             employees.add(id);
