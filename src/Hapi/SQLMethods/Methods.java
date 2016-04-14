@@ -196,6 +196,9 @@ public class Methods {
         }
     }
 
+/*
+****Deprecated****
+* Use search method with blank search instead
     public static ArrayList<String> listCustomers() {
         ArrayList<String> customers = new ArrayList<String>();
 
@@ -218,7 +221,7 @@ public class Methods {
             return customers;
         }
     }
-
+*/
     public static ArrayList<ArrayList<String>> listCustomers(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> customers = new ArrayList<ArrayList<String>>();
@@ -254,6 +257,9 @@ public class Methods {
         }
     }
 
+/*
+****Deprecated****
+* Use search method with blank search instead
     public static ArrayList<String> listEmployees() {
         ArrayList<String> employees = new ArrayList<String>();
 
@@ -276,6 +282,7 @@ public class Methods {
             return employees;
         }
     }
+*/
 
     public static ArrayList<ArrayList<String>> listEmployees(String partName) {
         partName.toLowerCase();
