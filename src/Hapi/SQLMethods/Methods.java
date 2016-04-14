@@ -43,17 +43,19 @@ public class Methods {
             return -1;
         }
 
-        int output = -1;
+        int output = 0;
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT sum(price) AS price FROM ingredient NATURAL JOIN menu_ingredient WHERE menu_id = ?";
+            SQLConnection.setAutoCommitOff(con);
+
+            String selectSQL = "SELECT price, quantity FROM ingredient NATURAL JOIN menu_ingredient WHERE menu_id = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, menuID);
             res = stm.executeQuery();
 
-            res.next();
-
-            output = res.getInt("price");
+            while (res.next()) {
+                output += res.getInt("price") * res.getInt("quantity");
+            }
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of menu cost price, Code: 8000027";
