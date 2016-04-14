@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -108,7 +109,9 @@ public class Courses extends JFrame{
                    // ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
                    // EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
                     //dispose();
-                    ViewCourse viewCourse = new ViewCourse();
+
+                    ArrayList<String> Info =  Methods.getMenuInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ViewCourse viewCourse = new ViewCourse(Info.get(0),Info.get(1),Info.get(2));
                 }
             }
         });

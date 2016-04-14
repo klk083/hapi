@@ -595,8 +595,8 @@ public class Methods {
             res.next();
 
             info.add(res.getString("menu_name"));
-            info.add(res.getString("menu_price"));
             info.add(res.getString("menu_description"));
+            info.add(res.getString("menu_price"));
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);

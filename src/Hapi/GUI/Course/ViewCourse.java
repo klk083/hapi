@@ -15,8 +15,12 @@ public class ViewCourse extends JFrame{
     private JList list1;
     private JButton closeButton;
     private JPanel viewCourses;
+    private JLabel nameL;
+    private JLabel descL;
+    private JLabel costPL;
+    private JLabel priceL;
 
-    public ViewCourse() {
+    public ViewCourse(String name,String desc, String price) {
         super("eFood");
         setContentPane(viewCourses);
         pack();
@@ -24,6 +28,12 @@ public class ViewCourse extends JFrame{
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
+        nameL.setText(name);
+        descL.setText(desc);
+        priceL.setText(price+" kr");
+
+
         closeButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
