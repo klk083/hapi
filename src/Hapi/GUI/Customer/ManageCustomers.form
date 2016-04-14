@@ -53,7 +53,7 @@
       <hspacer id="93b9f">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="10" height="-1"/>
+            <preferred-size width="5" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
@@ -90,7 +90,7 @@
           <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Cancel"/>
+          <text value="Main menu"/>
         </properties>
       </component>
       <grid id="1c655" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -137,7 +137,7 @@
       <hspacer id="c7723">
         <constraints>
           <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="10" height="-1"/>
+            <preferred-size width="5" height="-1"/>
           </grid>
         </constraints>
       </hspacer>
