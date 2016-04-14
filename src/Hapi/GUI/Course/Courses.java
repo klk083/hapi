@@ -109,9 +109,10 @@ public class Courses extends JFrame{
                    // ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
                    // EditCustomer edit = new EditCustomer(info.get(0),info.get(1));
                     //dispose();
+                    ArrayList<ArrayList<String>> ingridentList = Methods.listIngredientsInMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
 
                     ArrayList<String> Info =  Methods.getMenuInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
-                    ViewCourse viewCourse = new ViewCourse(Info.get(0),Info.get(1),Info.get(2));
+                    ViewCourse viewCourse = new ViewCourse(Info.get(0),Info.get(1),Info.get(2),ingridentList.get(1));
                 }
             }
         });

@@ -20,7 +20,7 @@ public class ViewCourse extends JFrame{
     private JLabel costPL;
     private JLabel priceL;
 
-    public ViewCourse(String name,String desc, String price) {
+    public ViewCourse(String name,String desc, String price,ArrayList<String> ingridientList) {
         super("eFood");
         setContentPane(viewCourses);
         pack();
@@ -32,7 +32,16 @@ public class ViewCourse extends JFrame{
         nameL.setText(name);
         descL.setText(desc);
         priceL.setText(price+" kr");
+        ArrayList<String> list = ingridientList;
 
+
+        DefaultListModel listModel = new DefaultListModel();
+
+        //    String[] user = list;
+        for (String enuser : list) {
+            listModel.addElement(enuser);
+        }
+        list1.setModel(listModel);
 
         closeButton.addActionListener(new ActionListener() {
             /**
