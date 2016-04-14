@@ -16,14 +16,15 @@ import java.util.ArrayList;
 public class ManageOrders extends JFrame {
     private JList list1;
     private JTextField textField1;
-    private JButton createMenyOrderButton;
+    private JButton editOrderButton;
     private JButton backButton;
     private JButton searchButton;
     private JButton createNewCustomerButton;
-    private JButton createSubOrderButton;
+    private JButton viewOrderButton;
     private JPanel createOrderPannel;
     private JButton createOrderButton;
     private JButton createCustomerButton;
+    private JButton deleteOrderButton;
 
     public ManageOrders() {
         super("Manage order");
@@ -62,24 +63,6 @@ public class ManageOrders extends JFrame {
                 CEO ceo = new CEO();
             }
         });
-        createNewCustomerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                CreateCustomer customer = new CreateCustomer();
-            }
-        });
-        createSubOrderButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-        createMenyOrderButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 }
