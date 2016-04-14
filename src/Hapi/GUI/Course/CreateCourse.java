@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by klk94 on 13.04.2016.
@@ -17,7 +20,7 @@ public class CreateCourse extends JFrame{
     private JTextField searchField;
     private JButton searchButton;
     private JList ingredientsIsNotInCourse;
-    private JList ingredientIsInCourse;
+    private JList ingredientsIsInCourse;
     private JButton addButton;
     private JButton removeButton;
     private JTextField price;
@@ -168,35 +171,25 @@ public class CreateCourse extends JFrame{
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
-        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-
-
-        DefaultListModel listModel = new DefaultListModel();
-
-
-        for (String anIngredient : list.get(0)) {
-            listModel.addElement(anIngredient);
-        }
-        ingredientsIsNotInCourse.setModel(listModel);
-
-
         ArrayList<String> info = Methods.getMenuInfo(menuId);
         price.setText(info.get(2));
         courseName.setText(info.get(0));
         descriptionL.setText(info.get(1));
         costP.setText(info.get(3));
 
+        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+        DefaultListModel listModel = new DefaultListModel();
+        for (String anIngredient : list.get(0)) {
+            listModel.addElement(anIngredient);
+        }
+        ingredientsIsNotInCourse.setModel(listModel);
 
         ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-
-
         DefaultListModel listModel1 = new DefaultListModel();
-
-
         for (String anIngredient : list1.get(0)) {
             listModel1.addElement(anIngredient);
         }
-        ingredientIsInCourse.setModel(listModel1);
+        ingredientsIsInCourse.setModel(listModel1);
 
 
 
@@ -246,9 +239,41 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (ingredientsIsNotInCourse.isSelectionEmpty()) {
+                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
+                } else {
+                    if (quantity.getText().equals(null) || quantity.getText().equals("")) {
+                        showMessageDialog(null, "You didnt set a quantity");
+                    } else {
+                        try {
+                            if (Methods.addIngredientToMenu(menuId,Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                                ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+                                DefaultListModel listModel = new DefaultListModel();
+                                for (String anIngredient : list.get(0)) {
+                                    listModel.addElement(anIngredient);
+                                }
+                                ingredientsIsNotInCourse.setModel(listModel);
 
+                                ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
+                                DefaultListModel listModel1 = new DefaultListModel();
+                                for (String anIngredient : list1.get(0)) {
+                                    listModel1.addElement(anIngredient);
+                                }
+                                ingredientsIsInCourse.setModel(listModel1);
+                                ArrayList<String> info = Methods.getMenuInfo(menuId);
+                                costP.setText(info.get(3));
+                            } else {
+                                showMessageDialog(null, "Something went wrong");
+                            }
+                        } catch (IllegalFormatException t) {
+                            System.out.println(t + "Wrong input in quantity");
+                        }
+                    }
+                }
             }
+
         });
+
         removeButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -257,6 +282,29 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(ingredientsIsInCourse.isSelectionEmpty()) {
+                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                } else{
+                    if(Methods.removeIngredientFromMenu(menuId,Integer.parseInt(list1.get(1).get(ingredientsIsInCourse.getSelectedIndex())))) {
+                        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+                        DefaultListModel listModel = new DefaultListModel();
+                        for (String anIngredient : list.get(0)) {
+                            listModel.addElement(anIngredient);
+                        }
+                        ingredientsIsNotInCourse.setModel(listModel);
+
+                        ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
+                        DefaultListModel listModel1 = new DefaultListModel();
+                        for (String anIngredient : list1.get(0)) {
+                            listModel1.addElement(anIngredient);
+                        }
+                        ingredientsIsInCourse.setModel(listModel1);
+                        ArrayList<String> info = Methods.getMenuInfo(menuId);
+                        costP.setText(info.get(3));
+                    }else{
+                        showMessageDialog(null, "Something went wrong");
+                    }
+                }
 
             }
         });
@@ -291,8 +339,13 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                ArrayList<String> info = Methods.getIngredientInfo(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
-                unit.setText(info.get(2));
+                if(ingredientsIsNotInCourse.isSelectionEmpty()) {
+
+                } else{
+                    ArrayList<String> info = Methods.getIngredientInfo(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
+                    unit.setText(info.get(2));
+                }
+
 
             }
         });

@@ -142,7 +142,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b02fa" class="javax.swing.JList" binding="ingredientIsInCourse">
+          <component id="b02fa" class="javax.swing.JList" binding="ingredientsIsInCourse">
             <constraints/>
             <properties/>
           </component>

@@ -702,10 +702,10 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM menu_ingredient WHERE order_id = ? AND menu_id = ?";
+            String deleteSQL = "DELETE FROM menu_ingredient WHERE ingredient_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setInt(1, menuID);
-            stm.setInt(2, ingredientID);
+            stm.setInt(2, menuID);
+            stm.setInt(1, ingredientID);
 
             stm.executeUpdate();
             ok = true;
