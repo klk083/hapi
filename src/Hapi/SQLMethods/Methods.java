@@ -753,7 +753,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id, unit FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id LIKE ? ORDER BY name ASC";
+            String selectSQL = "SELECT name, ingredient_id, unit, quantity FROM menu_ingredient NATURAL JOIN ingredient WHERE menu_id LIKE ? ORDER BY name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, menuID);
             res = stm.executeQuery();
@@ -774,7 +774,7 @@ public class Methods {
             ingredients.add(unit);
             ingredients.add(quantity);
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            String errorMessage = "SQL Exception during listing of ingredients in menu, Code: 8000026";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
