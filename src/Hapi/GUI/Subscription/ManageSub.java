@@ -1,4 +1,4 @@
-package Hapi.GUI.Subscrption;
+package Hapi.GUI.Subscription;
 
 import javax.swing.*;
 
