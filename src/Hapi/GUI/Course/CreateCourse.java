@@ -219,18 +219,18 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = searchField;
 
-                ArrayList<ArrayList<String>> list = Methods.listIngredients(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listIngredients(searchField.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                listModel.removeAllElements();
 
-                //    String[] user = list;
+
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
                 ingredientsIsNotInCourse.setModel(listModel);
+
             }
         });
 
