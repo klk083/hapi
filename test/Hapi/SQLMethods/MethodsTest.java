@@ -100,7 +100,7 @@ public class MethodsTest {
         ArrayList<ArrayList<String>> list = Methods.listEmployees(username);
         int testRes = Integer.parseInt(list.get(1).get(0));
 
-        assertEquals(2, testRes);   // User made in tests gets ID no. 2, this is because admin-user always gets ID no. 1
+        assertEquals(1, testRes);   // User made in tests gets ID no. 2, this is because admin-user always gets ID no. 1
     }
 
     @Test
@@ -183,6 +183,7 @@ public class MethodsTest {
 
     @After
     public void after() throws Exception {
-
+        String username = "testuser";
+        Methods.deleteUser(username);
     }
 }

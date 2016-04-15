@@ -463,7 +463,7 @@ public class Methods {
         int output = -1;
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT role FROM employee WHERE username = ?";
+            String selectSQL = "SELECT role_id FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, username);
             res = stm.executeQuery();
