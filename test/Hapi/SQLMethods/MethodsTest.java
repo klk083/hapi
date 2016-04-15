@@ -10,6 +10,8 @@ import static org.junit.Assert.*;
  * Created by magnu on 11.04.2016.
  */
 public class MethodsTest {
+    // All tests are supposed to be run on a database built with our script.sql and test data given in the same file
+
     @Test
     public void createUser() throws Exception {
         String username = "test-test", password = "test", name = "Tester McTest";
@@ -59,15 +61,31 @@ public class MethodsTest {
 
     @Test
     public void listEmployees1() throws Exception {
-        String name = "Tester McTest";
+        // This test checks if user is found in the database
+        String username = "test-test";
 
-        ArrayList<ArrayList<String>> list = Methods.listEmployees(name);
+        ArrayList<ArrayList<String>> list = Methods.listEmployees(username);
 
+        assertEquals("test-test", list.get(0).get(0));
     }
 
     @Test
     public void listEmployees2() throws Exception {
+        // This test checks if a users employee_id is found in the database
+        String username = "test-test";
 
+        ArrayList<ArrayList<String>> list = Methods.listEmployees(username);
+        int temp = Integer.parseInt(list.get(1).get(0));
+        assertEquals(2, temp);      // User made in tests gets ID no. 2, this is because admin-user always gets ID no. 1
+    }
+
+    @Test
+    public void getRoleID() throws Exception {
+        String username = "test-test";
+
+        int temp = Methods.getRoleID(username);
+
+        assertEquals(1, temp);
     }
 
     @Test
@@ -96,11 +114,6 @@ public class MethodsTest {
 
     @Test
     public void setCustomerDiscount() throws Exception {
-
-    }
-
-    @Test
-    public void getRoleID() throws Exception {
 
     }
 
