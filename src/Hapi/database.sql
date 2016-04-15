@@ -19,7 +19,8 @@ CREATE TABLE customer(
   customer_tlf VARCHAR(8) UNIQUE NOT NULL,
   customer_discount INTEGER NOT NULL,
   is_company BOOLEAN NOT NULL,
-  CONSTRAINT customer_pk PRIMARY KEY(customer_id));
+  CONSTRAINT customer_pk PRIMARY KEY(customer_id));
+
 CREATE TABLE menu(
   menu_id INTEGER NOT NULL,
   menu_name VARCHAR(30) NOT NULL,
