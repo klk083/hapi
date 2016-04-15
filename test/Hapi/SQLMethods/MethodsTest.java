@@ -96,11 +96,12 @@ public class MethodsTest {
     public void listEmployees2() throws Exception {
         // This test checks if a users employee_id is found in the database
         String username = "testuser";       // User from @Before
+        int employeeID = Methods.getEmployeeID(username);
 
         ArrayList<ArrayList<String>> list = Methods.listEmployees(username);
         int testRes = Integer.parseInt(list.get(1).get(0));
 
-        assertEquals(1, testRes);   // User made in tests gets ID no. 2, this is because admin-user always gets ID no. 1
+        assertEquals(employeeID, testRes);   // User made in tests gets ID no. 2, this is because admin-user always gets ID no. 1
     }
 
     @Test
@@ -126,11 +127,6 @@ public class MethodsTest {
 
     @Test
     public void listCustomers() throws Exception {
-
-    }
-
-    @Test
-    public void listEmployees() throws Exception {
 
     }
 

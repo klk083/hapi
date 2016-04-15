@@ -484,6 +484,37 @@ public class Methods {
         }
     }
 
+    public static int getEmployeeID(String username) {
+        username.toLowerCase();
+
+        if (username.equals("")) {
+            return -1;
+        }
+
+        int output = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT employee_id FROM employee WHERE username = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, username);
+            res = stm.executeQuery();
+
+            res.next();
+
+            output = res.getInt("employee_id");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of employee ID, Code: 8000032";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            output = -1;
+        } finally {
+            closeSQL();
+
+            return output;
+        }
+    }
+
     public static boolean createOrder(int customerID, String deliveryTime) {
         if (deliveryTime.equals("") || customerID < 1) {
             return false;
