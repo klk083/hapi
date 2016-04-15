@@ -933,7 +933,7 @@ public class Methods {
     }
 
     public static boolean deleteMenu(int menuID) {
-        if(menuID<1) {
+        if(menuID < 1) {
             return false;
         }
         boolean ok =false;
