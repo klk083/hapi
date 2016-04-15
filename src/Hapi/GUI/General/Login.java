@@ -20,7 +20,7 @@ public class Login extends JFrame {
     private JButton signInButton;
 
     public Login() {
-        super("Sign In");
+        super("eFood");
         setContentPane(panel1);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

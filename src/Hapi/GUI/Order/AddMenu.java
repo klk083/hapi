@@ -6,7 +6,6 @@ import javax.swing.*;
  * Created by Knut on 14.04.2016.
  */
 public class AddMenu {
-    private JTextField textField1;
     private JButton searchCourseButton;
     private JList list1;
     private JList list2;
@@ -21,4 +20,5 @@ public class AddMenu {
     private JComboBox comboBox4;
     private JComboBox comboBox5;
     private JTextField textField2;
+    private JTextField textField1;
 }

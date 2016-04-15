@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -29,7 +30,7 @@ public class Courses extends JFrame{
     private JPanel Courses;
 
     public Courses() {
-        super("Sign In");
+        super("eFood");
         setContentPane(Courses);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,6 +72,7 @@ public class Courses extends JFrame{
                 list1.setModel(listModel);
             }
         });
+
         deleteCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -79,9 +81,25 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "You have not selected a course");
+                } else {
+                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                        showMessageDialog(null,"The course you are trying to delete has active orders");
+                    }
+                    if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
+                       if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                           showMessageDialog(null,"Course deleted");
+                           dispose();
+                           Courses temp = new Courses();
+                       } else {
+                           showMessageDialog(null,"Course not deleted");
+                       }
+                    }
+                }
             }
         });
+
         editCourseButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -90,7 +108,12 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(list1.isSelectionEmpty()){
+                    showMessageDialog(null, "You forgot to select a course");
+                } else {
+                    CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    dispose();
+                }
             }
         });
 
@@ -123,9 +146,11 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateCourse temp = new CreateCourse();
+                dispose();
             }
         });
+
         mainMenuButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -134,8 +159,9 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+
                 CEO ceo = new CEO();
+                dispose();
             }
         });
     }

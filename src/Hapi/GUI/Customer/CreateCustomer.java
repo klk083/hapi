@@ -1,6 +1,6 @@
 package Hapi.GUI.Customer;
 
-import Hapi.GUI.User.ManageUsers;
+import Hapi.GUI.Order.ManageOrders;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class CreateCustomer extends JFrame{
     private JPanel CreateCustomerpannel;
     private JCheckBox companyCheckBox;
 
-    public CreateCustomer() {
+    public CreateCustomer(int back) {
         super("Create customer");
         setContentPane(CreateCustomerpannel);
         pack();
@@ -65,7 +65,12 @@ public class CreateCustomer extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ManageCustomers customers = new ManageCustomers();
+                switch(back) {
+                    case 1: ManageOrders orders = new ManageOrders();
+                        break;
+                    case 2: ManageCustomers customers = new ManageCustomers();
+                }
+
             }
         });
         companyCheckBox.addActionListener(new ActionListener() {

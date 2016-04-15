@@ -773,10 +773,10 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM menu_ingredient WHERE order_id = ? AND menu_id = ?";
+            String deleteSQL = "DELETE FROM menu_ingredient WHERE ingredient_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setInt(1, menuID);
-            stm.setInt(2, ingredientID);
+            stm.setInt(2, menuID);
+            stm.setInt(1, ingredientID);
 
             stm.executeUpdate();
             ok = true;
@@ -869,5 +869,88 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listIngredients(String partName) {
+        partName.toLowerCase();
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+        String forSQL = "%" + partName + "%";
 
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id FROM ingredient WHERE name LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("ingredient_id");
+                id.add(Integer.toString(temp));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ingredients by search, Code: 8000028";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
+        }
+    }
+
+    public static boolean deleteMenu(int menuID) {
+        if(menuID<1) {
+            return false;
+        }
+        boolean ok =false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM menu WHERE menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setString(1, menuID+"");
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during menu deletion, Code: 8000029";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static ArrayList<String> getIngredientInfo (String ingredientID) {
+        ArrayList<String> info = new ArrayList();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, ingredient_id,unit FROM ingredient WHERE ingredient_id LIKE ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, ingredientID);
+            res = stm.executeQuery();
+
+
+            while (res.next()) {
+                info.add(res.getString("name"));
+                info.add(ingredientID);
+                info.add(res.getString("unit"));
+            }
+
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during info collection of ingredient by id, Code: 8000030";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
+        }
+
+    }
 }

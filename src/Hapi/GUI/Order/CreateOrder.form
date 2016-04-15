@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Hapi.GUI.Order.ManageOrders">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Hapi.GUI.Order.CreateOrder">
   <grid id="27dc6" binding="createOrderPannel" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="464" height="400"/>
+      <xy x="20" y="20" width="401" height="306"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -37,7 +37,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="fa898" class="javax.swing.JButton" binding="deleteOrderButton">
+          <component id="fa898" class="javax.swing.JButton" binding="createNewCustomerButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -45,7 +45,7 @@
               <text value="Delete order"/>
             </properties>
           </component>
-          <component id="2ed68" class="javax.swing.JButton" binding="editOrderButton">
+          <component id="2ed68" class="javax.swing.JButton" binding="createMenyOrderButton" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -53,7 +53,7 @@
               <text value="Edit order"/>
             </properties>
           </component>
-          <component id="68f19" class="javax.swing.JButton" binding="viewOrderButton">
+          <component id="68f19" class="javax.swing.JButton" binding="createSubOrderButton" default-binding="true">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
