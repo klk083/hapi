@@ -427,7 +427,7 @@ public class Methods {
     }
 
     public static boolean setCustomerDiscount(int customerID, int discount) {
-        if (customerID < 1 || discount < 0) {
+        if (customerID < 1 || discount < 0 || discount > 100) {
             return false;
         }
 
