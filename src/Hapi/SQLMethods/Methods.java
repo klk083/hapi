@@ -470,7 +470,7 @@ public class Methods {
 
             res.next();
 
-            output = res.getInt("role");
+            output = res.getInt("role_id");
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of role ID, Code: 8000011";
