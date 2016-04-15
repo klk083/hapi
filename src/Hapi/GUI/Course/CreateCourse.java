@@ -34,9 +34,12 @@ public class CreateCourse extends JFrame{
     private JButton changeIngredientButton;
     private JLabel costP;
     private JLabel unit;
+    private JButton deleteIngredientButton;
 
-    int selectedTest;
 
+    int menuId;
+    private DefaultListModel listModel = new DefaultListModel();
+    private DefaultListModel listModel1 = new DefaultListModel();
     public CreateCourse() {
         super("eFood");
         setContentPane(createCourse);
@@ -160,10 +163,23 @@ public class CreateCourse extends JFrame{
 
             }
         });
+        deleteIngredientButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     public CreateCourse(int menuId) {
         super("eFood");
+        this.menuId = menuId;
+
         setContentPane(createCourse);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,14 +194,14 @@ public class CreateCourse extends JFrame{
         costP.setText(info.get(3));
 
         ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-        DefaultListModel listModel = new DefaultListModel();
+
         for (String anIngredient : list.get(0)) {
             listModel.addElement(anIngredient);
         }
         ingredientsIsNotInCourse.setModel(listModel);
 
         ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-        DefaultListModel listModel1 = new DefaultListModel();
+
         for (String anIngredient : list1.get(0)) {
             listModel1.addElement(anIngredient);
         }
@@ -246,41 +262,18 @@ public class CreateCourse extends JFrame{
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
                         try {
-                            boolean existInCourse=false;
-                            for(int i=0;i<list1.size();i++) {
-                                if(list1.get(1).get(i)==list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())) {
-                                    existInCourse =true;
-                                }
-                            }
-                            if(existInCourse) {
-                               if(Methods.removeIngredientFromMenu(menuId,
-                                        Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())))){
+                            if (Methods.addIngredientToMenu(
+                                    menuId,
+                                    Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                                CreateCourse temp = new CreateCourse(menuId);
+                                dispose();
 
-                                   if (Methods.addIngredientToMenu(menuId,Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
-                                       ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-                                       DefaultListModel listModel = new DefaultListModel();
-                                       for (String anIngredient : list.get(0)) {
-                                           listModel.addElement(anIngredient);
-                                       }
-                                       ingredientsIsNotInCourse.setModel(listModel);
 
-                                       ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-                                       DefaultListModel listModel1 = new DefaultListModel();
-                                       for (String anIngredient : list1.get(0)) {
-                                           listModel1.addElement(anIngredient);
-                                       }
-                                       ingredientsIsInCourse.setModel(listModel1);
-                                       ArrayList<String> info = Methods.getMenuInfo(menuId);
-                                       costP.setText(info.get(3));
-                                   } else {
-                                       showMessageDialog(null, "Something went wrong");
-                                   }
 
                                 } else {
                                    showMessageDialog(null, "something wrong with removing existing ingredient");
                                }
-                            }
-                        } catch (IllegalFormatException t) {
+                            } catch (IllegalFormatException t) {
                             System.out.println(t + "Wrong input in quantity");
                         }
                     }
@@ -300,22 +293,11 @@ public class CreateCourse extends JFrame{
                 if(ingredientsIsInCourse.isSelectionEmpty()) {
                     showMessageDialog(null,"You forgot to select an ingredient to remove");
                 } else{
-                    if(Methods.removeIngredientFromMenu(menuId,Integer.parseInt(list1.get(1).get(ingredientsIsInCourse.getSelectedIndex())))) {
-                        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-                        DefaultListModel listModel = new DefaultListModel();
-                        for (String anIngredient : list.get(0)) {
-                            listModel.addElement(anIngredient);
-                        }
-                        ingredientsIsNotInCourse.setModel(listModel);
+                    if(Methods.removeIngredientFromMenu(
+                            menuId, Integer.parseInt(list1.get(1).get(ingredientsIsInCourse.getSelectedIndex())) )) {
 
-                        ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-                        DefaultListModel listModel1 = new DefaultListModel();
-                        for (String anIngredient : list1.get(0)) {
-                            listModel1.addElement(anIngredient);
-                        }
-                        ingredientsIsInCourse.setModel(listModel1);
-                        ArrayList<String> info = Methods.getMenuInfo(menuId);
-                        costP.setText(info.get(3));
+                        CreateCourse temp = new CreateCourse(menuId);
+                        dispose();
                     }else{
                         showMessageDialog(null, "Something went wrong");
                     }
@@ -331,10 +313,21 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateIngredient temp = new CreateIngredient();
             }
         });
         changeIngredientButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        deleteIngredientButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              *
@@ -366,6 +359,23 @@ public class CreateCourse extends JFrame{
         });
 
 
+    }
+    private void updateLits() {
+        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+        listModel.removeAllElements();
+        for (String anIngredient : list.get(0)) {
+            listModel.addElement(anIngredient);
+        }
+        ingredientsIsNotInCourse.setModel(listModel);
+
+        ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
+        listModel1.removeAllElements();
+        for (String anIngredient : list1.get(0)) {
+            listModel1.addElement(anIngredient);
+        }
+        ingredientsIsInCourse.setModel(listModel1);
+        ArrayList<String> info = Methods.getMenuInfo(menuId);
+        costP.setText(info.get(3));
     }
 
 
