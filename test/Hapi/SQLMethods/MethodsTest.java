@@ -19,6 +19,11 @@ public class MethodsTest {
         String username = "testuser", password = "test", name = "Tester McTest";
         int role = 1;
         Methods.createUser(username, password, name, role);
+
+        String custName = "Billy Bob", address = "Bobgata 4", tlf = "0";
+        boolean isCompany = false;
+
+        Methods.createCustomer(custName, address, tlf, isCompany);
     }
 
 
@@ -146,26 +151,33 @@ public class MethodsTest {
 
     @Test
     public void listCustomers() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
-        boolean isCompany = false;
-
-        Methods.createCustomer(name, address, tlf, isCompany);
+        String name = "Billy Bob";
 
         ArrayList<ArrayList<String>> testRes1 = Methods.listCustomers(name);
 
-        int temp = Integer.parseInt(testRes1.get(1).get(0));
-        boolean testRes2 = Methods.deleteCustomer(temp);
-
         assertEquals("Billy Bob", testRes1.get(0).get(0));
-        assertEquals(true, testRes2);
     }
 
-/*
     @Test
     public void setCustomerDiscount() throws Exception {
+        String name = "Billy Bob";
+        int discount = 20;      // Discount is given in percentage
 
+        ArrayList<ArrayList<String>> list = Methods.listCustomers(name);
+
+        int id = Integer.parseInt(list.get(1).get(0));
+
+        boolean testRes1 = Methods.setCustomerDiscount(id, discount);
+
+        assertEquals(true, testRes1);
+
+        discount = 101;         // Above limit defined in discount-method
+
+        boolean testRes2 = Methods.setCustomerDiscount(id, discount);
+
+        assertEquals(false, testRes2);
     }
-
+/*
     @Test
     public void createOrder() throws Exception {
 
