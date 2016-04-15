@@ -939,15 +939,25 @@ public class Methods {
         boolean ok =false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM menu WHERE menu_id = ?";
+            SQLConnection.setAutoCommitOff(con);
+
+            String deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setString(1, menuID+"");
+            stm.setInt(1, menuID);
+
+            deleteSQL = "DELETE FROM menu WHERE menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, menuID);
 
             stm.executeUpdate();
+
+            con.commit();;
+
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during menu deletion, Code: 8000029";
             SQLConnection.writeMessage(e, errorMessage);
+            SQLConnection.rollback(con);
 
             ok = false;
         } finally {

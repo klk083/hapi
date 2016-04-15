@@ -21,6 +21,7 @@ public class MethodsTest {
         Methods.createUser(username, password, name, role);
     }
 
+
     @Test
     public void createUser() throws Exception {
         String username = "tester", password = "test", name = "Tester McTest";
@@ -126,13 +127,30 @@ public class MethodsTest {
     }
 
     @Test
-    public void listCustomers() throws Exception {
+    public void createCustomer1() throws Exception {
+        String name = "Billy Bob", address = "Bobgata 4", tlf = "12345678";
+        boolean isCompany = false;
+
+        boolean testRes = Methods.createCustomer(name, address, tlf, isCompany);
+
 
     }
 
     @Test
-    public void createCustomer() throws Exception {
+    public void createCustomer2() throws Exception {
 
+    }
+
+    @Test
+    public void listCustomers() throws Exception {
+        String name = "Billy Bob", address = "Bobgata 4", tlf = "12345678";
+        boolean isCompany = false;
+
+        Methods.createCustomer(name, address, tlf, isCompany);
+
+        ArrayList<ArrayList<String>> testRes = Methods.listCustomers(name);
+
+        assertEquals("Billy Bob", testRes.get(0).get(0));
     }
 
     @Test
