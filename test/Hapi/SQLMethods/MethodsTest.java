@@ -160,6 +160,7 @@ public class MethodsTest {
         assertEquals(true, testRes2);
     }
 
+/*
     @Test
     public void setCustomerDiscount() throws Exception {
 
@@ -201,7 +202,7 @@ public class MethodsTest {
     }
 
 
-
+*/
     @After
     public void after() throws Exception {
         String username = "testuser";
