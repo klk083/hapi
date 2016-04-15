@@ -951,7 +951,7 @@ public class Methods {
 
             stm.executeUpdate();
 
-            con.commit();;
+            con.commit();
 
             ok = true;
         } catch (SQLException e) {
