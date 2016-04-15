@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
  * Created by magnu on 11.04.2016.
  */
 public class MethodsTest {
-    // All tests are supposed to be run on a database built with our script.sql and test data given in the same file
+    // All tests are supposed to be run on a database built with our database.sql and test data given in the same file
 
     @Test
     public void createUser() throws Exception {
