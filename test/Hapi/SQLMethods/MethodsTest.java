@@ -26,25 +26,51 @@ public class MethodsTest {
     public void createUser() throws Exception {
         String username = "tester", password = "test", name = "Tester McTest";
         int role = 1;
-        boolean test = Methods.createUser(username, password, name, role);
-        Methods.deleteUser(username);
+        boolean testRes1 = Methods.createUser(username, password, name, role);
+        assertEquals(true, testRes1);
 
-        assertEquals(true, test);
+        boolean testRes2 = Methods.deleteUser(username);
+        assertEquals(true, testRes2);
     }
 
     @Test
-    public void login1() throws Exception {
-        boolean test = Methods.login("testuser", "test");
+    public void login() throws Exception {
+        boolean testRes1 = Methods.login("testuser", "test");
 
-        assertEquals(true, test);
-    }
+        assertEquals(true, testRes1);
 
-    @Test
-    public void login2() throws Exception {
+        //-----------------------------------------------------
+
         // This login should fail, unless someone explicitly created this user before running the test
-        boolean test = Methods.login("xxxxxxxxxx", "xxxxxxxxxxx");
+        boolean testRes2 = Methods.login("xxxxxxxxxx", "xxxxxxxxxxx");
 
-        assertEquals(false, test);
+        assertEquals(false, testRes2);
+
+        //-----------------------------------------------------
+
+        // This login tries to login with wrong password for username "testuser"
+        boolean testRes3 = Methods.login("testuser", "12345678");
+
+        assertEquals(false, testRes3);
+
+        //-----------------------------------------------------
+
+        // This login test creates a new user, changes its password and checks if the old and new password works
+        String username = "tester", password = "test", name = "Tester McTest";
+        int role = 1;
+        Methods.createUser(username, password, name, role);
+
+        String password2 = "test-test";
+        Methods.changePassword(username, password2);
+
+        boolean testRes4 = Methods.login(username, password2);
+
+        assertEquals(true, testRes4);
+
+        boolean testRes5 = Methods.login(username, password);
+
+        Methods.deleteUser(username);
+        assertEquals(false, testRes5);
     }
 
     @Test
@@ -58,29 +84,6 @@ public class MethodsTest {
 
         Methods.deleteUser(username);
         assertEquals(true, test);
-    }
-
-    @Test
-    public void login3() throws Exception {
-        // This login tries to login with wrong password for username "testuser"
-        boolean test = Methods.login("testuser", "12345678");
-
-        assertEquals(false, test);
-    }
-
-    @Test
-    public void login4() throws Exception {
-        String username = "tester", password = "test", name = "Tester McTest";
-        int role = 1;
-        Methods.createUser(username, password, name, role);
-
-        String password2 = "test-test";
-        Methods.changePassword(username, password2);
-
-        boolean testRes = Methods.login(username, password2);
-
-        Methods.deleteUser(username);
-        assertEquals(true, testRes);
     }
 
     @Test
@@ -119,38 +122,42 @@ public class MethodsTest {
     public void deleteUser() throws Exception {
         String username = "tester", password = "test", name = "Tester McTest";
         int role = 1;
-        Methods.createUser(username, password, name, role);
-
-        boolean testRes = Methods.deleteUser(username);
-
-        assertEquals(true, testRes);
+        boolean testRes1 = Methods.createUser(username, password, name, role);
+        boolean testRes2 = Methods.deleteUser(username);
+        assertEquals(true, testRes1);       // createUser test
+        assertEquals(true, testRes2);       // deleteUser test
     }
 
     @Test
-    public void createCustomer1() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "12345678";
+    public void createCustomer() throws Exception {
+        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
         boolean isCompany = false;
 
-        boolean testRes = Methods.createCustomer(name, address, tlf, isCompany);
+        boolean testRes1 = Methods.createCustomer(name, address, tlf, isCompany);
 
+        ArrayList<ArrayList<String>> list = Methods.listCustomers(name);
 
-    }
+        int temp = Integer.parseInt(list.get(1).get(0));
+        boolean testRes2 = Methods.deleteCustomer(temp);
 
-    @Test
-    public void createCustomer2() throws Exception {
-
+        assertEquals(true, testRes1);
+        assertEquals(true, testRes2);
     }
 
     @Test
     public void listCustomers() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "12345678";
+        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
         boolean isCompany = false;
 
         Methods.createCustomer(name, address, tlf, isCompany);
 
-        ArrayList<ArrayList<String>> testRes = Methods.listCustomers(name);
+        ArrayList<ArrayList<String>> testRes1 = Methods.listCustomers(name);
 
-        assertEquals("Billy Bob", testRes.get(0).get(0));
+        int temp = Integer.parseInt(testRes1.get(1).get(0));
+        boolean testRes2 = Methods.deleteCustomer(temp);
+
+        assertEquals("Billy Bob", testRes1.get(0).get(0));
+        assertEquals(true, testRes2);
     }
 
     @Test
