@@ -1,7 +1,8 @@
 package Hapi.SQLMethods;
 
-import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -26,6 +27,14 @@ public class MethodsTest {
     }
 
     @Test
+    public void login2() throws Exception {
+        // This login should fail, unless someone explicitly created this user before running the test
+        boolean test = Methods.login("xxxxxxxxxx", "xxxxxxxxxxx");
+
+        assertEquals(false, test);
+    }
+
+    @Test
     public void changePassword() throws Exception {
         String username ="test-test", password = "test-test";
         boolean test = Methods.changePassword(username, password);
@@ -34,7 +43,15 @@ public class MethodsTest {
     }
 
     @Test
-    public void login2() throws Exception {
+    public void login3() throws Exception {
+        // This login tries to login with old password for username "test-test"
+        boolean test = Methods.login("test-test", "test");
+
+        assertEquals(false, test);
+    }
+
+    @Test
+    public void login4() throws Exception {
         boolean test = Methods.login("test-test", "test-test");
 
         assertEquals(true, test);
@@ -42,6 +59,9 @@ public class MethodsTest {
 
     @Test
     public void listEmployees1() throws Exception {
+        String name = "Tester McTest";
+
+        ArrayList<ArrayList<String>> list = Methods.listEmployees(name);
 
     }
 
