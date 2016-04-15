@@ -806,13 +806,13 @@ public class Methods {
             con = SQLConnection.openConnection();
             String deleteSQL = "DELETE FROM menu_ingredient WHERE ingredient_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setInt(2, menuID);
             stm.setInt(1, ingredientID);
+            stm.setInt(2, menuID);
 
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during removal of menu from order, Code: 8000024";
+            String errorMessage = "SQL Exception during removal of ingredient from menu, Code: 8000031";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -907,7 +907,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id FROM ingredient WHERE name LIKE ?";
+            String selectSQL = "SELECT name, ingredient_id FROM ingredient WHERE name LIKE ? ORDER BY name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
