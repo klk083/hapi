@@ -907,21 +907,23 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id FROM ingredient WHERE name LIKE ? ORDER BY name ASC";
+            String selectSQL = "SELECT name, ingredient_id, unit FROM ingredient WHERE name LIKE ? ORDER BY name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
 
-            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>();
             int temp;
             while (res.next()) {
                 navn.add(res.getString("name"));
                 temp = res.getInt("ingredient_id");
                 id.add(Integer.toString(temp));
+                unit.add(res.getString("unit"));
             }
 
             ingredients.add(navn);
             ingredients.add(id);
+            ingredients.add(unit);
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of ingredients by search, Code: 8000028";
             SQLConnection.writeMessage(e, errorMessage);
@@ -971,7 +973,7 @@ public class Methods {
         ArrayList<String> info = new ArrayList();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id,unit FROM ingredient WHERE ingredient_id LIKE ?";
+            String selectSQL = "SELECT name, ingredient_id, unit FROM ingredient WHERE ingredient_id LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, ingredientID);
             res = stm.executeQuery();
