@@ -40,6 +40,9 @@ public class CreateCourse extends JFrame{
     int menuId;
     private DefaultListModel listModel = new DefaultListModel();
     private DefaultListModel listModel1 = new DefaultListModel();
+
+    ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+    ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
     public CreateCourse() {
         super("eFood");
         setContentPane(createCourse);
@@ -193,14 +196,14 @@ public class CreateCourse extends JFrame{
         descriptionL.setText(info.get(1));
         costP.setText(info.get(3));
 
-        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
+
 
         for (String anIngredient : list.get(0)) {
             listModel.addElement(anIngredient);
         }
         ingredientsIsNotInCourse.setModel(listModel);
 
-        ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
+        list1 = Methods.listIngredientsInMenu(menuId);
 
         for (String anIngredient : list1.get(0)) {
             listModel1.addElement(anIngredient);
@@ -220,7 +223,7 @@ public class CreateCourse extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ArrayList<ArrayList<String>> list = Methods.listIngredients(searchField.getText());
+               list = Methods.listIngredients(searchField.getText());
 
 
                 listModel.removeAllElements();
@@ -305,6 +308,7 @@ public class CreateCourse extends JFrame{
 
             }
         });
+
         createIngredientButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -313,9 +317,11 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIngredient temp = new CreateIngredient();
+                CreateIngredient temp = new CreateIngredient(menuId);
+                dispose();
             }
         });
+
         changeIngredientButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -324,9 +330,10 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                CreateIngredient temp = new CreateIngredient(menuId,(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())));
             }
         });
+
         deleteIngredientButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -350,8 +357,8 @@ public class CreateCourse extends JFrame{
                 if(ingredientsIsNotInCourse.isSelectionEmpty()) {
 
                 } else{
-                    ArrayList<String> info = Methods.getIngredientInfo(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
-                    unit.setText(info.get(2));
+
+                    unit.setText(list.get(2).get(ingredientsIsNotInCourse.getSelectedIndex()));
                 }
 
 
@@ -360,23 +367,7 @@ public class CreateCourse extends JFrame{
 
 
     }
-    private void updateLits() {
-        ArrayList<ArrayList<String>> list = Methods.listIngredients("");
-        listModel.removeAllElements();
-        for (String anIngredient : list.get(0)) {
-            listModel.addElement(anIngredient);
-        }
-        ingredientsIsNotInCourse.setModel(listModel);
 
-        ArrayList<ArrayList<String>> list1 = Methods.listIngredientsInMenu(menuId);
-        listModel1.removeAllElements();
-        for (String anIngredient : list1.get(0)) {
-            listModel1.addElement(anIngredient);
-        }
-        ingredientsIsInCourse.setModel(listModel1);
-        ArrayList<String> info = Methods.getMenuInfo(menuId);
-        costP.setText(info.get(3));
-    }
 
 
 

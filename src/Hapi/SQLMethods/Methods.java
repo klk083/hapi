@@ -973,7 +973,7 @@ public class Methods {
         ArrayList<String> info = new ArrayList();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name, ingredient_id, unit FROM ingredient WHERE ingredient_id LIKE ?";
+            String selectSQL = "SELECT name, ingredient_id, unit,price FROM ingredient WHERE ingredient_id LIKE ?";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, ingredientID);
             res = stm.executeQuery();
@@ -983,6 +983,7 @@ public class Methods {
                 info.add(res.getString("name"));
                 info.add(ingredientID);
                 info.add(res.getString("unit"));
+                info.add(res.getString("price"));
             }
 
 
