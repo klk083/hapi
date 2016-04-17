@@ -16,14 +16,24 @@ public class MethodsTest {
 
     @Before
     public void before() throws Exception {
+        // Setup of test user
         String username = "testuser", password = "test", name = "Tester McTest";
         int role = 1;
+
         Methods.createUser(username, password, name, role);
 
+        // Setup of test customer
         String custName = "Billy Bob", address = "Bobgata 4", tlf = "0";
         boolean isCompany = false;
 
         Methods.createCustomer(custName, address, tlf, isCompany);
+
+        // Setup of test orders
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(custName);
+        int customerId = Integer.parseInt(search.get(1).get(0));
+        String deliveryTime = "2016-11-11";
+
+        Methods.createOrder(customerId, deliveryTime);
     }
 
 
@@ -191,6 +201,11 @@ public class MethodsTest {
 
         assertEquals(true, testRes1);
     }
+
+    @Test
+    public void listOrders() throws Exception {
+
+    }
 /*
     @Test
     public void addMenuToOrder() throws Exception {
@@ -226,12 +241,17 @@ public class MethodsTest {
 */
     @After
     public void after() throws Exception {
+        // Removal of test user
         String username = "testuser";
         Methods.deleteUser(username);
 
+        // Removal of test customer
         String name = "Billy Bob";
         ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
         int customerID = Integer.parseInt(search.get(1).get(0));
         Methods.deleteCustomer(customerID);
-    }
+
+        // Removal of test order
+        ArrayList<Integer> orderSearch = Methods.listOrders(customerID);
+        Methods.deleteOrder(orderSearch.get(0));
 }

@@ -259,8 +259,8 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> listOrders(String partName) {
-        ArrayList<String> orders = new ArrayList<String>();
+    public static ArrayList<Integer> listOrders(String partName) {
+        ArrayList<Integer> orders = new ArrayList<Integer>();
         String forSQL = "%" + partName + "%";
 
         try {
@@ -273,7 +273,7 @@ public class Methods {
 
 
             while (res.next()) {
-                orders.add(res.getString("order_id"));
+                orders.add(res.getInt("order_id"));
                 }
 
 
@@ -943,9 +943,13 @@ public class Methods {
             con = SQLConnection.openConnection();
             SQLConnection.setAutoCommitOff(con);
 
-            String deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
-            stm = con.prepareStatement(deleteSQL);
-            stm.setInt(1, menuID);
+            try {
+                String deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, menuID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
 
             deleteSQL = "DELETE FROM menu WHERE menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
@@ -1023,6 +1027,54 @@ public class Methods {
             closeSQL();
 
             return orders;
+        }
+    }
+
+    public static boolean deleteOrder(int orderID) {
+        if(orderID < 1) {
+            return false;
+        }
+        boolean ok =false;
+        try {
+            con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+            try {
+                deleteSQL = "DELETE FROM menu_order WHERE order_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, orderID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                deleteSQL = "DELETE FROM subscription_order WHERE order_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, orderID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            deleteSQL =  "DELETE FROM order WHERE order_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, orderID);
+
+            stm.executeUpdate();
+
+            con.commit();
+
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during menu deletion, Code: 8000029";
+            SQLConnection.writeMessage(e, errorMessage);
+            SQLConnection.rollback(con);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
         }
     }
 }
