@@ -203,7 +203,7 @@ public class MethodsTest {
         // Delete test order
         ArrayList<String> orderSearch = Methods.listOrders(name);
 
-        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1));
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1)));
         assertEquals(true, testRes2);
     }
 
@@ -242,7 +242,7 @@ public class MethodsTest {
         // Delete test order
         ArrayList<String> orderSearch = Methods.listOrders(name);
 
-        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1));
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1)));
         assertEquals(true, testRes2);
     }
 /*
