@@ -254,4 +254,5 @@ public class MethodsTest {
         // Removal of test order
         ArrayList<Integer> orderSearch = Methods.listOrders(customerID);
         Methods.deleteOrder(orderSearch.get(0));
+    }
 }

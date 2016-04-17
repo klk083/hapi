@@ -942,9 +942,10 @@ public class Methods {
         try {
             con = SQLConnection.openConnection();
             SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
 
             try {
-                String deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
+                deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
                 stm = con.prepareStatement(deleteSQL);
                 stm.setInt(1, menuID);
 
