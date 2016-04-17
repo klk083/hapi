@@ -135,7 +135,7 @@ public class MethodsTest {
 
     @Test
     public void createCustomer() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
+        String name = "Billy Bob", address = "Bobgata 4", tlf = "1";
         boolean isCompany = false;
 
         boolean testRes1 = Methods.createCustomer(name, address, tlf, isCompany);
@@ -177,12 +177,21 @@ public class MethodsTest {
 
         assertEquals(false, testRes2);
     }
-/*
+
     @Test
     public void createOrder() throws Exception {
+        // Getting customerID of customer "Billy Bob"
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
 
+        String deliveryTime = "2016-11-11";
+
+        boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
+
+        assertEquals(true, testRes1);
     }
-
+/*
     @Test
     public void addMenuToOrder() throws Exception {
 
