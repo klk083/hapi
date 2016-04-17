@@ -997,4 +997,32 @@ public class Methods {
         }
 
     }
+
+    public static ArrayList<Integer> listOrders(int customerID) {
+        if (customerID < 1) {
+            return null;
+        }
+
+        ArrayList<Integer> orders = new ArrayList<Integer>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id FROM orders WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+            res = stm.executeQuery();
+
+            while (res.next()) {
+                orders.add(res.getInt("order_id"));
+            }
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of orders, Code: 8000034";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return orders;
+        }
+    }
 }
