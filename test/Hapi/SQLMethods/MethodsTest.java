@@ -210,11 +210,19 @@ public class MethodsTest {
     @Test
     public void listOrders() throws Exception {
         String name = "Billy Bob";
-
         ArrayList<String> testRes1 = Methods.listOrders(name);
-
         int testResSize = testRes1.size();
 
+        // Tests listOrders(String partName)
+        assertEquals(true, (testResSize > 0));
+
+
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
+        ArrayList<Integer> testRes2 = Methods.listOrders(customerId);
+        testResSize = testRes2.size();
+
+        // Tests listOrders(int customerID)
         assertEquals(true, (testResSize > 0));
 
     }
