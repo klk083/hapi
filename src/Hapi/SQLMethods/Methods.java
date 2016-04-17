@@ -259,8 +259,8 @@ public class Methods {
         }
     }
 
-    public static ArrayList<Integer> listOrders(String partName) {
-        ArrayList<Integer> orders = new ArrayList<Integer>();
+    public static ArrayList<String> listOrders(String partName) {
+        ArrayList<String> orders = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
 
         try {
@@ -273,7 +273,7 @@ public class Methods {
 
 
             while (res.next()) {
-                orders.add(res.getInt("order_id"));
+                orders.add(res.getString("order_id"));
                 }
 
 
