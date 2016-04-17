@@ -198,8 +198,13 @@ public class MethodsTest {
         String deliveryTime = "2016-11-11";
 
         boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
-
         assertEquals(true, testRes1);
+
+        // Delete test order
+        ArrayList<String> orderSearch = Methods.listOrders(name);
+
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1));
+        assertEquals(true, testRes2);
     }
 
     @Test
@@ -216,7 +221,21 @@ public class MethodsTest {
 
     @Test
     public void deleteOrder() throws Exception {
+        // Getting customerID of customer "Billy Bob"
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
 
+        String deliveryTime = "2016-11-11";
+
+        boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
+        assertEquals(true, testRes1);
+
+        // Delete test order
+        ArrayList<String> orderSearch = Methods.listOrders(name);
+
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1));
+        assertEquals(true, testRes2);
     }
 /*
     @Test
