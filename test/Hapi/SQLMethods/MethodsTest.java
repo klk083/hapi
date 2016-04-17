@@ -228,5 +228,10 @@ public class MethodsTest {
     public void after() throws Exception {
         String username = "testuser";
         Methods.deleteUser(username);
+
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerID = Integer.parseInt(search.get(1).get(0));
+        Methods.deleteCustomer(customerID);
     }
 }
