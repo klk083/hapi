@@ -145,7 +145,7 @@ public class MethodsTest {
 
     @Test
     public void createCustomer() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "1";
+        String name = "Billy Bob 2", address = "Bobgata 4", tlf = "1";
         boolean isCompany = false;
 
         boolean testRes1 = Methods.createCustomer(name, address, tlf, isCompany);
@@ -204,6 +204,18 @@ public class MethodsTest {
 
     @Test
     public void listOrders() throws Exception {
+        String name = "Billy Bob";
+
+        ArrayList<String> testRes1 = Methods.listOrders(name);
+
+        int testResSize = testRes1.size();
+
+        assertEquals(true, (testResSize > 0));
+
+    }
+
+    @Test
+    public void deleteOrder() throws Exception {
 
     }
 /*

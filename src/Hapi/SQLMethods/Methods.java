@@ -434,7 +434,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String updateSQL = "UPDATE customer SET customer.discount = ? WHERE customer.customer_id = ?";
+            String updateSQL = "UPDATE customer SET customer_discount = ? WHERE customer_id = ?";
             stm = con.prepareStatement(updateSQL);
             stm.setInt(1, discount);
             stm.setInt(2, customerID);
@@ -1057,7 +1057,7 @@ public class Methods {
                 stm.executeUpdate();
             } catch (SQLException e) {}
 
-            deleteSQL =  "DELETE FROM order WHERE order_id = ?";
+            deleteSQL =  "DELETE FROM orders WHERE order_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, orderID);
 
@@ -1067,7 +1067,7 @@ public class Methods {
 
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during menu deletion, Code: 8000029";
+            String errorMessage = "SQL Exception during order deletion, Code: 8000029";
             SQLConnection.writeMessage(e, errorMessage);
             SQLConnection.rollback(con);
 
