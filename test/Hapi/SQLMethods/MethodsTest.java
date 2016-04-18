@@ -261,14 +261,14 @@ public class MethodsTest {
         boolean testRes2 = Methods.removeMenuFromOrder(orderID, menuID);
         assertEquals(true, testRes2);
     }
-/*
-    @Test
-    public void addSubToOrder() throws Exception {
-
-    }
 
     @Test
     public void removeMenuFromOrder() throws Exception {
+
+    }
+/*
+    @Test
+    public void addSubToOrder() throws Exception {
 
     }
 
