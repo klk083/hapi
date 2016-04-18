@@ -234,7 +234,7 @@ public class MethodsTest {
         ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
         int customerId = Integer.parseInt(search.get(1).get(0));
 
-        String deliveryTime = "2016-11-11";
+        String deliveryTime = "2016-11-12";
 
         boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
         assertEquals(true, testRes1);
@@ -245,12 +245,23 @@ public class MethodsTest {
         boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1)));
         assertEquals(true, testRes2);
     }
-/*
+
     @Test
     public void addMenuToOrder() throws Exception {
+        String name = "Billy Bob", description = "";
+        int menuID= 1, quantity = 1;
 
+        ArrayList<String> search = Methods.listOrders(name);
+        int orderID = Integer.parseInt(search.get(0));
+        boolean testRes1 = Methods.addMenuToOrder(orderID, menuID, quantity, description);
+
+        assertEquals(true, testRes1);
+
+        // Delete test addition of menu
+        boolean testRes2 = Methods.removeMenuFromOrder(orderID, menuID);
+        assertEquals(true, testRes2);
     }
-
+/*
     @Test
     public void addSubToOrder() throws Exception {
 
