@@ -28,7 +28,7 @@ public class MethodsTest {
 
         Methods.createCustomer(custName, address, tlf, isCompany);
 
-        // Setup of test orders
+        // Setup of test order
         ArrayList<ArrayList<String>> search = Methods.listCustomers(custName);
         int customerId = Integer.parseInt(search.get(1).get(0));
         String deliveryTime = "2016-11-11";
@@ -272,7 +272,7 @@ public class MethodsTest {
     @Test
     public void removeMenuFromOrder() throws Exception {
         String name = "Billy Bob", description = "";
-        int menuID= 1, quantity = 1;
+        int menuID = 0, quantity = 1;
 
         // Creation of test order
         ArrayList<String> search = Methods.listOrders(name);
