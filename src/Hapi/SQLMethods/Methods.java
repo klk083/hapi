@@ -765,6 +765,33 @@ public class Methods {
         }
     }
 
+    public static boolean isMenuInOrder(int menuID) {
+        if (menuID < 1) {
+            return false;
+        }
+        boolean result=false;
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT * FROM menu NATURAL JOIN menu_order NATURAL JOIN orders WHERE delivered = FALSE AND menu_id = ?  ";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, menuID);
+            res = stm.executeQuery();
+
+            if(res.next()) {
+                result=true;
+            }
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during check if menu in active order, Code: 8000027";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return result;
+        }
+    }
+
     public static boolean addIngredient(String name, String unit, int price) {
         if (name.equals("") || unit.equals("") || price < 0) {
             return false;
@@ -888,6 +915,22 @@ public class Methods {
 
             try {
                 deleteSQL = "DELETE FROM menu_ingredient WHERE menu_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, menuID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                String updateSQL = "UPDATE menu_order SET menu_id = 0 WHERE menu_id = ?";
+                stm = con.prepareStatement(updateSQL);
+                stm.setInt(1, menuID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                deleteSQL = "DELETE FROM subscription_menu WHERE menu_id = ?";
                 stm = con.prepareStatement(deleteSQL);
                 stm.setInt(1, menuID);
 
@@ -1049,33 +1092,6 @@ public class Methods {
             closeSQL();
 
             return ok;
-        }
-    }
-
-    public static boolean isMenuInOrder(int menuID) {
-        if (menuID < 1) {
-            return false;
-        }
-        boolean result=false;
-
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT * FROM menu NATURAL JOIN menu_order NATURAL JOIN orders WHERE delivered = FALSE AND menu_id = ?  ";
-            stm = con.prepareStatement(selectSQL);
-            stm.setInt(1, menuID);
-            res = stm.executeQuery();
-
-            if(res.next()) {
-                result=true;
-            }
-
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during check if menu in active order, Code: 8000027";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return result;
         }
     }
 
