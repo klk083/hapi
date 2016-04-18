@@ -278,12 +278,17 @@ public class MethodsTest {
         ArrayList<String> search = Methods.listOrders(name);
         int orderID = Integer.parseInt(search.get(0));
         boolean testRes1 = Methods.addMenuToOrder(orderID, menuID, quantity, description);
-
         assertEquals(true, testRes1);
+
 
         // Delete test addition of menu
         boolean testRes2 = Methods.removeMenuFromOrder(orderID, menuID);
         assertEquals(true, testRes2);
+
+
+        // Test using negative values for orderID, menuID
+        boolean testRes3 = Methods.removeMenuFromOrder(-1, -1);
+        assertEquals(false, testRes3);
     }
 /*
     @Test
