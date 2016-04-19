@@ -1,8 +1,7 @@
 package Hapi.GUI.Subscription;
 
-import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,6 +62,20 @@ public class ManageSub extends JFrame {
 
             }
         });
-    }
-}
 
+
+        editSubButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "Please select a customer");
+                } else {
+                    dispose();
+                    EditSubscription editsub = new EditSubscription();
+                }
+            }
+            });
+
+        }
+
+    }
