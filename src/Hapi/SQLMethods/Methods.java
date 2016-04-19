@@ -833,10 +833,12 @@ public class Methods {
             stm.setInt(1, ingredientID);
 
             stm.executeUpdate();
+            con.commit();
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during removal of ingredient, Code: 8000017";
             SQLConnection.writeMessage(e, errorMessage);
+            SQLConnection.rollback(con);
 
             ok = false;
         } finally {
