@@ -391,10 +391,10 @@ public class Methods {
 
             while (res.next()) {
                 orders.add(res.getString("order_id"));
-                }
+            }
 
 
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of customers by search, Code: 8000006";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
@@ -828,7 +828,18 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM ingredient WHERE ingredient_id = ?";
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+            try {
+                deleteSQL = "DELETE FROM menu_ingredient WHERE ingredient_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, ingredientID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            deleteSQL = "DELETE FROM ingredient WHERE ingredient_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, ingredientID);
 
@@ -877,12 +888,12 @@ public class Methods {
 
     }
 
-    public static boolean createMenu(String name, String description, int price) {
-        if (name.equals("") || description.equals("") || price < 1) {
-            return false;
+    public static int createMenu(String name, String description, int price) {
+        if (name.equals("") || description.equals("") || price < 0) {
+            return -1;
         }
 
-        boolean ok = false;
+        int menuID = -1;
         try {
             con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO menu VALUES(DEFAULT, ?, ?, ?)";
@@ -892,16 +903,24 @@ public class Methods {
             stm.setString(3, description);
 
             stm.executeUpdate();
-            ok = true;
+
+
+            String selectSQL = "SELECT menu_id FROM menu WHERE menu_name = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, name);
+
+            res = stm.executeQuery();
+            res.next();
+            menuID = res.getInt("menu_id");
+
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during creation of menu, Code: 8000018";
             SQLConnection.writeMessage(e, errorMessage);
 
-            ok = false;
         } finally {
             closeSQL();
 
-            return ok;
+            return menuID;
         }
     }
 
@@ -969,7 +988,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "UPDATE menu SET menu.name = ?, menu.description = ?, menu.price = ? WHERE menu_id = ?";
+            String insertSQL = "UPDATE menu SET menu.menu_name = ?, menu.menu_description = ?, menu.menu_price = ? WHERE menu_id = ?";
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
             stm.setString(2, description);
@@ -1096,6 +1115,36 @@ public class Methods {
             return ok;
         }
     }
+//public static boolean deleteSubscription(String )
 
 
+    public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
+        if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "UPDATE ingredient SET ingredient.name = ?, ingredient.price = ?, ingredient.unit = ? WHERE ingredient_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setInt(2, price);
+            stm.setString(3, unit);
+            stm.setString(4, ingredientID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during change of ingredient, Code: 8000033";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
 }
+

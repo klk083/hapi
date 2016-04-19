@@ -20,9 +20,11 @@ public class CreateIngredient extends JFrame {
     private JButton OKButton;
     private JPanel createIP;
 
-    public CreateIngredient(int menuId) {
-        super("eFood");
+    boolean isNew;
 
+    public CreateIngredient(int menuId, boolean isNew) {
+        super("eFood");
+        this.isNew = isNew;
         setContentPane(createIP);
         pack();
 
@@ -48,7 +50,7 @@ public class CreateIngredient extends JFrame {
                     }
                 }
 
-                CreateCourse temp = new CreateCourse(menuId);
+                CreateCourse temp = new CreateCourse(menuId, isNew);
                 dispose();
 
             }
@@ -88,7 +90,7 @@ public class CreateIngredient extends JFrame {
                     }
                 }
 
-                CreateCourse temp = new CreateCourse(menuId);
+                CreateCourse temp = new CreateCourse(menuId,isNew);
                 dispose();
 
             }

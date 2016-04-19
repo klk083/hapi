@@ -38,7 +38,8 @@ public class CreateCourse extends JFrame{
     private JButton deleteIngredientButton;
 
 
-    int menuId;
+  int menuId;
+
     private DefaultListModel listModel = new DefaultListModel();
     private DefaultListModel listModel1 = new DefaultListModel();
 
@@ -47,7 +48,7 @@ public class CreateCourse extends JFrame{
 
     public CreateCourse(int menuId, boolean isNew) {
         super("eFood");
-        this.menuId = menuId;
+       this.menuId = menuId;
 
         setContentPane(createCourse);
         pack();
@@ -111,7 +112,8 @@ public class CreateCourse extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(isNew) {
                     if(Methods.deleteMenu(menuId)) {
-
+                        Courses temp = new Courses();
+                        dispose();
                     }else{
                         showMessageDialog(null, "Something wrong with deleting of the menu");
                     }
@@ -141,7 +143,7 @@ public class CreateCourse extends JFrame{
                             if (Methods.addIngredientToMenu(
                                     menuId,
                                     Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
-                                CreateCourse temp = new CreateCourse(menuId);
+                                CreateCourse temp = new CreateCourse(menuId,isNew);
                                 dispose();
 
 
@@ -172,7 +174,7 @@ public class CreateCourse extends JFrame{
                     if(Methods.removeIngredientFromMenu(
                             menuId, Integer.parseInt(list1.get(1).get(ingredientsIsInCourse.getSelectedIndex())) )) {
 
-                        CreateCourse temp = new CreateCourse(menuId);
+                        CreateCourse temp = new CreateCourse(menuId, isNew);
                         dispose();
                     }else{
                         showMessageDialog(null, "Something went wrong");
@@ -190,7 +192,7 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIngredient temp = new CreateIngredient(menuId);
+                CreateIngredient temp = new CreateIngredient(menuId, isNew);
                 dispose();
             }
         });
@@ -218,7 +220,7 @@ public class CreateCourse extends JFrame{
                 if(showConfirmDialog(null,"You sure u want to delete this ingredient?")==JOptionPane.YES_OPTION){
                     if(Methods.removeIngredient(Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())))) {
                         showMessageDialog(null,"Ingredient deleted");
-                        CreateCourse temp = new CreateCourse(menuId);
+                        CreateCourse temp = new CreateCourse(menuId, isNew);
                     } else{
                         showMessageDialog(null, "Ingredient not deleted, something went wrong");
                     }
