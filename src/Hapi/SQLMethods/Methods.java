@@ -997,4 +997,34 @@ public class Methods {
         }
 
     }
+
+    public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
+        if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "UPDATE ingredient SET ingredient.name = ?, ingredient.price = ?, ingredient.unit = ? WHERE ingredient_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setInt(2, price);
+            stm.setString(3, unit);
+            stm.setString(4, ingredientID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during change of ingredient, Code: 8000033";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
 }
