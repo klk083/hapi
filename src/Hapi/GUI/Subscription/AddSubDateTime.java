@@ -6,12 +6,6 @@ import javax.swing.*;
  * Created by Håkon on 15.04.2016.
  */
 public class AddSubDateTime {
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
-    private JComboBox comboBox6;
     private JCheckBox mondayCheckBox;
     private JCheckBox tuesdayCheckBox;
     private JCheckBox wednesdayCheckBox;
