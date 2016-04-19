@@ -74,8 +74,20 @@ public class ManageSub extends JFrame {
                     EditSubscription editsub = new EditSubscription();
                 }
             }
-            });
+        });
 
-        }
+        createSubscriptionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "Please select a customer");
+                } else {
+                    dispose();
+                    AddSubscription addsub = new AddSubscription();
+                }
+            }
+
+        });
 
     }
+}
