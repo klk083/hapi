@@ -15,6 +15,7 @@ INSERT INTO customer VALUES(DEFAULT, 'Ali', 'Gatehjørnet 20041', '92915412', 0,
 INSERT INTO customer VALUES(DEFAULT, 'Stig', 'Sveinveien 72', '90608050', 0, false);
 
 
+INSERT INTO menu VALUES(DEFAULT, 'Dummymat', 1, 'Dummy');
 INSERT INTO menu VALUES(DEFAULT, 'Sviskeburger', 65, 'Himmelsk burger med smak');
 INSERT INTO menu VALUES(DEFAULT, 'Reker', 200, 'Byens beste reker');
 INSERT INTO menu VALUES(DEFAULT, 'Kjøttburger uten kjøtt', 300, 'Utrolig bra kjøtt');
@@ -44,4 +45,3 @@ INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false)
-

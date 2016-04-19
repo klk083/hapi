@@ -605,30 +605,39 @@ public class Methods {
         }
     }
 
-    public static boolean createOrder(int customerID, String deliveryTime) {
+    public static int createOrder(int customerID, String deliveryTime) {
         if (deliveryTime.equals("") || customerID < 1) {
-            return false;
+            return -1;
         }
 
-        boolean ok = false;
+        int orderID = -1;
         try {
             con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "INSERT INTO orders VALUES(DEFAULT, ?, ?, false)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, customerID);
             stm.setString(2, deliveryTime);
 
             stm.executeUpdate();
-            ok = true;
+
+            String selectSQL = "SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1";
+            stm = con.prepareStatement(selectSQL);
+            res = stm.executeQuery();
+            res.next();
+
+            orderID = res.getInt("order_id");
+
+            con.commit();
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during order creation, Code: 8000012";
             SQLConnection.writeMessage(e, errorMessage);
 
-            ok = false;
+            orderID = -1;
         } finally {
             closeSQL();
 
-            return ok;
+            return orderID;
         }
     }
 
