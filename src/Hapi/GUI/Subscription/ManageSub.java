@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 //import static Hapi.SQLMethods.Methods.deleteSubscription;
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showOptionDialog;
 
@@ -106,5 +107,27 @@ public class ManageSub extends JFrame {
             }
         });
 
+        deleteSubButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                if(list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "You have not selected a course");
+                } else {
+                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                        showMessageDialog(null,"The course you are trying to delete has active orders");
+                    }
+                    if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
+                        if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                            showMessageDialog(null,"Course deleted");
+                            dispose();
+                            ManageSub temp = new ManageSub();
+                        } else {
+                            showMessageDialog(null,"Course not deleted");
+                        }
+                    }
+                }
+            }
+        });
     }
 }

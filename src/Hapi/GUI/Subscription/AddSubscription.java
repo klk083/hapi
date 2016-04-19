@@ -8,6 +8,9 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by Håkon on 19.04.2016.
@@ -20,14 +23,15 @@ public class AddSubscription extends JFrame {
     private JTextField searchField;
     private JList existingCourses;
     private JList subscriptionCourses;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
+    private JTextField quantity;
+    private JTextField pricefield;
+    private JTextField subName;
+    private JTextField description;
     private JButton addButton;
     private JButton removeButton;
+    private JLabel costP;
 
-   private DefaultListModel listModel = new DefaultListModel();
+    private DefaultListModel listModel = new DefaultListModel();
 
     ArrayList<ArrayList<String>> list = Methods.listIngredients("");
 
@@ -41,11 +45,12 @@ public class AddSubscription extends JFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
 
-      /* searchButton.addActionListener(new ActionListener(){
+
+        searchCourseButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
 
-               list = Methods.listOrders(searchField.getText());
+               list = Methods.listIngredients(searchField.getText());
 
                listModel.removeAllElements();
 
@@ -54,7 +59,7 @@ public class AddSubscription extends JFrame {
                 }
                 existingCourses.setModel(listModel);
             }
-        });*/
+        });
 
         backButton.addActionListener(new ActionListener(){
             @Override
@@ -63,6 +68,66 @@ public class AddSubscription extends JFrame {
                 ManageSub mansub = new ManageSub();
                 }
             });
+
+        /* addButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+           /* @Override
+            public void actionPerformed(ActionEvent e) {
+                if (existingCourses.isSelectionEmpty()) {
+                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
+                } else {
+                    if (quantity.getText().equals(null) || quantity.getText().equals("")) {
+                        showMessageDialog(null, "You didnt set a quantity");
+                    } else {
+                        try {
+                            if (Methods.addIngredientToMenu(
+                                    menuId,
+                                    Integer.parseInt(list.get(1).get(subscriptionCourses.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                                AddSubscription temp = new AddSubscription();
+                                dispose();
+
+
+
+                            } else {
+                                showMessageDialog(null, "something wrong with removing existing ingredient");
+                            }
+                        } catch (IllegalFormatException t) {
+                            System.out.println(t + "Wrong input in quantity");
+                        }
+                    }
+                }
+            }
+
+        });
+        /*removeButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+          /*  @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ex.isSelectionEmpty()) {
+                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                } else{
+                    if(Methods.removeIngredientFromMenu(
+                            menuId, Integer.parseInt(list1.get(1).get(ingredientsIsInCourse.getSelectedIndex())) )) {
+
+                        AddSubscription temp = new AddSubscription();
+                        dispose();
+                    }else{
+                        showMessageDialog(null, "Something went wrong");
+                    }
+                }
+
+            }
+        });*/
+
+
 
 
 
