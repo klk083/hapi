@@ -1088,11 +1088,20 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO menu_ingredient VALUES(?, ?, ?)";
+            String insertSQL = "SELECT quantity FROM menu_ingredient WHERE menu_id = ? AND ingredient_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, menuID);
+            stm.setInt(2, ingredientID);
+            stm.executeUpdate();
+            int antall=0;
+            if(res.next()) {
+                antall = Integer.parseInt(res.getString("quantity"));
+            }
+            insertSQL = "INSERT INTO menu_ingredient VALUES(?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, ingredientID);
             stm.setInt(2, menuID);
-            stm.setInt(3, quantity);
+            stm.setInt(3, quantity+antall);
 
             stm.executeUpdate();
             ok = true;
