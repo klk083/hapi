@@ -45,7 +45,3 @@ INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false)
-
-
-
-UPDATE menu SET menu_id = 0 WHERE menu_id = 1;

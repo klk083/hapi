@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Created by magnu on 11.04.2016.
  */
 public class MethodsTest {
-    // All tests are supposed to be run on a database built with our database.sql and test data given in database-insert.sql
+    // All tests are supposed to be run on a database built with our database.sql and test data given in test-data.sql
 
     @Before
     public void before() throws Exception {
@@ -249,7 +249,7 @@ public class MethodsTest {
     @Test
     public void addMenuToOrder() throws Exception {
         String name = "Billy Bob", description = "";
-        int menuID= 1, quantity = 1;
+        int menuID = 1, quantity = 1;
 
         ArrayList<String> search = Methods.listOrders(name);
         int orderID = Integer.parseInt(search.get(0));
@@ -272,7 +272,7 @@ public class MethodsTest {
     @Test
     public void removeMenuFromOrder() throws Exception {
         String name = "Billy Bob", description = "";
-        int menuID = 0, quantity = 1;
+        int menuID = 1, quantity = 1;
 
         // Creation of test order
         ArrayList<String> search = Methods.listOrders(name);
