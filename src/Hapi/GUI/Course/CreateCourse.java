@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -23,10 +24,10 @@ public class CreateCourse extends JFrame{
     private JList ingredientsIsInCourse;
     private JButton addButton;
     private JButton removeButton;
-    private JTextField price;
-    private JTextField courseName;
+    private JTextField priceF;
+    private JTextField courseNameF;
     private JButton backButton;
-    private JTextField descriptionL;
+    private JTextField descriptionF;
     private JTextField quantity;
     private JButton createButton;
     private JPanel createCourse;
@@ -191,9 +192,9 @@ public class CreateCourse extends JFrame{
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         ArrayList<String> info = Methods.getMenuInfo(menuId);
-        price.setText(info.get(2));
-        courseName.setText(info.get(0));
-        descriptionL.setText(info.get(1));
+        priceF.setText(info.get(2));
+        courseNameF.setText(info.get(0));
+        descriptionF.setText(info.get(1));
         costP.setText(info.get(3));
 
 
@@ -330,7 +331,7 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIngredient temp = new CreateIngredient(menuId,(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())));
+                CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
             }
         });
 
@@ -342,7 +343,16 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(showConfirmDialog(null,"You sure u want to delete this ingredient?")==JOptionPane.YES_OPTION){
+                    if(Methods.removeIngredient(Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())))) {
+                        showMessageDialog(null,"Ingredient deleted");
+                        CreateCourse temp = new CreateCourse(menuId);
+                    } else{
+                        showMessageDialog(null, "Ingredient not deleted, shomething went wrong");
+                    }
 
+
+                }
             }
         });
 
@@ -362,6 +372,23 @@ public class CreateCourse extends JFrame{
                 }
 
 
+            }
+        });
+
+        createButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Methods.changeMenu(menuId,courseNameF.getText(),Integer.parseInt(priceF.getText()),descriptionF.getText() )) {
+                    Courses temp = new Courses();
+                    dispose();
+                } else {
+                    showMessageDialog(null, "Something wrong when creating/changing course");
+                }
             }
         });
 

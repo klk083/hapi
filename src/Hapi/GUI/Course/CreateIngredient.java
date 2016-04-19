@@ -81,7 +81,7 @@ public class CreateIngredient extends JFrame {
                 if(nameF.getText().equals("") || unitF.getText().equals("") || priceF.getText().equals("")) {
                     showMessageDialog(null, "Ingredient not made");
                 } else {
-                    if(Methods.addIngredient(nameF.getText(),unitF.getText(),Integer.parseInt(priceF.getText()))) {
+                    if(Methods.changeIngredient(ingredientID, nameF.getText(),Integer.parseInt(priceF.getText()),unitF.getText())) {
                         showMessageDialog(null, "Ingredient added");
                     } else {
                         showMessageDialog(null,"Something went wrong when adding ingridient");
