@@ -886,12 +886,12 @@ public class Methods {
 
     }
 
-    public static boolean createMenu(String name, String description, int price) {
+    public static int createMenu(String name, String description, int price) {
         if (name.equals("") || description.equals("") || price < 1) {
-            return false;
+            return -1;
         }
 
-        boolean ok = false;
+        int menuID = -1;
         try {
             con = SQLConnection.openConnection();
             String insertSQL = "INSERT INTO menu VALUES(DEFAULT, ?, ?, ?)";
@@ -901,16 +901,24 @@ public class Methods {
             stm.setString(3, description);
 
             stm.executeUpdate();
-            ok = true;
+
+
+            String selectSQL = "SELECT menu_id FROM menu WHERE name = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, name);
+
+            res = stm.executeQuery();
+            res.next();
+            menuID = res.getInt("menu_id");
+
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during creation of menu, Code: 8000018";
             SQLConnection.writeMessage(e, errorMessage);
 
-            ok = false;
         } finally {
             closeSQL();
 
-            return ok;
+            return menuID;
         }
     }
 
