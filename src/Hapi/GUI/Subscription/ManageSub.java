@@ -2,6 +2,7 @@ package Hapi.GUI.Subscription;
 
 import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
+import Hapi.GUI.MainMenu.CEO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,7 +50,7 @@ public class ManageSub extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listMenu("");
 
 
                 DefaultListModel listModel = new DefaultListModel();
@@ -68,7 +69,7 @@ public class ManageSub extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "Please select a customer");
+                    showMessageDialog(null, "Please select a subscription");
                 } else {
                     dispose();
                     EditSubscription editsub = new EditSubscription();
@@ -76,17 +77,33 @@ public class ManageSub extends JFrame {
             }
         });
 
+        viewSubButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(list1.isSelectionEmpty()){
+                    showMessageDialog(null, "Please select a subscription");
+                }else{
+                    dispose();
+                    ViewSub viewsub = new ViewSub();
+                }
+            }
+        });
+
         createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "Please select a customer");
-                } else {
                     dispose();
                     AddSubscription addsub = new AddSubscription();
                 }
-            }
 
+        });
+
+        backButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                dispose();
+                CEO mainmenu = new CEO();
+            }
         });
 
     }

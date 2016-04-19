@@ -16,9 +16,8 @@ public class AddSubscription extends JFrame {
     private JPanel AddSubPanel;
     private JButton backButton;
     private JButton OKButton;
-    private JButton searchButton;
+    private JButton searchCourseButton;
     private JTextField searchField;
-    private JComboBox comboBox1;
     private JList existingCourses;
     private JList subscriptionCourses;
     private JTextField textField2;
