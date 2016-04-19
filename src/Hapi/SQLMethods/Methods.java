@@ -464,6 +464,38 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listMenusInOrder(int orderID) {
+        if (orderID < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, orderID);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                id.add(res.getString("menu_id"));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
+        }
+    }
+
     public static ArrayList<ArrayList<String>> listIngredients(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
