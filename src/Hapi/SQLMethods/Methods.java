@@ -469,7 +469,7 @@ public class Methods {
             return null;
         }
 
-        ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> menus = new ArrayList<ArrayList<String>>();
 
         try {
             con = SQLConnection.openConnection();
@@ -484,15 +484,15 @@ public class Methods {
                 id.add(res.getString("menu_id"));
             }
 
-            ingredients.add(navn);
-            ingredients.add(id);
+            menus.add(navn);
+            menus.add(id);
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
 
-            return ingredients;
+            return menus;
         }
     }
 
