@@ -16,9 +16,24 @@ public class MethodsTest {
 
     @Before
     public void before() throws Exception {
+        // Setup of test user
         String username = "testuser", password = "test", name = "Tester McTest";
         int role = 1;
+
         Methods.createUser(username, password, name, role);
+
+        // Setup of test customer
+        String custName = "Billy Bob", address = "Bobgata 4", tlf = "0";
+        boolean isCompany = false;
+
+        Methods.createCustomer(custName, address, tlf, isCompany);
+
+        // Setup of test order
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(custName);
+        int customerId = Integer.parseInt(search.get(1).get(0));
+        String deliveryTime = "2016-11-11";
+
+        Methods.createOrder(customerId, deliveryTime);
     }
 
 
@@ -130,7 +145,7 @@ public class MethodsTest {
 
     @Test
     public void createCustomer() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
+        String name = "Billy Bob 2", address = "Bobgata 4", tlf = "1";
         boolean isCompany = false;
 
         boolean testRes1 = Methods.createCustomer(name, address, tlf, isCompany);
@@ -146,46 +161,141 @@ public class MethodsTest {
 
     @Test
     public void listCustomers() throws Exception {
-        String name = "Billy Bob", address = "Bobgata 4", tlf = "0";
-        boolean isCompany = false;
-
-        Methods.createCustomer(name, address, tlf, isCompany);
+        String name = "Billy Bob";
 
         ArrayList<ArrayList<String>> testRes1 = Methods.listCustomers(name);
 
-        int temp = Integer.parseInt(testRes1.get(1).get(0));
-        boolean testRes2 = Methods.deleteCustomer(temp);
-
         assertEquals("Billy Bob", testRes1.get(0).get(0));
-        assertEquals(true, testRes2);
     }
 
-/*
     @Test
     public void setCustomerDiscount() throws Exception {
+        String name = "Billy Bob";
+        int discount = 20;      // Discount is given in percentage
 
+        ArrayList<ArrayList<String>> list = Methods.listCustomers(name);
+
+        int id = Integer.parseInt(list.get(1).get(0));
+
+        boolean testRes1 = Methods.setCustomerDiscount(id, discount);
+
+        assertEquals(true, testRes1);
+
+        discount = 101;         // Above limit defined in discount-method
+
+        boolean testRes2 = Methods.setCustomerDiscount(id, discount);
+
+        assertEquals(false, testRes2);
     }
 
     @Test
     public void createOrder() throws Exception {
+        // Getting customerID of customer "Billy Bob"
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
 
+        String deliveryTime = "2016-11-11";
+
+        boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
+        assertEquals(true, testRes1);
+
+        // Delete test order
+        ArrayList<String> orderSearch = Methods.listOrders(name);
+
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1)));
+        assertEquals(true, testRes2);
+    }
+
+    @Test
+    public void listOrders() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<String> testRes1 = Methods.listOrders(name);
+        int testResSize = testRes1.size();
+
+        // Tests listOrders(String partName)
+        assertEquals(true, (testResSize > 0));
+
+
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
+        ArrayList<Integer> testRes2 = Methods.listOrders(customerId);
+        testResSize = testRes2.size();
+
+        // Tests listOrders(int customerID)
+        assertEquals(true, (testResSize > 0));
+
+    }
+
+    @Test
+    public void deleteOrder() throws Exception {
+        // Getting customerID of customer "Billy Bob"
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerId = Integer.parseInt(search.get(1).get(0));
+
+        String deliveryTime = "2016-11-12";
+
+        boolean testRes1 = Methods.createOrder(customerId, deliveryTime);
+        assertEquals(true, testRes1);
+
+        // Delete test order
+        ArrayList<String> orderSearch = Methods.listOrders(name);
+
+        boolean testRes2 = Methods.deleteOrder(Integer.parseInt(orderSearch.get(1)));
+        assertEquals(true, testRes2);
     }
 
     @Test
     public void addMenuToOrder() throws Exception {
+        String name = "Billy Bob", description = "";
+        int menuID= 1, quantity = 1;
 
-    }
+        ArrayList<String> search = Methods.listOrders(name);
+        int orderID = Integer.parseInt(search.get(0));
+        boolean testRes1 = Methods.addMenuToOrder(orderID, menuID, quantity, description);
 
-    @Test
-    public void addSubToOrder() throws Exception {
+        assertEquals(true, testRes1);
 
+
+        // Test using negative values for orderID, menuID and quantity
+        boolean testRes2 = Methods.addMenuToOrder(-1, -1, -1, description);
+
+        assertEquals(false, testRes2);
+
+
+        // Delete test addition of menu
+        boolean testRes3 = Methods.removeMenuFromOrder(orderID, menuID);
+        assertEquals(true, testRes3);
     }
 
     @Test
     public void removeMenuFromOrder() throws Exception {
+        String name = "Billy Bob", description = "";
+        int menuID = 0, quantity = 1;
+
+        // Creation of test order
+        ArrayList<String> search = Methods.listOrders(name);
+        int orderID = Integer.parseInt(search.get(0));
+        boolean testRes1 = Methods.addMenuToOrder(orderID, menuID, quantity, description);
+        assertEquals(true, testRes1);
+
+
+        // Delete test addition of menu
+        boolean testRes2 = Methods.removeMenuFromOrder(orderID, menuID);
+        assertEquals(true, testRes2);
+
+
+        // Test using negative values for orderID, menuID
+        boolean testRes3 = Methods.removeMenuFromOrder(-1, -1);
+        assertEquals(false, testRes3);
+    }
+/*
+    @Test
+    public void addSubToOrder() throws Exception {
 
     }
-
+/*
     @Test
     public void addIngredient() throws Exception {
 
@@ -205,7 +315,18 @@ public class MethodsTest {
 */
     @After
     public void after() throws Exception {
+        // Removal of test user
         String username = "testuser";
         Methods.deleteUser(username);
+
+        // Removal of test customer
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerID = Integer.parseInt(search.get(1).get(0));
+        Methods.deleteCustomer(customerID);
+
+        // Removal of test order
+        ArrayList<Integer> orderSearch = Methods.listOrders(customerID);
+        Methods.deleteOrder(orderSearch.get(0));
     }
 }
