@@ -828,7 +828,18 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM ingredient WHERE ingredient_id = ?";
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+            try {
+                deleteSQL = "DELETE FROM menu_ingredient WHERE ingredient_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, ingredientID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            deleteSQL = "DELETE FROM ingredient WHERE ingredient_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, ingredientID);
 
