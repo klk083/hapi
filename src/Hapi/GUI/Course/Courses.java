@@ -111,7 +111,7 @@ public class Courses extends JFrame{
                 if(list1.isSelectionEmpty()){
                     showMessageDialog(null, "You forgot to select a course");
                 } else {
-                    CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())),false);
                     dispose();
                 }
             }
@@ -146,8 +146,14 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateCourse temp = new CreateCourse();
-                dispose();
+                int menuID = Methods.createMenu("name","description",0);
+                if(menuID != -1) {
+                    CreateCourse temp = new CreateCourse(menuID,true);
+                    dispose();
+                } else {
+                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                }
+
             }
         });
 
