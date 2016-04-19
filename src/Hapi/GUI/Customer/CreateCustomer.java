@@ -1,5 +1,6 @@
 package Hapi.GUI.Customer;
 
+import Hapi.GUI.Order.ManageCustomerOrders;
 import Hapi.GUI.Order.ManageOrders;
 import Hapi.SQLMethods.Methods;
 
@@ -66,9 +67,12 @@ public class CreateCustomer extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 switch(back) {
-                    case 1: ManageOrders orders = new ManageOrders();
+                    case 1: ManageOrders orders2 = new ManageOrders();
                         break;
                     case 2: ManageCustomers customers = new ManageCustomers();
+                        break;
+                    case 3: ManageCustomerOrders orders = new ManageCustomerOrders();
+                        break;
                 }
 
             }

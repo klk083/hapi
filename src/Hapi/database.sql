@@ -22,7 +22,7 @@ CREATE TABLE customer(
   CONSTRAINT customer_pk PRIMARY KEY(customer_id));
 
 CREATE TABLE menu(
-  menu_id INTEGER NOT NULL,
+  menu_id INTEGER AUTO_INCREMENT,
   menu_name VARCHAR(30) NOT NULL,
   menu_price INTEGER NOT NULL,
   menu_description VARCHAR(100),
