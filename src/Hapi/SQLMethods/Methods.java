@@ -1258,11 +1258,12 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "SELECT quantity FROM subscription_menu WHERE menu_id = ? AND subscription_id = ?";
+            String insertSQL = "SELECT quantity FROM subscription_menu WHERE menu_id = ? AND subscription_id =?";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, menuID);
             stm.setInt(2, subscriptionId);
-            stm.executeUpdate();
+            res = stm.executeQuery();
+
             int antall=0;
             if(res.next()) {
                 antall = Integer.parseInt(res.getString("quantity"));
@@ -1274,6 +1275,7 @@ public class Methods {
             stm.setInt(3, quantity+antall);
 
             stm.executeUpdate();
+
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000039";
@@ -1332,7 +1334,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id, quantity FROM subscription_menu NATURAL JOIN menu WHERE subscription_id = ? ORDER BY name ASC";
+            String selectSQL = "SELECT menu_name, menu_id, quantity FROM subscription_menu NATURAL JOIN menu WHERE subscription_id = ? ORDER BY menu_name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, subscriptionId);
             res = stm.executeQuery();

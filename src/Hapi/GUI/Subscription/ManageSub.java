@@ -37,7 +37,7 @@ public class ManageSub extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
-        ArrayList<ArrayList<String>> list = Methods.listCustomers("");
+        ArrayList<ArrayList<String>> list = Methods.listSubs("");
 
         DefaultListModel listModel = new DefaultListModel();
 
