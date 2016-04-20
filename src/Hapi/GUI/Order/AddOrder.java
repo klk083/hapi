@@ -42,7 +42,7 @@ public class AddOrder extends JFrame {
 
 
 
-    public AddOrder(String selected, int orderId, boolean isNew) {
+    public AddOrder(String selected, int orderId, int selectedId, boolean isNew) {
         super("eFood");
         this.orderId = orderId;
 
@@ -83,7 +83,7 @@ public class AddOrder extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ManageCustomerOrders orders = new ManageCustomerOrders();
+                ManageOrders orders = new ManageOrders(selected, selectedId );
             }
         });
 
@@ -260,7 +260,7 @@ public class AddOrder extends JFrame {
                         try {
                             if (Methods.addMenuToOrder(
                                         orderId, Integer.parseInt(list.get(1).get(menuNotInOrder.getSelectedIndex())), Integer.parseInt(quantity.getText()), description.getText())) {
-                                    AddOrder temp = new AddOrder(selected, orderId, isNew);
+                                    AddOrder temp = new AddOrder(selected,orderId, selectedId, true );
                                     dispose();
 
 

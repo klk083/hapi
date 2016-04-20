@@ -84,8 +84,9 @@ public class ManageCustomerOrders extends JFrame {
                 if(list1.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
                     } else {
+
                     dispose();
-                    ManageOrders order = new ManageOrders((String) list1.getSelectedValue(), Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ManageOrders order = new ManageOrders((String) list1.getSelectedValue(),Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
 
                 }
                 }
