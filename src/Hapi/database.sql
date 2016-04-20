@@ -1,6 +1,6 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 DROP TABLE IF EXISTS subscription_menu;
-DROP TABLE IF EXISTS subscription_order;
+DROP TABLE IF EXISTS subscription_customer;
 DROP TABLE IF EXISTS menu_order;
 DROP TABLE IF EXISTS menu_ingredient;
 DROP TABLE IF EXISTS ingredient;
@@ -32,8 +32,8 @@ CREATE TABLE orders(
   order_id INTEGER AUTO_INCREMENT,
   customer_id INTEGER NOT NULL,
   delivery_time DATETIME,
-  ready BOOLEAN,
-  delivered BOOLEAN,
+  ready BOOLEAN NOT NULL,
+  delivered BOOLEAN NOT NULL,
   CONSTRAINT order_pk PRIMARY KEY(order_id));
 
 CREATE TABLE menu_order(

@@ -493,7 +493,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY name ASC";
+            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, orderID);
             res = stm.executeQuery();
