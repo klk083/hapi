@@ -611,7 +611,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT customer_name, customer_id FROM customer WHERE customer_name LIKE ?";
+            String selectSQL = "SELECT customer_name, customer_id FROM customer WHERE customer_name LIKE ? ORDER BY customer_name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setString(1, forSQL);
             res = stm.executeQuery();
