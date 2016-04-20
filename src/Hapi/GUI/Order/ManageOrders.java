@@ -97,7 +97,7 @@ public class ManageOrders extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int orderId = Methods.createOrder(selectedInt,"1000-01-01 00:00:00");
                 dispose();
-                AddOrder order = new AddOrder(selected, orderId, true);
+                AddOrder order = new AddOrder(selected, orderId,selectedInt, true);
             }
         });
         deleteOrderButton.addActionListener(new ActionListener() {
