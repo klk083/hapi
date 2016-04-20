@@ -62,6 +62,8 @@ CREATE TABLE employee(
 
 CREATE TABLE subscription(
   subscription_id INTEGER AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  price INTEGER NOT NULL,
   description VARCHAR(100),
   CONSTRAINT subscription_pk PRIMARY KEY(subscription_id));
 
