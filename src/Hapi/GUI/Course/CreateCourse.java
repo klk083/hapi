@@ -270,5 +270,4 @@ public class CreateCourse extends JFrame{
 
 
 
-
 }

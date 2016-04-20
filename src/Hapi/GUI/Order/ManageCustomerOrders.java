@@ -1,6 +1,7 @@
 package Hapi.GUI.Order;
 
 import Hapi.GUI.Customer.CreateCustomer;
+import Hapi.GUI.MainMenu.CEO;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -19,8 +20,6 @@ public class ManageCustomerOrders extends JFrame {
     private JButton searchButton;
     private JList list1;
     private JButton createCustomerButton;
-    private JCheckBox checkBox1;
-    private JCheckBox checkBox2;
     private JButton backButton;
     private JButton nextButton;
     private JPanel manageCustomerOrderPannel;
@@ -50,7 +49,7 @@ public class ManageCustomerOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ManageOrders orders = new ManageOrders();
+                CEO ceo = new CEO();
             }
         });
 
@@ -81,15 +80,12 @@ public class ManageCustomerOrders extends JFrame {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() && (!checkBox1.isSelected() || !checkBox2.isSelected() )) {
+                //int orderId = Methods.createOrder(1,"1000-01-01 00:00:00");
+                if(list1.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
-                } else if (checkBox1.isSelected() ){
+                    } else {
                     dispose();
-                    AddOrder order = new AddOrder((String) list1.getSelectedValue());
-                }
-                else if( checkBox2.isSelected()){
-                    dispose();
-                    AddSubscription order = new AddSubscription((String) list1.getSelectedValue());
+                    ManageOrders order = new ManageOrders((String) list1.getSelectedValue(), Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
 
                 }
                 }
