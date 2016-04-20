@@ -311,6 +311,40 @@ public class MethodsTest {
     public void createMenu() throws Exception {
 
     }
+*/
+    @Test
+    public void listMenu() throws Exception {
+        String testmat = "Dummymat";
+
+        // Empty search to list all items in menu
+        ArrayList<ArrayList<String>> search = Methods.listMenu("");
+        int testRes1 = search.get(0).size();
+
+        // Test data only includes 11 items in menu
+        assertEquals(11, testRes1);
+
+
+        // First search result should be "Dummymat"
+        search = Methods.listMenu(testmat);
+        String testRes2 = search.get(0).get(0);
+
+        assertEquals(testmat, testRes2);
+    }
+/*
+    @Test
+    public void listMenusInOrder() throws Exception {
+
+    }
+
+    @Test
+    public void listIngredients() throws Exception {
+
+    }
+
+    @Test
+    public void listIngredientsInMenu() throws Exception {
+
+    }
 
 
 */

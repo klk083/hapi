@@ -1165,8 +1165,8 @@ public class Methods {
             return ok;
         }
     }
-//public static boolean deleteSubscription(String )
 
+    //public static boolean deleteSubscription(String )
 
     public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
         if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
