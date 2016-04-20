@@ -1424,38 +1424,67 @@ public class Methods {
 
 
 
-    /*public static ArrayList<ArrayList<String>> listOrdersChauffeur() {
+    public static ArrayList<ArrayList<String>> listOrdersForDeliveries() {
 
-
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT order_id,customer_adress FROM orders NATURAL customer WHERE ready = true ORDER BY name ASC";
+            String selectSQL = "SELECT order_id,customer_address FROM (orders NATIONAL JOIN menu JOIN orders NATURAL JOIN  subscription  JOIN customer WHERE readyF = true ORDER BY customer_address ASC";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, forSQL);
             res = stm.executeQuery();
 
-            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>();
-            int temp;
+            ArrayList<String> adress = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp=0;
             while (res.next()) {
-                navn.add(res.getString("name"));
-                temp = res.getInt("ingredient_id");
+                adress.add(res.getString("customer_address"));
+                temp = res.getInt("order_id");
                 id.add(Integer.toString(temp));
-                unit.add(res.getString("unit"));
             }
 
-            ingredients.add(navn);
-            ingredients.add(id);
-            ingredients.add(unit);
+            list.add(adress);
+            list.add(id);
+
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of ingredients by search, Code: 8000028";
+            String errorMessage = "SQL Exception during listing of ready orders, Code: 8000043";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
 
-            return ingredients;
+            return list;
         }
     }
-    */
+
+    public static ArrayList<ArrayList<String>> listOrdersForChauffeur(int loginID) {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,customer_address FROM orders  NATURAL JOIN  customer NATURAL JOIN  order_chauffeur WHERE ready = true AND employee_id = ? ORDER BY customer_address ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, loginID);
+            res = stm.executeQuery();
+
+            ArrayList<String> adress = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp=0;
+            while (res.next()) {
+                adress.add(res.getString("customer_address"));
+                temp = res.getInt("order_id");
+                id.add(Integer.toString(temp));
+            }
+
+            list.add(adress);
+            list.add(id);
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of orders on chauffeur, Code: 8000042";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
 
 }
 
