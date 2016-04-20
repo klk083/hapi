@@ -1,5 +1,10 @@
 # noinspection SqlNoDataSourceInspectionForFile
 INSERT INTO employee VALUES(DEFAULT, 1, "admin", "admin", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "Ivar", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+INSERT INTO employee VALUES(DEFAULT, 4, "Luft lars", "Luft", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+
+
+
 
 INSERT INTO role VALUES(DEFAULT, 'CEO');
 INSERT INTO role VALUES(DEFAULT, 'Secretary');
