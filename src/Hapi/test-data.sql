@@ -28,7 +28,7 @@ INSERT INTO menu VALUES(DEFAULT, 'Fritert hamster', 100, 'Myk og fyldig smak');
 INSERT INTO menu VALUES(DEFAULT, 'Hakkemat', 500, 'Mat for de som er litt ekstra fan av hakking');
 
 
-INSERT INTO subscription VALUES(DEFAULT, 'Himmelsk burger med smak');
+INSERT INTO subscription VALUES(DEFAULT, 'Burger abonnement', 100,'Himmelsk burger med smak');
 
 INSERT INTO ingredient VALUES(DEFAULT, 'Burger', 'stk', 100);
 INSERT INTO ingredient VALUES(DEFAULT, 'Ost', 'g', 1);
@@ -44,4 +44,35 @@ INSERT INTO menu_ingredient VALUES(2, 5, 2);
 INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
-INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false)
+INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false);
+
+
+-- Weekdays for delivery: monday, tuesday, wednesday, thursday, friday, saturday, sunday
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, false, false, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, false, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, false, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, false, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, false, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, false, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, true, false);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, true, true);
+INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, false, true);
