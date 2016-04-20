@@ -1,9 +1,7 @@
 # noinspection SqlNoDataSourceInspectionForFile
 INSERT INTO employee VALUES(DEFAULT, 1, "admin", "admin", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "Ivar", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-INSERT INTO employee VALUES(DEFAULT, 4, "Luft lars", "Luft", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-
-
+INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "ivar", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
+INSERT INTO employee VALUES(DEFAULT, 4, "Luft lars", "luft", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
 
 
 INSERT INTO role VALUES(DEFAULT, 'CEO');
@@ -49,36 +47,6 @@ INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false);
-
--- Weekdays for delivery: monday, tuesday, wednesday, thursday, friday, saturday, sunday
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, false, false, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, false, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, true, true, true, true, true, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, false, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, true, true, true, true, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, false, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, true, true, true, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, false, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, true, true, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, false, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, true, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, true, false);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, true, true);
-INSERT INTO sub_delivery_days VALUES(DEFAULT, false, false, false, false, false, false, true);
 
 
 

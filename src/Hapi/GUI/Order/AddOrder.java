@@ -19,8 +19,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class AddOrder extends JFrame {
     private JButton searchCourseButton;
-    private JList list1;
-    private JList list2;
+    private JList menuNotInOrder;
+    private JList menuInOrder;
     private JButton createCourseButton;
     private JButton addButton;
     private JButton removeButton;
@@ -34,12 +34,18 @@ public class AddOrder extends JFrame {
     private JTextField quantity;
     private JTextField textField1;
     private JPanel addOrderPannel;
+    private JTextField description;
 
     int orderId;
 
 
-    public AddOrder(String selectedValue) {
+
+
+
+    public AddOrder(String selected, int orderId, boolean isNew) {
         super("eFood");
+        this.orderId = orderId;
+
         setContentPane(addOrderPannel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,16 +54,30 @@ public class AddOrder extends JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 
-        ArrayList<ArrayList<String>> list = Methods.listMenu("");
-
-
         DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel listModel2 = new DefaultListModel();
+
+
+        ArrayList<ArrayList<String>> list = Methods.listMenu("");
+        ArrayList<ArrayList<String>> list2 = Methods.listMenusInOrder(orderId);
+
+
 
 
         for (String enCourse : list.get(0)) {
             listModel.addElement(enCourse);
         }
-        list1.setModel(listModel);
+        menuNotInOrder.setModel(listModel);
+
+
+
+        list2 = Methods.listMenusInOrder(orderId);
+
+        for (String anIngredient : list2.get(0)) {
+            listModel2.addElement(anIngredient);
+        }
+        menuInOrder.setModel(listModel2);
+
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -86,7 +106,7 @@ public class AddOrder extends JFrame {
                 for (String enCourse : list.get(0)) {
                     listModel.addElement(enCourse);
                 }
-                list1.setModel(listModel);
+                menuNotInOrder.setModel(listModel);
             }
         });
 
@@ -222,6 +242,39 @@ public class AddOrder extends JFrame {
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 
             }
+        });
+        addButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menuNotInOrder.isSelectionEmpty()) {
+                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
+                } else {
+                    if (quantity.getText().equals(null) || quantity.getText().equals("")) {
+                        showMessageDialog(null, "You didnt set a quantity");
+                    } else {
+                        try {
+                            if (Methods.addMenuToOrder(
+                                        orderId, Integer.parseInt(list.get(1).get(menuNotInOrder.getSelectedIndex())), Integer.parseInt(quantity.getText()), description.getText())) {
+                                    AddOrder temp = new AddOrder(selected, orderId, isNew);
+                                    dispose();
+
+
+
+                            } else {
+                                showMessageDialog(null, "something wrong with removing existing ingredient");
+                            }
+                        } catch (IllegalFormatException t) {
+                            System.out.println(t + "Wrong input in quantity");
+                        }
+                    }
+                }
+            }
+
         });
     }
 }

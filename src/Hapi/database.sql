@@ -1,6 +1,6 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 DROP TABLE IF EXISTS subscription_menu;
-DROP TABLE IF EXISTS subscription_order;
+DROP TABLE IF EXISTS subscription_customer;
 DROP TABLE IF EXISTS menu_order;
 DROP TABLE IF EXISTS menu_ingredient;
 DROP TABLE IF EXISTS ingredient;
@@ -32,7 +32,8 @@ CREATE TABLE orders(
   order_id INTEGER AUTO_INCREMENT,
   customer_id INTEGER NOT NULL,
   delivery_time DATETIME,
-  delivered BOOLEAN,
+  ready BOOLEAN NOT NULL,
+  delivered BOOLEAN NOT NULL,
   CONSTRAINT order_pk PRIMARY KEY(order_id));
 
 CREATE TABLE menu_order(
@@ -70,23 +71,23 @@ CREATE TABLE subscription(
 CREATE TABLE subscription_customer(
   subscription_id INTEGER NOT NULL,
   customer_id INTEGER NOT NULL,
-  delivery_days INTEGER NOT NULL,
   from_date DATE,
   to_date DATE,
   CONSTRAINT subscription_customer_pk PRIMARY KEY(subscription_id, customer_id),
   CONSTRAINT subscription_customer_fk1 FOREIGN KEY(subscription_id) REFERENCES subscription(subscription_id),
-  CONSTRAINT subscription_customer_fk2 FOREIGN KEY(customer_id) REFERENCES customer(customer_id),
-  CONSTRAINT subscription_customer_fk3 FOREIGN KEY(delivery_days) REFERENCES sub_delivery_days(delivery_id));
+  CONSTRAINT subscription_customer_fk2 FOREIGN KEY(customer_id) REFERENCES customer(customer_id));
 
 CREATE TABLE subscription_menu(
   subscription_id INTEGER NOT NULL,
   menu_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
   CONSTRAINT subscription_menu_pk PRIMARY KEY(subscription_id, menu_id),
   CONSTRAINT subscription_menu_fk1 FOREIGN KEY(subscription_id) REFERENCES subscription(subscription_id),
   CONSTRAINT subscription_menu_fk2 FOREIGN KEY(menu_id) REFERENCES menu(menu_id));
 
 CREATE TABLE sub_delivery_days(
-  delivery_id INTEGER AUTO_INCREMENT,
+  subscription_id INTEGER NOT NULL,
+  customer_id INTEGER NOT NULL,
   monday BOOLEAN NOT NULL,
   tuesday BOOLEAN NOT NULL,
   wednesday BOOLEAN NOT NULL,
@@ -94,7 +95,8 @@ CREATE TABLE sub_delivery_days(
   friday BOOLEAN NOT NULL,
   saturday BOOLEAN NOT NULL,
   sunday BOOLEAN NOT NULL,
-  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(delivery_id));
+  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(subscription_id, customer_id),
+  CONSTRAINT sub_delivery_days_fk FOREIGN KEY(subscription_id, customer_id) REFERENCES subscription_customer(subscription_id, customer_id));
 
   CREATE TABLE ingredient(
   ingredient_id INTEGER AUTO_INCREMENT,

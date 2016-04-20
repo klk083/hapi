@@ -46,13 +46,21 @@ public class CreateCustomer extends JFrame{
                    if(isCompany.isSelected() == true) {
                        showMessageDialog(null, "Customer(firm) is registered: " + name.getText());
                        dispose();
-                       ManageCustomers customers = new ManageCustomers();
+
                    }
                     else {
                        showMessageDialog(null, "Customer is registered: " + name.getText());
                        dispose();
-                       ManageCustomers customers = new ManageCustomers();
+
                    }
+                    switch(back) {
+                        case 1: ManageCustomerOrders orders2 = new ManageCustomerOrders();
+                            break;
+                        case 2: ManageCustomers customers = new ManageCustomers();
+                            break;
+                        case 3: ManageCustomerOrders orders = new ManageCustomerOrders();
+                            break;
+                    }
                 }
 
                 else {
@@ -67,7 +75,7 @@ public class CreateCustomer extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 switch(back) {
-                    case 1: ManageOrders orders2 = new ManageOrders();
+                    case 1: ManageCustomerOrders orders2 = new ManageCustomerOrders();
                         break;
                     case 2: ManageCustomers customers = new ManageCustomers();
                         break;
