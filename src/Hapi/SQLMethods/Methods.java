@@ -1063,7 +1063,7 @@ public class Methods {
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, menuID);
             stm.setInt(2, ingredientID);
-            stm.executeUpdate();
+            res = stm.executeQuery();
             int antall=0;
             if(res.next()) {
                 antall = Integer.parseInt(res.getString("quantity"));
@@ -1228,5 +1228,39 @@ public class Methods {
             return daysID;
         }
     }
+
+    /*public static ArrayList<ArrayList<String>> listOrdersChauffeur() {
+
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,customer_adress FROM orders NATURAL customer WHERE ready = true ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), unit = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("ingredient_id");
+                id.add(Integer.toString(temp));
+                unit.add(res.getString("unit"));
+            }
+
+            ingredients.add(navn);
+            ingredients.add(id);
+            ingredients.add(unit);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ingredients by search, Code: 8000028";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return ingredients;
+        }
+    }
+    */
+
 }
 
