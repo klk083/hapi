@@ -69,6 +69,35 @@ public class Methods {
         }
     }
 
+    private static int getDeliveryDaysID(ArrayList<Boolean> days) {
+        if (days == null || days.size() < 7) {
+            return -1;
+        }
+
+        int daysID = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT delivery_id FROM sub_delivery_days WHERE monday = ? AND tuesday = ? AND wednesday = ? AND thursday = ? AND friday = ? AND saturday = ? AND sunday = ?";
+            stm = con.prepareStatement(selectSQL);
+            for (int i = 0; i < days.size(); i++) {
+                stm.setBoolean((i + 1), days.get(0));
+            }
+            res = stm.executeQuery();
+            res.next();
+
+            daysID = res.getInt("delivery_id");
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of delivery days ID Code: 8000041";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            daysID = -1;
+        } finally {
+            closeSQL();
+
+            return daysID;
+        }
+    }
+
     public static boolean login(String username, String password) {
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
@@ -637,7 +666,7 @@ public class Methods {
         try {
             con = SQLConnection.openConnection();
             SQLConnection.setAutoCommitOff(con);
-            String insertSQL = "INSERT INTO orders VALUES(DEFAULT, ?, ?, false)";
+            String insertSQL = "INSERT INTO orders VALUES(DEFAULT, ?, ?, false, false)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, customerID);
             stm.setString(2, deliveryTime);
@@ -1188,35 +1217,6 @@ public class Methods {
             closeSQL();
 
             return ok;
-        }
-    }
-
-    public static int getDeliveryDaysID(ArrayList<Boolean> days) {
-        if (days == null || days.size() < 7) {
-            return -1;
-        }
-
-        int daysID = -1;
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT delivery_id FROM sub_delivery_days WHERE monday = ? AND tuesday = ? AND wednesday = ? AND thursday = ? AND friday = ? AND saturday = ? AND sunday = ?";
-            stm = con.prepareStatement(selectSQL);
-            for (int i = 0; i < days.size(); i++) {
-                stm.setBoolean((i + 1), days.get(0));
-            }
-            res = stm.executeQuery();
-            res.next();
-
-            daysID = res.getInt("delivery_id");
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of delivery days ID Code: 8000041";
-            SQLConnection.writeMessage(e, errorMessage);
-
-            daysID = -1;
-        } finally {
-            closeSQL();
-
-            return daysID;
         }
     }
 }

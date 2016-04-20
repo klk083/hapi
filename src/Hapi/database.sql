@@ -32,6 +32,7 @@ CREATE TABLE orders(
   order_id INTEGER AUTO_INCREMENT,
   customer_id INTEGER NOT NULL,
   delivery_time DATETIME,
+  ready BOOLEAN,
   delivered BOOLEAN,
   CONSTRAINT order_pk PRIMARY KEY(order_id));
 
@@ -81,6 +82,7 @@ CREATE TABLE subscription_customer(
 CREATE TABLE subscription_menu(
   subscription_id INTEGER NOT NULL,
   menu_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
   CONSTRAINT subscription_menu_pk PRIMARY KEY(subscription_id, menu_id),
   CONSTRAINT subscription_menu_fk1 FOREIGN KEY(subscription_id) REFERENCES subscription(subscription_id),
   CONSTRAINT subscription_menu_fk2 FOREIGN KEY(menu_id) REFERENCES menu(menu_id));
