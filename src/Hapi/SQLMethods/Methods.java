@@ -1084,7 +1084,7 @@ public class Methods {
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, menuID);
             stm.setInt(2, ingredientID);
-            res = stm.executeUpdate();
+            res = stm.executeQuery();
             int antall=0;
             if(res.next()) {
                 antall = Integer.parseInt(res.getString("quantity"));
@@ -1420,34 +1420,7 @@ public class Methods {
         }
     }
 
-    public static int getDeliveryDaysID(ArrayList<Boolean> days) {
-        if (days == null || days.size() < 7) {
-            return -1;
-        }
 
-        int daysID = -1;
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT delivery_id FROM sub_delivery_days WHERE monday = ? AND tuesday = ? AND wednesday = ? AND thursday = ? AND friday = ? AND saturday = ? AND sunday = ?";
-            stm = con.prepareStatement(selectSQL);
-            for (int i = 0; i < days.size(); i++) {
-                stm.setBoolean((i + 1), days.get(0));
-            }
-            res = stm.executeQuery();
-            res.next();
-
-            daysID = res.getInt("delivery_id");
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of delivery days ID Code: 8000041";
-            SQLConnection.writeMessage(e, errorMessage);
-
-            daysID = -1;
-        } finally {
-            closeSQL();
-
-            return daysID;
-        }
-    }
 
     /*public static ArrayList<ArrayList<String>> listOrdersChauffeur() {
 
