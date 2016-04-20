@@ -71,13 +71,11 @@ CREATE TABLE subscription(
 CREATE TABLE subscription_customer(
   subscription_id INTEGER NOT NULL,
   customer_id INTEGER NOT NULL,
-  delivery_days INTEGER NOT NULL,
   from_date DATE,
   to_date DATE,
   CONSTRAINT subscription_customer_pk PRIMARY KEY(subscription_id, customer_id),
   CONSTRAINT subscription_customer_fk1 FOREIGN KEY(subscription_id) REFERENCES subscription(subscription_id),
-  CONSTRAINT subscription_customer_fk2 FOREIGN KEY(customer_id) REFERENCES customer(customer_id),
-  CONSTRAINT subscription_customer_fk3 FOREIGN KEY(delivery_days) REFERENCES sub_delivery_days(delivery_id));
+  CONSTRAINT subscription_customer_fk2 FOREIGN KEY(customer_id) REFERENCES customer(customer_id));
 
 CREATE TABLE subscription_menu(
   subscription_id INTEGER NOT NULL,
@@ -88,7 +86,8 @@ CREATE TABLE subscription_menu(
   CONSTRAINT subscription_menu_fk2 FOREIGN KEY(menu_id) REFERENCES menu(menu_id));
 
 CREATE TABLE sub_delivery_days(
-  delivery_id INTEGER AUTO_INCREMENT,
+  subscription_id INTEGER NOT NULL,
+  customer_id INTEGER NOT NULL,
   monday BOOLEAN NOT NULL,
   tuesday BOOLEAN NOT NULL,
   wednesday BOOLEAN NOT NULL,
@@ -96,7 +95,8 @@ CREATE TABLE sub_delivery_days(
   friday BOOLEAN NOT NULL,
   saturday BOOLEAN NOT NULL,
   sunday BOOLEAN NOT NULL,
-  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(delivery_id));
+  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(subscription_id, customer_id),
+  CONSTRAINT sub_delivery_days_fk FOREIGN KEY(subscription_id, customer_id) REFERENCES subscription_customer(subscription_id, customer_id));
 
   CREATE TABLE ingredient(
   ingredient_id INTEGER AUTO_INCREMENT,
