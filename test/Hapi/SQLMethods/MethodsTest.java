@@ -189,6 +189,19 @@ public class MethodsTest {
     }
 
     @Test
+    public void getCustomerContactInfo() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> list = Methods.listCustomers(name);
+        int id = Integer.parseInt(list.get(1).get(0));
+
+        ArrayList<String> search = Methods.getCustomerContactInfo(id);
+
+        // Customer data from @Before
+        assertEquals("Bobgata 4", search.get(0));
+        assertEquals("0", search.get(1));
+    }
+
+    @Test
     public void createOrder() throws Exception {
         // Getting customerID of customer "Billy Bob"
         String name = "Billy Bob";
