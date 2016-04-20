@@ -24,7 +24,7 @@ public class ManageSub extends JFrame {
     private JButton createSubscriptionButton;
     private JList list1;
     private JTextField textField1;
-    private JButton searchCustomerButton;
+    private JButton searchSubButton;
     private JButton viewSubButton;
     private JPanel ManageSubPannel;
 
@@ -46,12 +46,12 @@ public class ManageSub extends JFrame {
         }
         list1.setModel(listModel);
 
-        searchCustomerButton.addActionListener(new ActionListener() {
+        searchSubButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<ArrayList<String>> list = Methods.listMenu("");
+                ArrayList<ArrayList<String>> list = Methods.listSubs("");
 
 
                 DefaultListModel listModel = new DefaultListModel();
@@ -93,9 +93,14 @@ public class ManageSub extends JFrame {
         createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int subscriptionId = Methods.createSub("name", "description", 0);
+                if (subscriptionId != -1) {
+                    AddSubscription addsub = new AddSubscription(subscriptionId, true);
                     dispose();
-                    AddSubscription addsub = new AddSubscription();
+                } else {
+                    showMessageDialog(null, "Creation of subscription went wrong");
                 }
+            }
 
         });
 
