@@ -464,7 +464,7 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
+            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, orderID);
             res = stm.executeQuery();
@@ -1033,7 +1033,7 @@ public class Methods {
             info.add(res.getString("menu_price"));
             info.add(Integer.toString(getMenuCostPrice(menuID)));
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of menu info, Code: 8000025";
+            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1127,8 +1127,207 @@ public class Methods {
             return ok;
         }
     }
+//public static boolean deleteSubscription(String )
+    public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
+        part1Name.toLowerCase();
+        ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
+        String forSQL1 = "%" + part1Name + "%";
 
-    //public static boolean deleteSubscription(String )
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, subscription_id FROM subscription WHERE name LIKE ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, forSQL1);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                temp = res.getInt("subscription_id");
+                id.add(Integer.toString(temp));
+            }
+
+            subscription.add(navn);
+            subscription.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return subscription;
+        }
+    }
+
+    public static ArrayList<String> getSubInfo(int subscriptionId) {
+        if (subscriptionId < 1) {
+            return null;
+        }
+
+        ArrayList<String> info = new ArrayList<String>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, price, description FROM subscription WHERE subscription_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, subscriptionId);
+
+            res = stm.executeQuery();
+            res.next();
+
+            info.add(res.getString("name"));
+            info.add(res.getString("price"));
+            info.add(res.getString("description"));
+            info.add(Integer.toString(getMenuCostPrice(subscriptionId)));
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000038";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
+        }
+    }
+
+    public static boolean removeMenuFromSub(int menuID, int subscriptionId) {
+        if( menuID < 1 || subscriptionId < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String deleteSQL = "DELETE FROM menu_subscription WHERE subscription_id = ? AND menu_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, subscriptionId);
+            stm.setInt(2, menuID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of menu from order, Code: 8000015";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean addMenuToSub(int menuID, int subscriptionId, int quantity) {
+        if (menuID < 1 || subscriptionId < 1 || quantity < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "SELECT quantity FROM subscription_menu WHERE menu_id = ? AND subscription_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, menuID);
+            stm.setInt(2, subscriptionId);
+            stm.executeUpdate();
+            int antall=0;
+            if(res.next()) {
+                antall = Integer.parseInt(res.getString("quantity"));
+            }
+            insertSQL = "INSERT INTO subscription_menu VALUES(?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, subscriptionId);
+            stm.setInt(2, menuID);
+            stm.setInt(3, quantity+antall);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000039";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static int createSub(String name, String description, int price) {
+        if (name.equals("") || description.equals("") || price < 0) {
+            return -1;
+        }
+
+        int subscriptionId = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setString(1, name);
+            stm.setInt(2, price);
+            stm.setString(3, description);
+
+            stm.executeUpdate();
+
+
+            String selectSQL = "SELECT subscription_id FROM subscription WHERE name = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, name);
+
+            res = stm.executeQuery();
+            res.next();
+            subscriptionId = res.getInt("subscription_id");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during creation of menu, Code: 8000018";
+            SQLConnection.writeMessage(e, errorMessage);
+
+        } finally {
+            closeSQL();
+
+            return subscriptionId;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
+        if (subscriptionId < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> courses = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_name, menu_id, quantity FROM subscription_menu NATURAL JOIN menu WHERE subscription_id = ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, subscriptionId);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), quantity = new ArrayList<String>();
+            int temp;
+            while (res.next()) {
+                navn.add(res.getString("menu_name"));
+                temp = res.getInt("menu_id");
+                id.add(Integer.toString(temp));
+                temp = res.getInt("quantity");
+                quantity.add(Integer.toString(temp));
+            }
+
+            courses.add(navn);
+            courses.add(id);
+            courses.add(quantity);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of courses in sub, Code: 8000040";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return courses;
+        }
+    }
+
+
 
     public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime, ArrayList<Boolean> days) {
         if (subID < 1 || customerID < 1) {
