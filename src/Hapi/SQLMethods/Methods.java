@@ -70,13 +70,12 @@ public class Methods {
     }
 
     public static boolean login(String username, String password) {
-        username.toLowerCase();
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
             con = SQLConnection.openConnection();
             String selectSQL = "SELECT password_hash, password_salt FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, username);
+            stm.setString(1, username.toLowerCase());
 
             res = stm.executeQuery();
 
@@ -108,7 +107,6 @@ public class Methods {
         if (username.equals("") || password.equals("")) {
             return false;
         }
-        username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
         boolean ok = false;
@@ -125,7 +123,7 @@ public class Methods {
             stm = con.prepareStatement(updateSQL);
             stm.setString(1, hash);
             stm.setString(2, salt);
-            stm.setString(3, username);
+            stm.setString(3, username.toLowerCase());
 
             stm.executeUpdate();
 
@@ -143,7 +141,6 @@ public class Methods {
     }
 
     public static boolean createUser(String username, String password, String name, int roleID) {
-        username.toLowerCase();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
         boolean ok = false;
@@ -158,7 +155,7 @@ public class Methods {
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, roleID);
             stm.setString(2, name);
-            stm.setString(3, username);
+            stm.setString(3, username.toLowerCase());
             stm.setString(4, hash);
             stm.setString(5, salt);
 
@@ -177,8 +174,6 @@ public class Methods {
     }
 
     public static boolean deleteUser(String username) {
-        username.toLowerCase();
-
         if (username.equals("admin")) {
             return false;
         }
@@ -188,7 +183,7 @@ public class Methods {
             con = SQLConnection.openConnection();
             String deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
-            stm.setString(1, username);
+            stm.setString(1, username.toLowerCase());
 
             stm.executeUpdate();
             ok = true;
@@ -205,8 +200,6 @@ public class Methods {
     }
 
     public static int getRoleID(String username) {
-        username.toLowerCase();
-
         if (username.equals("")) {
             return -1;
         }
@@ -216,7 +209,7 @@ public class Methods {
             con = SQLConnection.openConnection();
             String selectSQL = "SELECT role_id FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, username);
+            stm.setString(1, username.toLowerCase());
             res = stm.executeQuery();
 
             res.next();
@@ -236,8 +229,6 @@ public class Methods {
     }
 
     public static int getEmployeeID(String username) {
-        username.toLowerCase();
-
         if (username.equals("")) {
             return -1;
         }
@@ -247,7 +238,7 @@ public class Methods {
             con = SQLConnection.openConnection();
             String selectSQL = "SELECT employee_id FROM employee WHERE username = ?";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, username);
+            stm.setString(1, username.toLowerCase());
             res = stm.executeQuery();
 
             res.next();
