@@ -56,7 +56,7 @@ public class CEO extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ManageOrders customers = new ManageOrders();
+                ManageCustomerOrders customers = new ManageCustomerOrders();
             }
         });
         signOut.addActionListener(new ActionListener() {
