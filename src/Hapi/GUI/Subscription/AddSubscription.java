@@ -116,8 +116,7 @@ public class AddSubscription extends JFrame {
                     } else {
                         try {
                             if (Methods.addMenuToSub(
-                                    subscriptionId,
-                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())),subscriptionId, Integer.parseInt(quantity.getText()))) {
                                 AddSubscription temp = new AddSubscription(subscriptionId,isNew);
                                 dispose();
 

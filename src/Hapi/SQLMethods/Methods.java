@@ -1175,6 +1175,9 @@ public class Methods {
 
     //public static boolean deleteSubscription(String )
 
+
+
+//public static boolean deleteSubscription(String )
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
         part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
@@ -1292,7 +1295,7 @@ public class Methods {
 
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000039";
+            String errorMessage = "SQL Exception during addition of course to subscription, Code: 8000039";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -1338,6 +1341,63 @@ public class Methods {
             return subscriptionId;
         }
     }
+
+    public static boolean deleteSub(int subscriptionId) {
+        if(subscriptionId < 1) {
+            return false;
+        }
+        boolean ok =false;
+        try {
+            con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+            try {
+                deleteSQL = "DELETE FROM subscription_menu WHERE subscription_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, subscriptionId);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                String updateSQL = "UPDATE subscription_order SET subscription_id = 0 WHERE subscription_id = ?";
+                stm = con.prepareStatement(updateSQL);
+                stm.setInt(1, subscriptionId);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                deleteSQL = "DELETE FROM subscription_menu WHERE menu_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, subscriptionId);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            deleteSQL = "DELETE FROM subscription WHERE subscription_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, subscriptionId);
+
+            stm.executeUpdate();
+
+            con.commit();
+
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during subscription deletion, Code: 8000041";
+            SQLConnection.writeMessage(e, errorMessage);
+            SQLConnection.rollback(con);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
 
     public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
         if (subscriptionId < 1) {
