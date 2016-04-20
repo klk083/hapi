@@ -324,6 +324,21 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
+            try {
+                String updateSQL = "UPDATE orders SET customer_id = 1 WHERE customer_id = ?";
+                stm = con.prepareStatement(updateSQL);
+                stm.setInt(1, customerID);
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                String updateSQL = "UPDATE subscription_customer SET customer_id = 1 WHERE customer_id = ?";
+                stm = con.prepareStatement(updateSQL);
+                stm.setInt(1, customerID);
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
             String deleteSQL = "DELETE FROM customer WHERE customer_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, customerID);
@@ -396,7 +411,6 @@ public class Methods {
             return info;
         }
     }
-
 
     public static ArrayList<String> listOrders(String partName) {
         ArrayList<String> orders = new ArrayList<String>();
@@ -1361,8 +1375,6 @@ public class Methods {
             return courses;
         }
     }
-
-
 
     public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime, ArrayList<Boolean> days) {
         if (subID < 1 || customerID < 1) {
