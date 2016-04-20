@@ -189,6 +189,19 @@ public class MethodsTest {
     }
 
     @Test
+    public void getCustomerContactInfo() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> list = Methods.listCustomers(name);
+        int id = Integer.parseInt(list.get(1).get(0));
+
+        ArrayList<String> search = Methods.getCustomerContactInfo(id);
+
+        // Customer data from @Before
+        assertEquals("Bobgata 4", search.get(0));
+        assertEquals("0", search.get(1));
+    }
+
+    @Test
     public void createOrder() throws Exception {
         // Getting customerID of customer "Billy Bob"
         String name = "Billy Bob";
@@ -309,6 +322,40 @@ public class MethodsTest {
 
     @Test
     public void createMenu() throws Exception {
+
+    }
+*/
+    @Test
+    public void listMenu() throws Exception {
+        String testmat = "Dummymat";
+
+        // Empty search to list all items in menu
+        ArrayList<ArrayList<String>> search = Methods.listMenu("");
+        int testRes1 = search.get(0).size();
+
+        // Test data only includes 11 items in menu
+        assertEquals(11, testRes1);
+
+
+        // First search result should be "Dummymat"
+        search = Methods.listMenu(testmat);
+        String testRes2 = search.get(0).get(0);
+
+        assertEquals(testmat, testRes2);
+    }
+/*
+    @Test
+    public void listMenusInOrder() throws Exception {
+
+    }
+
+    @Test
+    public void listIngredients() throws Exception {
+
+    }
+
+    @Test
+    public void listIngredientsInMenu() throws Exception {
 
     }
 

@@ -19,7 +19,6 @@ public class EditSubscription extends JFrame {
     private JButton OKButton;
     private JButton searchButton;
     private JTextField textField1;
-    private JComboBox comboBox1;
     private JList list1;
     private JList list2;
     private JTextField textField2;
@@ -28,8 +27,6 @@ public class EditSubscription extends JFrame {
     private JTextField textField5;
     private JButton addButton;
     private JButton removeButton;
-    private JButton createPackageButton;
-    private JButton createCourseButton;
     private JPanel EditSubscriptionPannel;
 
 

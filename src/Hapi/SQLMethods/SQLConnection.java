@@ -5,7 +5,7 @@ import java.sql.*;
 class SQLConnection {
 
     public static Connection openConnection() {
-        String databaseDriver = "com.mysql.jdbc.Chauffeur";
+        String databaseDriver = "com.mysql.jdbc.Driver";
         String username = "kehildre", password = "3kMBJrQ2";
 
         Connection con = null;

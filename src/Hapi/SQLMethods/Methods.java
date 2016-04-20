@@ -464,6 +464,38 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listMenusInOrder(int orderID) {
+        if (orderID < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> menus = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, orderID);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            while (res.next()) {
+                navn.add(res.getString("menu_name"));
+                id.add(res.getString("menu_id"));
+            }
+
+            menus.add(navn);
+            menus.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return menus;
+        }
+    }
+
     public static ArrayList<ArrayList<String>> listIngredients(String partName) {
         partName.toLowerCase();
         ArrayList<ArrayList<String>> ingredients = new ArrayList<ArrayList<String>>();
@@ -745,35 +777,6 @@ public class Methods {
         }
     }
 
-    public static boolean addSubToOrder(int subID, int orderID, String fromTime, String toTime) {
-        if (subID < 1 || orderID < 1) {
-            return false;
-        }
-
-        boolean ok = false;
-        try {
-            con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO subscription_order VALUES(?, ?, ?, ?)";
-            stm = con.prepareStatement(insertSQL);
-            stm.setInt(1, subID);
-            stm.setInt(2, orderID);
-            stm.setString(3, fromTime);
-            stm.setString(4, toTime);
-
-            stm.executeUpdate();
-            ok = true;
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during addition of subscription to order, Code: 8000014";
-            SQLConnection.writeMessage(e, errorMessage);
-
-            ok = false;
-        } finally {
-            closeSQL();
-
-            return ok;
-        }
-    }
-
     public static boolean isMenuInOrder(int menuID) {
         if (menuID < 1) {
             return false;
@@ -1039,7 +1042,7 @@ public class Methods {
             info.add(res.getString("menu_price"));
             info.add(Integer.toString(getMenuCostPrice(menuID)));
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
+            String errorMessage = "SQL Exception during retrieval of menu info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1133,8 +1136,40 @@ public class Methods {
             return ok;
         }
     }
-//public static boolean deleteSubscription(String )
 
+    //public static boolean deleteSubscription(String )
+
+    public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime, ArrayList<Boolean> days) {
+        if (subID < 1 || customerID < 1) {
+            return false;
+        }
+
+        int daysID = getDeliveryDaysID(days);
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO subscription_customer VALUES(?, ?, ?, ?, ?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, subID);
+            stm.setInt(2, customerID);
+            stm.setString(3, fromTime);
+            stm.setString(4, toTime);
+            stm.setInt(5, daysID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during addition of subscription to customer, Code: 8000040";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
 
     public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
         if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
@@ -1162,6 +1197,35 @@ public class Methods {
             closeSQL();
 
             return ok;
+        }
+    }
+
+    public static int getDeliveryDaysID(ArrayList<Boolean> days) {
+        if (days == null || days.size() < 7) {
+            return -1;
+        }
+
+        int daysID = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT delivery_id FROM sub_delivery_days WHERE monday = ? AND tuesday = ? AND wednesday = ? AND thursday = ? AND friday = ? AND saturday = ? AND sunday = ?";
+            stm = con.prepareStatement(selectSQL);
+            for (int i = 0; i < days.size(); i++) {
+                stm.setBoolean((i + 1), days.get(0));
+            }
+            res = stm.executeQuery();
+            res.next();
+
+            daysID = res.getInt("delivery_id");
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of delivery days ID Code: 8000041";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            daysID = -1;
+        } finally {
+            closeSQL();
+
+            return daysID;
         }
     }
 }

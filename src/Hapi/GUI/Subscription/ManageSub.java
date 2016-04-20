@@ -2,6 +2,7 @@ package Hapi.GUI.Subscription;
 
 import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
+import Hapi.GUI.MainMenu.CEO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 //import static Hapi.SQLMethods.Methods.deleteSubscription;
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showOptionDialog;
 
@@ -49,7 +51,7 @@ public class ManageSub extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listMenu("");
 
 
                 DefaultListModel listModel = new DefaultListModel();
@@ -68,7 +70,7 @@ public class ManageSub extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "Please select a customer");
+                    showMessageDialog(null, "Please select a subscription");
                 } else {
                     dispose();
                     EditSubscription editsub = new EditSubscription();
@@ -76,18 +78,56 @@ public class ManageSub extends JFrame {
             }
         });
 
+        viewSubButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                if(list1.isSelectionEmpty()){
+                    showMessageDialog(null, "Please select a subscription");
+                }else{
+                    dispose();
+                    ViewSub viewsub = new ViewSub();
+                }
+            }
+        });
+
         createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "Please select a customer");
-                } else {
                     dispose();
                     AddSubscription addsub = new AddSubscription();
                 }
-            }
 
         });
 
+        backButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                dispose();
+                CEO mainmenu = new CEO();
+            }
+        });
+
+        deleteSubButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                if(list1.isSelectionEmpty()) {
+                    showMessageDialog(null, "You have not selected a course");
+                } else {
+                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                        showMessageDialog(null,"The course you are trying to delete has active orders");
+                    }
+                    if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
+                        if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                            showMessageDialog(null,"Course deleted");
+                            dispose();
+                            ManageSub temp = new ManageSub();
+                        } else {
+                            showMessageDialog(null,"Course not deleted");
+                        }
+                    }
+                }
+            }
+        });
     }
 }
