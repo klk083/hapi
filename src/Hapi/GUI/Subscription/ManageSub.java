@@ -117,18 +117,18 @@ public class ManageSub extends JFrame {
             public void actionPerformed(ActionEvent e){
 
                 if(list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "You have not selected a course");
+                    showMessageDialog(null, "You have not selected a subscription");
                 } else {
                     if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
-                        showMessageDialog(null,"The course you are trying to delete has active orders");
+                        showMessageDialog(null,"The subscription you are trying to delete has active orders");
                     }
-                    if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
-                        if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
-                            showMessageDialog(null,"Course deleted");
+                    if(showConfirmDialog(null,"You sure you want to delete the subscription")==JOptionPane.YES_OPTION) {
+                        if(Methods.deleteSub(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                            showMessageDialog(null,"Subscription deleted");
                             dispose();
                             ManageSub temp = new ManageSub();
                         } else {
-                            showMessageDialog(null,"Course not deleted");
+                            showMessageDialog(null,"Subscription not deleted");
                         }
                     }
                 }
