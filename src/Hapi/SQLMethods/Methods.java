@@ -69,32 +69,33 @@ public class Methods {
         }
     }
 
-    private static int getDeliveryDaysID(ArrayList<Boolean> days) {
+    private static boolean setDeliveryDaysID(int subID, int customerID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
-            return -1;
+            return false;
         }
 
-        int daysID = -1;
+        boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT delivery_id FROM sub_delivery_days WHERE monday = ? AND tuesday = ? AND wednesday = ? AND thursday = ? AND friday = ? AND saturday = ? AND sunday = ?";
+            String selectSQL = "INSERT INTO sub_delivery_days VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? )";
             stm = con.prepareStatement(selectSQL);
+            stm.setInt(1,subID);
+            stm.setInt(1, customerID);
             for (int i = 0; i < days.size(); i++) {
-                stm.setBoolean((i + 1), days.get(0));
+                stm.setBoolean((i + 3), days.get(0));
             }
-            res = stm.executeQuery();
-            res.next();
+            stm.executeUpdate();
 
-            daysID = res.getInt("delivery_id");
+            ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of delivery days ID Code: 8000041";
+            String errorMessage = "SQL Exception during insertion of delivery days, ID Code: 8000041";
             SQLConnection.writeMessage(e, errorMessage);
 
-            daysID = -1;
+            ok = false;
         } finally {
             closeSQL();
 
-            return daysID;
+            return ok;
         }
     }
 
@@ -1157,7 +1158,9 @@ public class Methods {
             return ok;
         }
     }
-//public static boolean deleteSubscription(String )
+
+    //public static boolean deleteSubscription(String )
+
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
         part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
@@ -1364,21 +1367,25 @@ public class Methods {
             return false;
         }
 
-        int daysID = getDeliveryDaysID(days);
-
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO subscription_customer VALUES(?, ?, ?, ?, ?)";
+            SQLConnection.setAutoCommitOff(con);
+            String insertSQL = "INSERT INTO subscription_customer VALUES(?, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, subID);
             stm.setInt(2, customerID);
             stm.setString(3, fromTime);
             stm.setString(4, toTime);
-            stm.setInt(5, daysID);
 
             stm.executeUpdate();
-            ok = true;
+
+            if (setDeliveryDaysID(subID, customerID, days)) {
+                ok = true;
+                con.commit();
+            } else {
+                SQLConnection.rollback(con);
+            }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of subscription to customer, Code: 8000040";
             SQLConnection.writeMessage(e, errorMessage);
