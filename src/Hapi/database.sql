@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS subscription_customer;
 DROP TABLE IF EXISTS menu_order;
 DROP TABLE IF EXISTS menu_ingredient;
 DROP TABLE IF EXISTS ingredient;
+DROP TABLE IF EXISTS order_chauffeur;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS statistics;
