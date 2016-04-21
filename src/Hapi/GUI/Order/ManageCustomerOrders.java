@@ -18,7 +18,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class ManageCustomerOrders extends JFrame {
     private JTextField textField1;
     private JButton searchButton;
-    private JList list1;
+    private JList displayList;
     private JButton createCustomerButton;
     private JButton backButton;
     private JButton nextButton;
@@ -37,13 +37,15 @@ public class ManageCustomerOrders extends JFrame {
         ArrayList<ArrayList<String>> list = Methods.listCustomers("");
 
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
 
-        for (String enCourse : list.get(0)) {
-            listModel.addElement(enCourse);
+        for (int i = 0; i < list.get(0).size(); i++) {
+            String name = list.get(0).get(i);
+            String id = list.get(1).get(i);
+            listModel.addElement(new ListeElement(id, name));
         }
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -67,13 +69,15 @@ public class ManageCustomerOrders extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
                 //    String[] user = list;
-                for (String enCourse : list.get(0)) {
-                    listModel.addElement(enCourse);
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id, name));
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
             }
         });
 
@@ -81,12 +85,13 @@ public class ManageCustomerOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //int orderId = Methods.createOrder(1,"1000-01-01 00:00:00");
-                if(list1.isSelectionEmpty()) {
+                if(displayList.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
                     } else {
 
                     dispose();
-                    ManageOrders order = new ManageOrders((String) list1.getSelectedValue(),Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
+                    ManageOrders order = new ManageOrders(selected.getName(),Integer.parseInt(selected.getId()));
 
                 }
                 }

@@ -45,10 +45,10 @@ public class ManageOrders extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
-        customerNameLabel.setText(selected + "'s" + " order");
+        customerNameLabel.setText(selected + "'s" + " orders");
 
         ArrayList<Integer> list1 = Methods.listOrders(selectedInt);
-        ArrayList<String> list2 = Methods.listOrders("");
+        ArrayList<Integer> list2 = Methods.listSubs(selectedInt);
 
 
         DefaultListModel listModel1 = new DefaultListModel();
@@ -62,7 +62,7 @@ public class ManageOrders extends JFrame {
 
 
 
-        for (String enuser : list2) {
+        for (int enuser : list2) {
             listModel2.addElement(enuser);
         }
         subList.setModel(listModel2);
@@ -118,7 +118,13 @@ public class ManageOrders extends JFrame {
                         ManageOrders customers = new ManageOrders(selected, selectedInt);
 
                     }
+                } else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
+                    deleteOrder((list2.get(subList.getSelectedIndex())));
+                    dispose();
+                    ManageOrders customers = new ManageOrders(selected, selectedInt);
                 }
+
+
 
             }
         });

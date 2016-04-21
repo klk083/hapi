@@ -304,22 +304,57 @@ public class MethodsTest {
         boolean testRes3 = Methods.removeMenuFromOrder(-1, -1);
         assertEquals(false, testRes3);
     }
-/*
-    @Test
-    public void addSubToOrder() throws Exception {
 
-    }
-/*
     @Test
     public void addIngredient() throws Exception {
+        String name = "Test Potato", unit = "stk";
+        int price = 30;
+        boolean testRes1 = Methods.addIngredient(name, unit, price);
 
+        assertEquals(true, testRes1);
+
+
+        // Remove test ingredient
+        ArrayList<ArrayList<String>> search = Methods.listIngredients(name);
+        int id = Integer.parseInt(search.get(1).get(0));
+        boolean testRes2 = Methods.removeIngredient(id);
+
+        assertEquals(true, testRes2);
+
+
+        // Test for failure in adding new ingredient
+        price = -10;
+        boolean testRes3 = Methods.addIngredient(name, unit, price);
+
+        assertEquals(false, testRes3);
     }
 
     @Test
     public void removeIngredient() throws Exception {
+        // Create ingredient to remove
+        String name = "Test Potato", unit = "stk";
+        int price = 40;
+        boolean testRes1 = Methods.addIngredient(name, unit, price);
 
+        assertEquals(true, testRes1);
+
+
+        // Remove test ingredient
+        ArrayList<ArrayList<String>> search = Methods.listIngredients(name);
+        int id = Integer.parseInt(search.get(1).get(0));
+        boolean testRes2 = Methods.removeIngredient(id);
+
+        assertEquals(true, testRes2);
+
+
+        // Test for failure in removal of ingredient
+
+        id = -10;
+        boolean testRes3 = Methods.removeIngredient(id);
+
+        assertEquals(false, testRes3);
     }
-
+/*
     @Test
     public void createMenu() throws Exception {
 
