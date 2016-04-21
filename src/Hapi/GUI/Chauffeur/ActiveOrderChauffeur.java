@@ -1,6 +1,5 @@
 package Hapi.GUI.Chauffeur;
 
-import Hapi.GUI.MainMenu.CEO;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -80,7 +79,7 @@ public class ActiveOrderChauffeur extends JFrame {
                 if(view.isSelectionEmpty()) {
                     showMessageDialog(null,"You didnt select any orders to set deliver");
                 } else {
-                    if (Methods.setORderToDelivered(Integer.parseInt(list.get(1).get(view.getSelectedIndex())), employeeID)) {
+                    if (Methods.setOrderToDelivered(Integer.parseInt(list.get(1).get(view.getSelectedIndex())), employeeID)) {
                         showMessageDialog(null, "Order derlivered");
                         ActiveOrderChauffeur temp = new ActiveOrderChauffeur(employeeID);
                         dispose();

@@ -1643,7 +1643,7 @@ public class Methods {
         }
     }
 
-    public static boolean setORderToDelivered(int orderID,int employeeID) {
+    public static boolean setOrderToDelivered(int orderID, int employeeID) {
         if (orderID == -1 || employeeID == -1) {
             return false;
         }
@@ -1690,6 +1690,7 @@ public class Methods {
             return false;
         }
     }
+
     public static int getID() {
         int id=-1;
         try
@@ -1710,6 +1711,5 @@ public class Methods {
         }
         return id;
     }
-
 
 }
