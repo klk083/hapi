@@ -1,5 +1,6 @@
 package Hapi.SQLMethods;
 
+import java.io.*;
 import java.security.SecureRandom;
 import java.math.BigInteger;
 import java.sql.*;
@@ -280,6 +281,35 @@ public class Methods {
             SQLConnection.writeMessage(e, errorMessage);
 
             output = -1;
+        } finally {
+            closeSQL();
+
+            return output;
+        }
+    }
+
+    public static String getEmployeeName(int id) {
+        if (id==-1) {
+            return null;
+        }
+
+        String output = null;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name FROM employee WHERE employee_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, id);
+            res = stm.executeQuery();
+
+            res.next();
+
+            output = res.getString("name");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of employee name, Code: 8000048";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            output = null;
         } finally {
             closeSQL();
 
@@ -1535,14 +1565,14 @@ public class Methods {
         }
     }
 
-    public static ArrayList<ArrayList<String>> listOrdersForChauffeur(int loginID) {
+    public static ArrayList<ArrayList<String>> listOrdersForChauffeur(int employeeID) {
 
         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
             con = SQLConnection.openConnection();
             String selectSQL = "SELECT order_id,customer_address FROM orders NATURAL JOIN  customer NATURAL JOIN order_chauffeur WHERE ready = true AND employee_id = ? ORDER BY customer_address ASC";
             stm = con.prepareStatement(selectSQL);
-            stm.setInt(1, loginID);
+            stm.setInt(1, employeeID);
             res = stm.executeQuery();
 
             ArrayList<String> adress = new ArrayList<String>(), id = new ArrayList<String>();
@@ -1564,6 +1594,127 @@ public class Methods {
 
             return list;
         }
+    }
+
+    public static boolean addOrderToChauffeur(int orderID,int employeeID) {
+        if (orderID == -1 || employeeID == -1) {
+            return false;
+        }
+        boolean ok=false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "INSERT INTO order_chauffeur VALUES (?,?)";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, orderID);
+            stm.setInt(2, employeeID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during adding order to employee in order_chauffeur table, Code: 8000046";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+
+    }
+
+    public static boolean removeOrderFromChauffeur(int orderID,int employeeID) {
+        if (orderID == -1 || employeeID == -1) {
+            return false;
+        }
+        boolean ok=false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "DELETE FROM order_chauffeur WHERE order_id = ? AND employee_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, orderID);
+            stm.setInt(2, employeeID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during adding order to employee in order_chauffeur table, Code: 8000046";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean setORderToDelivered(int orderID,int employeeID) {
+        if (orderID == -1 || employeeID == -1) {
+            return false;
+        }
+
+        boolean ok=false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "DELETE FROM order_chauffeur WHERE order_id = ? AND employee_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, orderID);
+            stm.setInt(2, employeeID);
+            stm.executeUpdate();
+            String insertSQL1 = "UPDATE orders SET orders.ready = FALSE, orders.delivered = TRUE WHERE order_id = ?";
+            stm = con.prepareStatement(insertSQL1);
+            stm.setInt(1, orderID);
+            stm.executeUpdate();
+
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during adding order to employee in order_chauffeur table, Code: 8000046";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean writeID(int id) {
+        try
+        {
+            FileOutputStream fileOut =
+                    new FileOutputStream("./employeeID.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(id);
+            out.close();
+            fileOut.close();
+            return true;
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return false;
+        }
+    }
+    public static int getID() {
+        int id=-1;
+        try
+        {
+            FileInputStream fileIn = new FileInputStream("./employeeID.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            id = (Integer) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return -1;
+        }catch(ClassNotFoundException c)
+        {
+            c.printStackTrace();
+            return -1;
+        }
+        return id;
     }
 
 

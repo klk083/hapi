@@ -15,6 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import static java.nio.file.StandardOpenOption.*;
+
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.charset.Charset;
+import java.nio.file.*;
+import java.io.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -26,8 +33,8 @@ public class Login extends JFrame {
     private JTextField textField2;
     private JPasswordField passwordField1;
     private JButton signInButton;
-    private JButton driverButton;
 
+    int emoployeeID;
 
     public Login() {
         super("eFood");
@@ -37,10 +44,8 @@ public class Login extends JFrame {
         JTextField user = textField2;
         JPasswordField pass = passwordField1;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setVisible(true);
-
-
 
 
         signInButton.addActionListener(new ActionListener() {
@@ -53,8 +58,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
 
-
-                if(signIn(user.getText(),pass.getText())) {
+                if (signIn(user.getText(), pass.getText())) {
 
                 } else {
                     showMessageDialog(null, "Feil brukernavn eller passord.");
@@ -71,7 +75,7 @@ public class Login extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(signIn(user.getText(),pass.getText())) {
+                if (signIn(user.getText(), pass.getText())) {
 
                 } else {
                     showMessageDialog(null, "Feil brukernavn eller passord.");
@@ -86,29 +90,18 @@ public class Login extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(signIn(user.getText(),pass.getText())) {
+                if (signIn(user.getText(), pass.getText())) {
 
                 } else {
                     showMessageDialog(null, "Feil brukernavn eller passord.");
                 }
             }
         });
-        driverButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OrderViewChauffeur chauffeur = new OrderViewChauffeur(503);
-                dispose();
 
-            }
-        });
     }
     public boolean signIn(String userN,String password){
         if(Methods.login(userN, password)) {
+            Methods.writeID(Methods.getEmployeeID(userN));
             switch (Methods.getRoleID(userN)) {
                 case 1:
                     CEO ceo = new CEO();
@@ -120,7 +113,7 @@ public class Login extends JFrame {
                     OrderViewCook cook = new OrderViewCook();
                     break;
                 case 4:
-                    OrderViewChauffeur chauffeur = new OrderViewChauffeur(Methods.getRoleID(userN));
+                    OrderViewChauffeur chauffeur = new OrderViewChauffeur();
                     break;
                 case 5:
                     Sale sale = new Sale();
