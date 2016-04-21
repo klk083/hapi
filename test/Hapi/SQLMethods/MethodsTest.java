@@ -1,8 +1,8 @@
 package Hapi.SQLMethods;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.junit.Before;
+import org.junit.BeforeClass;
 
 import java.util.ArrayList;
 
@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 public class MethodsTest {
     // All tests are supposed to be run on a database built with our database.sql and test data given in test-data.sql
 
-    @Before
-    public void before() throws Exception {
+    @BeforeClass
+    public static void before() throws Exception {
         // Setup of test user
         String username = "testuser", password = "test", name = "Tester McTest";
         int role = 1;
@@ -368,8 +368,8 @@ public class MethodsTest {
         ArrayList<ArrayList<String>> search = Methods.listMenu("");
         int testRes1 = search.get(0).size();
 
-        // Test data only includes 11 items in menu
-        assertEquals(11, testRes1);
+        // Test data only includes 10 items in menu
+        assertEquals(10, testRes1);
 
 
         // First search result should be "Dummymat"
@@ -396,8 +396,8 @@ public class MethodsTest {
 
 
 */
-    @After
-    public void after() throws Exception {
+    @AfterClass
+    public static void after() throws Exception {
         // Removal of test user
         String username = "testuser";
         Methods.deleteUser(username);
