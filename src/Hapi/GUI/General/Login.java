@@ -26,7 +26,7 @@ public class Login extends JFrame {
     private JTextField textField2;
     private JPasswordField passwordField1;
     private JButton signInButton;
-
+    private JButton driverButton;
 
 
     public Login() {
@@ -93,6 +93,19 @@ public class Login extends JFrame {
                 }
             }
         });
+        driverButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderViewChauffeur chauffeur = new OrderViewChauffeur(Methods.getRoleID(user.getText()));
+                dispose();
+
+            }
+        });
     }
     public boolean signIn(String userN,String password){
         if(Methods.login(userN, password)) {
@@ -107,7 +120,7 @@ public class Login extends JFrame {
                     OrderViewCook cook = new OrderViewCook();
                     break;
                 case 4:
-                    OrderViewChauffeur chauffeur = new OrderViewChauffeur();
+                    OrderViewChauffeur chauffeur = new OrderViewChauffeur(Methods.getRoleID(userN));
                     break;
                 case 5:
                     Sale sale = new Sale();

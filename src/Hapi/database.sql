@@ -112,3 +112,11 @@ CREATE TABLE menu_ingredient(
   CONSTRAINT menu_ingredient_pk PRIMARY KEY (ingredient_id, menu_id),
   CONSTRAINT menu_ingredient_fk1 FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id),
   CONSTRAINT menu_ingredient_fk2 FOREIGN KEY (menu_id) REFERENCES menu(menu_id));
+
+
+CREATE TABLE order_chauffeur(
+  order_id INTEGER NOT NULL,
+  employee_id INTEGER NOT NULL,
+  CONSTRAINT order_chauffeur_pk PRIMARY KEY (order_id, employee_id),
+  CONSTRAINT order_chauffeur_fk1 FOREIGN KEY (order_id) REFERENCES orders(order_id),
+  CONSTRAINT order_chauffeur_fk2 FOREIGN KEY (employee_id) REFERENCES employee(employee_id));

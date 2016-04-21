@@ -17,7 +17,7 @@ public class ActiveOrderChauffeur extends JFrame {
     private JButton backButton;
     private JButton removeButton;
 
-    public ActiveOrderChauffeur(int ChauffeurID) {
+    public ActiveOrderChauffeur(int loginID) {
         super("eFood");
         setContentPane(ActiveOrderW);
         pack();
@@ -57,7 +57,7 @@ public class ActiveOrderChauffeur extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                OrderViewChauffeur temp = new OrderViewChauffeur();
+                OrderViewChauffeur temp = new OrderViewChauffeur(loginID);
                 dispose();
             }
         });
