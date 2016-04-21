@@ -381,7 +381,7 @@ public class MethodsTest {
         int testRes1 = search.get(0).size();
 
         // Test data only includes 10 items in menu
-        assertEquals(10, testRes1);
+        assertEquals(11, testRes1);
 
 
         // First search result should be "Dummymat"
@@ -393,14 +393,32 @@ public class MethodsTest {
 
     @Test
     public void deleteMenu() throws Exception {
+        // Create menu for deletion
+        String name = "Potetsuppe", description = "Suppe laget av potet";
+        int price = 100;
+        int testRes1 = Methods.createMenu(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listMenu(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
 
+        assertEquals(expRes, testRes1);
+
+
+        // Remove test menu
+        boolean testRes2 = Methods.deleteMenu(expRes);
+
+        assertEquals(true, testRes2);
     }
-/*
+
     @Test
     public void listMenusInOrder() throws Exception {
+        int orderID = 1;
+        ArrayList<ArrayList<String>> search = Methods.listMenusInOrder(orderID);
+        String expName = "Dummymat", expID = "1";
 
+        assertEquals(expName, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
     }
-
+/*
     @Test
     public void listIngredients() throws Exception {
 
