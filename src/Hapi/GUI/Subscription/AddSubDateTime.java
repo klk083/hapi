@@ -13,8 +13,6 @@ public class AddSubDateTime {
     private JCheckBox fridayCheckBox;
     private JCheckBox saturdayCheckBox;
     private JCheckBox sundayCheckBox;
-    private JComboBox comboBox7;
-    private JComboBox comboBox8;
     private JButton okButton;
     private JButton cancelButton;
 }

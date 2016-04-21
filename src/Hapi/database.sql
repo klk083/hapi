@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS subscription_customer;
 DROP TABLE IF EXISTS menu_order;
 DROP TABLE IF EXISTS menu_ingredient;
 DROP TABLE IF EXISTS ingredient;
+DROP TABLE IF EXISTS order_chauffeur;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS statistics;
@@ -98,7 +99,7 @@ CREATE TABLE sub_delivery_days(
   CONSTRAINT sub_delivery_days_pk PRIMARY KEY(subscription_id, customer_id),
   CONSTRAINT sub_delivery_days_fk FOREIGN KEY(subscription_id, customer_id) REFERENCES subscription_customer(subscription_id, customer_id));
 
-  CREATE TABLE ingredient(
+CREATE TABLE ingredient(
   ingredient_id INTEGER AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   unit VARCHAR(5) NOT NULL,
@@ -113,10 +114,9 @@ CREATE TABLE menu_ingredient(
   CONSTRAINT menu_ingredient_fk1 FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id),
   CONSTRAINT menu_ingredient_fk2 FOREIGN KEY (menu_id) REFERENCES menu(menu_id));
 
-
 CREATE TABLE order_chauffeur(
   order_id INTEGER NOT NULL,
   employee_id INTEGER NOT NULL,
-  CONSTRAINT order_chauffeur_pk PRIMARY KEY (order_id, employee_id),
+  CONSTRAINT order_chauffeur_pk PRIMARY KEY (order_id),
   CONSTRAINT order_chauffeur_fk1 FOREIGN KEY (order_id) REFERENCES orders(order_id),
   CONSTRAINT order_chauffeur_fk2 FOREIGN KEY (employee_id) REFERENCES employee(employee_id));

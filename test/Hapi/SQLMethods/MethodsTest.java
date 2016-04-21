@@ -1,8 +1,8 @@
 package Hapi.SQLMethods;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.junit.Before;
+import org.junit.BeforeClass;
 
 import java.util.ArrayList;
 
@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 public class MethodsTest {
     // All tests are supposed to be run on a database built with our database.sql and test data given in test-data.sql
 
-    @Before
-    public void before() throws Exception {
+    @BeforeClass
+    public static void before() throws Exception {
         // Setup of test user
         String username = "testuser", password = "test", name = "Tester McTest";
         int role = 1;
@@ -354,12 +354,24 @@ public class MethodsTest {
 
         assertEquals(false, testRes3);
     }
-/*
+
     @Test
     public void createMenu() throws Exception {
+        String name = "Potetsuppe", description = "Suppe laget av potet";
+        int price = 100;
+        int testRes1 = Methods.createMenu(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listMenu(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
 
+        assertEquals(expRes, testRes1);
+
+
+        // Remove test menu
+        boolean testRes2 = Methods.deleteMenu(expRes);
+
+        assertEquals(true, testRes2);
     }
-*/
+
     @Test
     public void listMenu() throws Exception {
         String testmat = "Dummymat";
@@ -368,7 +380,7 @@ public class MethodsTest {
         ArrayList<ArrayList<String>> search = Methods.listMenu("");
         int testRes1 = search.get(0).size();
 
-        // Test data only includes 11 items in menu
+        // Test data only includes 10 items in menu
         assertEquals(11, testRes1);
 
 
@@ -378,12 +390,35 @@ public class MethodsTest {
 
         assertEquals(testmat, testRes2);
     }
-/*
-    @Test
-    public void listMenusInOrder() throws Exception {
 
+    @Test
+    public void deleteMenu() throws Exception {
+        // Create menu for deletion
+        String name = "Potetsuppe", description = "Suppe laget av potet";
+        int price = 100;
+        int testRes1 = Methods.createMenu(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listMenu(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
+
+        assertEquals(expRes, testRes1);
+
+
+        // Remove test menu
+        boolean testRes2 = Methods.deleteMenu(expRes);
+
+        assertEquals(true, testRes2);
     }
 
+    @Test
+    public void listMenusInOrder() throws Exception {
+        int orderID = 1;
+        ArrayList<ArrayList<String>> search = Methods.listMenusInOrder(orderID);
+        String expName = "Dummymat", expID = "1";
+
+        assertEquals(expName, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
+    }
+/*
     @Test
     public void listIngredients() throws Exception {
 
@@ -396,8 +431,8 @@ public class MethodsTest {
 
 
 */
-    @After
-    public void after() throws Exception {
+    @AfterClass
+    public static void after() throws Exception {
         // Removal of test user
         String username = "testuser";
         Methods.deleteUser(username);

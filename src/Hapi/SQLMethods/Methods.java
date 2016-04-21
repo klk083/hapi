@@ -757,14 +757,6 @@ public class Methods {
                 stm.executeUpdate();
             } catch (SQLException e) {}
 
-            try {
-                deleteSQL = "DELETE FROM subscription_order WHERE order_id = ?";
-                stm = con.prepareStatement(deleteSQL);
-                stm.setInt(1, orderID);
-
-                stm.executeUpdate();
-            } catch (SQLException e) {}
-
             deleteSQL =  "DELETE FROM orders WHERE order_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, orderID);
@@ -1181,10 +1173,6 @@ public class Methods {
         }
     }
 
-    //public static boolean deleteSubscription(String )
-
-    //public static boolean deleteSubscription(String )
-
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
         part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
@@ -1396,7 +1384,7 @@ public class Methods {
             } catch (SQLException e) {}
 
             try {
-                String updateSQL = "UPDATE subscription_order SET subscription_id = 0 WHERE subscription_id = ?";
+                String updateSQL = "UPDATE subscription_customer SET subscription_id = 0 WHERE subscription_id = ?";
                 stm = con.prepareStatement(updateSQL);
                 stm.setInt(1, subscriptionId);
 
@@ -1719,4 +1707,3 @@ public class Methods {
 
 
 }
-
