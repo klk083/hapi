@@ -475,6 +475,48 @@ public class MethodsTest {
         assertEquals(false, testRes3);
     }
 
+    @Test
+    public void changeIngredient() throws Exception {
+        String name = "Ost", unit = "g", ingredientID = "2";
+        int price = 2;
+        boolean testRes1 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(true, testRes1);
+
+        // Test negative price
+        price = -1;
+        boolean testRes2 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes2);
+
+        // Test blank name
+        price = 1;
+        name = "";
+        boolean testRes3 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes3);
+
+        // Test blank unit
+        name = "Ost";
+        unit = "";
+        boolean testRes4 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes4);
+
+        // Test blank ingredientID
+        unit = "g";
+        ingredientID = "";
+        boolean testRes5 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes5);
+
+        // Test negative ingredientID
+        ingredientID = "-1";
+        boolean testRes6 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes6);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
