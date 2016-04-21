@@ -55,7 +55,10 @@
             <children>
               <component id="ebada" class="javax.swing.JList" binding="viewReady">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <fixedCellHeight value="-1"/>
+                  <fixedCellWidth value="200"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

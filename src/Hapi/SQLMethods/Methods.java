@@ -1508,7 +1508,7 @@ public class Methods {
         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT order_id,customer_address FROM (orders NATIONAL JOIN menu JOIN orders NATURAL JOIN  subscription  JOIN customer WHERE readyF = true ORDER BY customer_address ASC";
+            String selectSQL = "SELECT order_id,customer_address FROM orders NATURAL JOIN  customer WHERE ready = true AND orders.order_id NOT IN (SELECT  order_id FROM order_chauffeur) ORDER BY customer_address ASC";
             stm = con.prepareStatement(selectSQL);
             res = stm.executeQuery();
 
@@ -1538,7 +1538,7 @@ public class Methods {
         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT order_id,customer_address FROM orders  NATURAL JOIN  customer NATURAL JOIN  order_chauffeur WHERE ready = true AND employee_id = ? ORDER BY customer_address ASC";
+            String selectSQL = "SELECT order_id,customer_address FROM orders NATURAL JOIN  customer NATURAL JOIN order_chauffeur WHERE ready = true AND employee_id = ? ORDER BY customer_address ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, loginID);
             res = stm.executeQuery();

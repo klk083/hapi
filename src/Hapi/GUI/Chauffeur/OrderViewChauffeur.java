@@ -30,7 +30,7 @@ public class OrderViewChauffeur extends JFrame {
     public OrderViewChauffeur (int loginID) {
         super("eFood");
         this.loginID = loginID;
-        
+        System.out.println(loginID);
         setContentPane(View);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,15 +39,17 @@ public class OrderViewChauffeur extends JFrame {
         setVisible(true);
 
         listReadyOrders = Methods.listOrdersForDeliveries();
-        for (String anOrder : listReadyOrders.get(0)) {
-            modelReady.addElement(anOrder);
+        for (int i=0;i<listReadyOrders.get(0).size();i++) {
+
+            modelReady.addElement(listReadyOrders.get(1).get(i) + " - " + listReadyOrders.get(0).get(i));
         }
         viewReady.setModel(modelReady);
 
         listChauffeur = Methods.listOrdersForChauffeur(loginID);
 
-        for (String anOrder : listChauffeur.get(0)) {
-            modelChauffeur.addElement(anOrder);
+        for (int i=0;i<listChauffeur.get(0).size();i++) {
+
+            modelChauffeur.addElement(listChauffeur.get(1).get(i) + " - " + listChauffeur.get(0).get(i));
         }
         viewOnChaffeur.setModel(modelChauffeur);
     }
