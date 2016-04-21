@@ -12,7 +12,7 @@ INSERT INTO role VALUES(DEFAULT, 'Sales Representative');
 INSERT INTO role VALUES(DEFAULT, 'Nutrition Expert');
 
 
-INSERT INTO customer VALUES(DEFAULT, 'Dummybruker', 'Dummyveien 1', '00000000', 0, false);
+INSERT INTO customer VALUES(DEFAULT, 'Dummykunde', 'Dummyveien 1', '00000000', 0, false);
 INSERT INTO customer VALUES(DEFAULT, 'Ronny', 'Bukta 12', '95408740', 0, false);
 INSERT INTO customer VALUES(DEFAULT, 'Ali', 'Gatehjørnet 20041', '92915412', 0, false);
 INSERT INTO customer VALUES(DEFAULT, 'Stig', 'Sveinveien 72', '90608050', 0, false);
@@ -48,7 +48,4 @@ INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false);
 
-INSERT INTO subscription_customer VALUES(1, 143, 4444-44-44, 4444-44-44)
-
-
-
+INSERT INTO subscription_customer VALUES(1, 143, 4444-44-44, 4444-44-44);
