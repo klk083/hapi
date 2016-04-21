@@ -354,12 +354,24 @@ public class MethodsTest {
 
         assertEquals(false, testRes3);
     }
-/*
+
     @Test
     public void createMenu() throws Exception {
+        String name = "Potetsuppe", description = "Suppe laget av potet";
+        int price = 100;
+        int testRes1 = Methods.createMenu(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listMenu(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
 
+        assertEquals(expRes, testRes1);
+
+
+        // Remove test menu
+        boolean testRes2 = Methods.deleteMenu(expRes);
+
+        assertEquals(true, testRes2);
     }
-*/
+
     @Test
     public void listMenu() throws Exception {
         String testmat = "Dummymat";
@@ -377,6 +389,11 @@ public class MethodsTest {
         String testRes2 = search.get(0).get(0);
 
         assertEquals(testmat, testRes2);
+    }
+
+    @Test
+    public void deleteMenu() throws Exception {
+
     }
 /*
     @Test
