@@ -87,11 +87,11 @@ public class AddSubscription extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 if(isNew){
-                    if(Methods.deleteMenu(subscriptionId)){
+                    if(Methods.deleteSub(subscriptionId)){
                         ManageSub subs = new ManageSub();
                         dispose();
                     }else{
-                        showMessageDialog(null, "Something wrong with deleting of the menu");
+                        showMessageDialog(null, "Something wrong with deleting of the subscription");
                     }
                 } else{
                     ManageSub temp = new ManageSub();
@@ -109,7 +109,7 @@ public class AddSubscription extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (existingCourses.isSelectionEmpty()) {
-                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
+                    showMessageDialog(null, "Please select a course to add to the subscription");
                 } else {
                     if (quantity.getText().equals(null) || quantity.getText().equals("")) {
                         showMessageDialog(null, "You didnt set a quantity");
@@ -122,7 +122,7 @@ public class AddSubscription extends JFrame {
 
 
                             } else {
-                                showMessageDialog(null, "something wrong with removing existing ingredient");
+                                showMessageDialog(null, "Something wrong with adding");
                             }
                         } catch (IllegalFormatException t) {
                             System.out.println(t + "Wrong input in quantity");
