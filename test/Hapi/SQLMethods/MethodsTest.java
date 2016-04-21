@@ -456,6 +456,25 @@ public class MethodsTest {
         assertEquals(null, search);
     }
 
+    @Test
+    public void isMenuInOrder() throws Exception {
+        int menuID = 1;
+        boolean testRes1 = Methods.isMenuInOrder(menuID);
+
+        assertEquals(true, testRes1);
+
+        // Test with negative menuID
+        boolean testRes2 = Methods.isMenuInOrder(-1);
+
+        assertEquals(false, testRes2);
+
+        // Test with menuID which is not in order
+        menuID = 10;
+        boolean testRes3 = Methods.isMenuInOrder(menuID);
+
+        assertEquals(false, testRes3);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
