@@ -438,14 +438,25 @@ public class MethodsTest {
 
         assertEquals(name, search.get(0).get(0));
     }
-/*
+
     @Test
     public void listIngredientsInMenu() throws Exception {
+        int menuID = 5, expAmount = 2;
+        String expName1 = "Ost", expName2 = "Luft";
+        ArrayList<ArrayList<String>> search = Methods.listIngredientsInMenu(menuID);
 
+        assertEquals(expName1, search.get(0).get(0));
+        assertEquals(expName2, search.get(0).get(1));
+        assertEquals(expAmount, search.get(0).size());
+
+
+        // Search with negative menuID
+        search = Methods.listIngredientsInMenu(-1);
+
+        assertEquals(null, search);
     }
 
 
-*/
     @AfterClass
     public static void after() throws Exception {
         // Removal of test user
