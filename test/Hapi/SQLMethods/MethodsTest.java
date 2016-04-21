@@ -517,6 +517,23 @@ public class MethodsTest {
         assertEquals(false, testRes6);
     }
 
+    @Test
+    public void getIngredientInfo() throws Exception {
+        String ingredientID = "1", expName = "Burger", expUnit = "stk", expPrice = "100";
+        ArrayList<String> search = Methods.getIngredientInfo(ingredientID);
+
+
+        // Test for correct name
+        assertEquals(expName, search.get(0));
+        // Test for correct ingredientID
+        assertEquals(ingredientID, search.get(1));
+        // Test for correct unit
+        assertEquals(expUnit, search.get(2));
+        // Test for correct price
+        assertEquals(expPrice, search.get(3));
+
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
