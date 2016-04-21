@@ -1187,6 +1187,34 @@ public class Methods {
         }
     }
 
+    public static ArrayList<Integer> listSubs(int customerId) {
+        if (customerId < 1) {
+            return null;
+        }
+
+        ArrayList<Integer> subscriptions = new ArrayList<Integer>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT subscription_id FROM subscription_customer WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerId);
+            res = stm.executeQuery();
+
+            while (res.next()) {
+                subscriptions.add(res.getInt("subscription_id"));
+            }
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of orders, Code: 8000034";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return subscriptions;
+        }
+    }
+
     public static ArrayList<String> getSubInfo(int subscriptionId) {
         if (subscriptionId < 1) {
             return null;

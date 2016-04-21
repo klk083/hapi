@@ -48,5 +48,7 @@ INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false);
 
+INSERT INTO subscription_customer VALUES(1, 143, 4444-44-44, 4444-44-44)
+
 
 
