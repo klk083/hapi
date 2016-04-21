@@ -418,12 +418,27 @@ public class MethodsTest {
         assertEquals(expName, search.get(0).get(0));
         assertEquals(expID, search.get(1).get(0));
     }
-/*
+
     @Test
     public void listIngredients() throws Exception {
+        String expName1 = "Burger", expName2 = "Ost";
+        int expAmount = 6;
 
+        // Blank search lists all ingredients
+        ArrayList<ArrayList<String>> search = Methods.listIngredients("");
+
+        assertEquals(expName1, search.get(0).get(0));
+        assertEquals(expName2, search.get(0).get(1));
+        assertEquals(expAmount, search.get(0).size());
+
+
+        // Search for ingredient
+        String name = "Potet";
+        search = Methods.listIngredients(name);
+
+        assertEquals(name, search.get(0).get(0));
     }
-
+/*
     @Test
     public void listIngredientsInMenu() throws Exception {
 
