@@ -88,4 +88,25 @@ public class DeprecatedMethods {
         }
    }
 
+   public static boolean createSubscription(String description) {
+       boolean ok = false;
+       try {
+           con = SQLConnection.openConnection();
+           String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?)";
+           stm = con.prepareStatement(insertSQL);
+           stm.setString(1, description);
+
+           stm.executeUpdate();
+           ok = true;
+       } catch (SQLException e) {
+           String errorMessage = "SQL Exception during subscription creation, Code: 8000021";
+           SQLConnection.writeMessage(e, errorMessage);
+
+           ok = false;
+       } finally {
+           closeSQL();
+
+           return ok;
+       }
+   }
 }

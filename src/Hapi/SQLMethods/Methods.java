@@ -1151,33 +1151,10 @@ public class Methods {
         }
     }
 
-    public static boolean createSubscription(String description) {
-        boolean ok = false;
-        try {
-            con = SQLConnection.openConnection();
-            String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?)";
-            stm = con.prepareStatement(insertSQL);
-            stm.setString(1, description);
-
-            stm.executeUpdate();
-            ok = true;
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during subscription creation, Code: 8000021";
-            SQLConnection.writeMessage(e, errorMessage);
-
-            ok = false;
-        } finally {
-            closeSQL();
-
-            return ok;
-        }
-    }
+    //public static boolean deleteSubscription(String )
 
     //public static boolean deleteSubscription(String )
 
-
-
-//public static boolean deleteSubscription(String )
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
         part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
@@ -1201,7 +1178,7 @@ public class Methods {
             subscription.add(navn);
             subscription.add(id);
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of menus by search, Code: 8000023";
+            String errorMessage = "SQL Exception during listing of subscriptions by search, Code: 8000037";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1231,7 +1208,7 @@ public class Methods {
             info.add(res.getString("description"));
             info.add(Integer.toString(getMenuCostPrice(subscriptionId)));
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000038";
+            String errorMessage = "SQL Exception during retrieval of subscription info, Code: 8000038";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1256,7 +1233,7 @@ public class Methods {
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during removal of menu from order, Code: 8000015";
+            String errorMessage = "SQL Exception during removal of menu from subscription, Code: 8000045";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -1332,7 +1309,7 @@ public class Methods {
             subscriptionId = res.getInt("subscription_id");
 
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during creation of menu, Code: 8000018";
+            String errorMessage = "SQL Exception during creation of subscription, Code: 8000021";
             SQLConnection.writeMessage(e, errorMessage);
 
         } finally {
@@ -1398,7 +1375,6 @@ public class Methods {
         }
     }
 
-
     public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
         if (subscriptionId < 1) {
             return null;
@@ -1427,7 +1403,7 @@ public class Methods {
             courses.add(id);
             courses.add(quantity);
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of courses in sub, Code: 8000040";
+            String errorMessage = "SQL Exception during listing of courses in sub, Code: 8000044";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1500,8 +1476,6 @@ public class Methods {
             return ok;
         }
     }
-
-
 
     public static ArrayList<ArrayList<String>> listOrdersForDeliveries() {
 
