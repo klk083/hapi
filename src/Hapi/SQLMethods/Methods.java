@@ -1499,6 +1499,12 @@ public class Methods {
             return false;
         }
 
+        int ingredientID2 = Integer.parseInt(ingredientID);
+
+        if (ingredientID2 < 1) {
+            return false;
+        }
+
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
