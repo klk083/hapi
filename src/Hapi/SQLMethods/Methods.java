@@ -70,7 +70,7 @@ public class Methods {
         }
     }
 
-    private static boolean setDeliveryDaysID(int subID, int customerID, ArrayList<Boolean> days) {
+    private static boolean setDeliveryDays(int subID, int customerID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
             return false;
         }
@@ -1476,7 +1476,7 @@ public class Methods {
 
             stm.executeUpdate();
 
-            if (setDeliveryDaysID(subID, customerID, days)) {
+            if (setDeliveryDays(subID, customerID, days)) {
                 ok = true;
                 con.commit();
             } else {
