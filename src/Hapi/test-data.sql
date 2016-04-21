@@ -42,12 +42,13 @@ INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 14, 2008-11-11, false);
+INSERT INTO orders VALUES (DEFAULT, 14, 2012-11-11, false);
 
 INSERT INTO menu_order VALUES(1, 1, 1, '', false);
 
-INSERT INTO menu_ingredient VALUES(1, 6, 2);
-
 INSERT INTO order_chauffeur VALUES(1, 2);
+
+INSERT INTO order_cook VALUES(2, 4);
 
 INSERT INTO subscription_menu VALUES(1, 1, 1);
 
