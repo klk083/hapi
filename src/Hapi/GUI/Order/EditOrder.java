@@ -33,7 +33,7 @@ public class EditOrder extends JFrame {
     private JComboBox comboBox5;
     private JTextField quantity;
     private JTextField textField1;
-    private JPanel addOrderPannel;
+    private JPanel editOrderPannel;
     private JTextField description;
 
     int orderId;
@@ -46,7 +46,7 @@ public class EditOrder extends JFrame {
         super("eFood");
         this.orderId = orderId;
 
-        setContentPane(addOrderPannel);
+        setContentPane(editOrderPannel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
