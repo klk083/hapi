@@ -1743,7 +1743,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            SQLConnection.setAutoCommitOff();
+            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "DELETE FROM order_chauffeur WHERE order_id = ? AND employee_id = ?";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, orderID);
