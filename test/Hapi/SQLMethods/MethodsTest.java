@@ -261,6 +261,25 @@ public class MethodsTest {
     }
 
     @Test
+    public void getOrderInfo() throws Exception {
+        int orderID = 1;
+        String expOrderID = "1", expCustomerID = "2", expDelivery = "2008-11-11", expReady = "true";
+        ArrayList<String> search = Methods.getOrderInfo(orderID);
+
+        assertEquals(expOrderID, search.get(0));
+        assertEquals(expCustomerID, search.get(1));
+        assertEquals(expDelivery, search.get(2));
+        assertEquals(expReady, search.get(3));
+
+
+        // Test with negative orderID
+        orderID = -1;
+        search = Methods.getOrderInfo(orderID);
+
+        assertEquals(null, search);
+    }
+
+    @Test
     public void addMenuToOrder() throws Exception {
         String name = "Billy Bob", description = "";
         int menuID = 1, quantity = 1;
@@ -565,7 +584,7 @@ public class MethodsTest {
     @Test
     public void changeMenu() throws Exception {
         int menuID = 1, price = 1;
-        String name = "Dummymat", description = "Meget dummy";
+        String name = "Dummymat", description = "Dummy";
         boolean testRes1 = Methods.changeMenu(menuID, name, price, description);
 
         assertEquals(true, testRes1);
@@ -600,6 +619,152 @@ public class MethodsTest {
 
         assertEquals(false, testRes5);
     }
+
+    @Test
+    public void getMenuInfo() throws Exception {
+        String expName = "Dummymat", expDescription = "Dummy", expPrice = "1", expID = "1";
+        int menuID = 1;
+        ArrayList<String> search = Methods.getMenuInfo(menuID);
+
+        assertEquals(expName, search.get(0));
+        assertEquals(expDescription, search.get(1));
+        assertEquals(expPrice, search.get(2));
+        assertEquals(expID, search.get(3));
+
+        // Test with negative menuID
+        menuID = -1;
+        search = Methods.getMenuInfo(menuID);
+
+        assertEquals(null, search);
+    }
+
+    @Test
+    public void addIngredientToMenu() throws Exception {
+        int menuID = 1, ingredientID = 1, quantity = 1;
+        boolean testRes1 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(true, testRes1);
+
+        // Remove addition
+        boolean testRes2 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes3);
+
+        // Test with negative ingredientID
+        menuID = 1;
+        ingredientID = -1;
+        boolean testRes4 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes4);
+
+        // Test with negative quantity
+        ingredientID = 1;
+        quantity = -1;
+        boolean testRes5 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes5);
+    }
+
+    @Test
+    public void removeIngredientFromMenu() throws Exception {
+        int menuID = 1, ingredientID = 1, quantity = 1;
+        boolean testRes1 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(true, testRes1);
+
+        // Test of removal of ingredient from menu
+        boolean testRes2 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test of removal with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(false, testRes3);
+
+        // Test of removal with negative ingredientID
+        menuID = 1;
+        ingredientID = -1;
+        boolean testRes4 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(false, testRes4);
+    }
+
+    @Test
+    public void createSub() throws Exception {
+        String name = "Test subscription", description = "Test";
+        int price = 100;
+        int testRes1 = Methods.createSub(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
+
+        assertEquals(expRes, testRes1);
+
+        // Remove test subscription
+        boolean testRes2 = Methods.deleteSub(expRes);
+
+        assertEquals(true, testRes2);
+
+        // Test with blank name
+        name = "";
+        expRes = -1;
+        int testRes3 = Methods.createSub(name, description, price);
+
+        assertEquals(expRes, testRes3);
+
+        // Test with blank description
+        name = "Test Subscription";
+        description = "";
+        int testRes4 = Methods.createSub(name, description, price);
+
+        assertEquals(expRes, testRes4);
+
+        // Test with negative price
+        description = "Test";
+        price = -1;
+        int testRes5 = Methods.createSub(name, description, price);
+
+        assertEquals(expRes, testRes5);
+    }
+
+    @Test
+    public void deleteSub() throws Exception {
+        // Create subscription to delete
+        String name = "Test subscription", description = "Test";
+        int price = 100;
+        int testRes1 = Methods.createSub(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
+
+        assertEquals(expRes, testRes1);
+
+        // Remove test subscription
+        boolean testRes2 = Methods.deleteSub(expRes);
+
+        assertEquals(true, testRes2);
+
+        // Test with negative subscriptionID
+        int subscriptionID = -1;
+        boolean testRes3 = Methods.deleteSub(subscriptionID);
+
+        assertEquals(false, testRes3);
+
+    }
+
+    @Test
+    public void addMenuToSub() throws Exception {
+
+    }
+
 
     @AfterClass
     public static void after() throws Exception {

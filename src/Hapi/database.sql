@@ -88,7 +88,6 @@ CREATE TABLE subscription_menu(
 
 CREATE TABLE sub_delivery_days(
   subscription_id INTEGER NOT NULL,
-  customer_id INTEGER NOT NULL,
   monday BOOLEAN NOT NULL,
   tuesday BOOLEAN NOT NULL,
   wednesday BOOLEAN NOT NULL,
@@ -96,8 +95,8 @@ CREATE TABLE sub_delivery_days(
   friday BOOLEAN NOT NULL,
   saturday BOOLEAN NOT NULL,
   sunday BOOLEAN NOT NULL,
-  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(subscription_id, customer_id),
-  CONSTRAINT sub_delivery_days_fk FOREIGN KEY(subscription_id, customer_id) REFERENCES subscription_customer(subscription_id, customer_id));
+  CONSTRAINT sub_delivery_days_pk PRIMARY KEY(subscription_id),
+  CONSTRAINT sub_delivery_days_fk FOREIGN KEY(subscription_id) REFERENCES subscription(subscription_id));
 
 CREATE TABLE ingredient(
   ingredient_id INTEGER AUTO_INCREMENT,

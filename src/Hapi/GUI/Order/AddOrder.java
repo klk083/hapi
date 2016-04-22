@@ -54,7 +54,7 @@ public class AddOrder extends JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
         DefaultListModel listModel2 = new DefaultListModel();
 
 
@@ -64,17 +64,16 @@ public class AddOrder extends JFrame {
 
 
 
-        for (String enCourse : list.get(0)) {
-            listModel.addElement(enCourse);
+        for (int i = 0; i < list.get(0).size(); i++) {
+            String name = list.get(0).get(i);
+            String id = list.get(1).get(i);
+            listModel.addElement(new ListeElement(id, name));
         }
         menuNotInOrder.setModel(listModel);
 
 
-
-        list2 = Methods.listMenusInOrder(orderId);
-
-        for (String anIngredient : list2.get(0)) {
-            listModel2.addElement(anIngredient);
+        for (String anOrder : list2.get(0)) {
+            listModel2.addElement(anOrder);
         }
         menuInOrder.setModel(listModel2);
 
@@ -100,11 +99,13 @@ public class AddOrder extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listMenu(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
                 //    String[] user = list;
-                for (String enCourse : list.get(0)) {
-                    listModel.addElement(enCourse);
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id, name));
                 }
                 menuNotInOrder.setModel(listModel);
             }
@@ -123,7 +124,7 @@ public class AddOrder extends JFrame {
                     showMessageDialog(null,"You forgot to select an ingredient to remove");
                 } else{
                     if(Methods.removeMenuFromOrder(
-                            orderId, Integer.parseInt(list.get(1).get(menuInOrder.getSelectedIndex())) )) {
+                            orderId, Integer.parseInt(list2.get(1).get(menuInOrder.getSelectedIndex())) )) {
 
                         AddOrder temp = new AddOrder(selected,orderId, selectedId, isNew);
                         dispose();
@@ -133,6 +134,41 @@ public class AddOrder extends JFrame {
                 }
 
             }
+        });
+
+        addButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (menuNotInOrder.isSelectionEmpty()) {
+                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
+                } else {
+                    if (quantity.getText().equals(null) || quantity.getText().equals("")) {
+                        showMessageDialog(null, "You didnt set a quantity");
+                    } else {
+                        ListeElement selectedOrder = (ListeElement) menuNotInOrder.getSelectedValuesList().get(0);
+                        try {
+                            if (Methods.addMenuToOrder(
+                                    orderId, Integer.parseInt(selectedOrder.getId()), Integer.parseInt(quantity.getText()), description.getText())) {
+                                EditOrder temp = new EditOrder(selected,orderId, selectedId, true );
+                                dispose();
+
+
+
+                            } else {
+                                showMessageDialog(null, "something wrong with removing existing ingredient");
+                            }
+                        } catch (IllegalFormatException t) {
+                            System.out.println(t + "Wrong input in quantity");
+                        }
+                    }
+                }
+            }
+
         });
 
 
@@ -267,38 +303,6 @@ public class AddOrder extends JFrame {
 
             }
         });
-        addButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (menuNotInOrder.isSelectionEmpty()) {
-                    showMessageDialog(null, "You didnt select an ingredient to add to the course");
-                } else {
-                    if (quantity.getText().equals(null) || quantity.getText().equals("")) {
-                        showMessageDialog(null, "You didnt set a quantity");
-                    } else {
-                        try {
-                            if (Methods.addMenuToOrder(
-                                        orderId, Integer.parseInt(list.get(1).get(menuNotInOrder.getSelectedIndex())), Integer.parseInt(quantity.getText()), description.getText())) {
-                                    AddOrder temp = new AddOrder(selected,orderId, selectedId, true );
-                                    dispose();
 
-
-
-                            } else {
-                                showMessageDialog(null, "something wrong with removing existing ingredient");
-                            }
-                        } catch (IllegalFormatException t) {
-                            System.out.println(t + "Wrong input in quantity");
-                        }
-                    }
-                }
-            }
-
-        });
     }
 }

@@ -1,11 +1,11 @@
 # noinspection SqlNoDataSourceInspectionForFile
 INSERT INTO employee VALUES(DEFAULT, 1, "admin", "admin", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-INSERT INTO employee VALUES(DEFAULT, 1, "knut", "knut", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-INSERT INTO employee VALUES(DEFAULT, 2, "håkon", "håkon", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
-INSERT INTO employee VALUES(DEFAULT, 3, "kenny", "kenny", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
+INSERT INTO employee VALUES(DEFAULT, 1, "knut", "knut", "$6$nufalq6mk6hse$Nema/b9tdB8HZv6MFlcm8a1jDd1sI.58JURXlzN0hZ/6Bj1uOqlyrzIc03KvFnqkTe075xtmpA9KahrLAJonz1", "$6$nufalq6mk6hse");
+INSERT INTO employee VALUES(DEFAULT, 2, "håkon", "håkon", "$6$u4ch7cjbrhjl8$9fo/mZnnsEA.CB9GUoECBZ1tDC8oi3Xu/uP8aEDtdIVkGfzpo5tCmlHSs0BygCmIUFfozRU2VVXnCjkbf50e00", "$6$u4ch7cjbrhjl8");
+INSERT INTO employee VALUES(DEFAULT, 3, "kenny", "kenny", "$6$oc2jbknkgqok5$D01aHqvSEiS.wL75uqaPk9ZOjl7Kczq9083Ue6WOJSnlME.6.6CdknPY1GdRVDXJuDP.H/jxBt0h2lbIZ4qs70", "$6$oc2jbknkgqok5");
 INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "ivar", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
 INSERT INTO employee VALUES(DEFAULT, 5, "Luft lars", "luft", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
-INSERT INTO employee VALUES(DEFAULT, 6, "magnus", "magnus", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
+INSERT INTO employee VALUES(DEFAULT, 6, "magnus", "magnus", "$6$14ftoi3h292sa$krUxljhBMuzMwPrBtbo90cBvCAiA94Ep9ZHAEiLF0XDPrKm8SQHP8mJIwrxB9FjPvFiJA6ycqY1PlNMi2TofI1", "$6$14ftoi3h292sa");
 
 INSERT INTO role VALUES(DEFAULT, 'CEO');
 INSERT INTO role VALUES(DEFAULT, 'Secretary');
@@ -30,7 +30,7 @@ INSERT INTO menu VALUES(DEFAULT, 'Baconburger med bacon', 125, 'Meget oppgående
 INSERT INTO menu VALUES(DEFAULT, 'Fritert hamster', 100, 'Myk og fyldig smak');
 INSERT INTO menu VALUES(DEFAULT, 'Hakkemat', 500, 'Mat for de som er litt ekstra fan av hakking');
 
-INSERT INTO subscription VALUES(DEFAULT, 'Burger abonnement', 100,'Himmelsk burger med smak');
+INSERT INTO subscription VALUES(DEFAULT, 'Burger abonnement', 100,'For den som vil automatisk få levert burger');
 
 INSERT INTO ingredient VALUES(DEFAULT, 'Burger', 'stk', 100);
 INSERT INTO ingredient VALUES(DEFAULT, 'Ost', 'g', 1);
@@ -50,10 +50,10 @@ INSERT INTO menu_order VALUES(1, 1, 1, '', false);
 
 INSERT INTO menu_ingredient VALUES(1, 6, 2);
 
-INSERT INTO order_chauffeur VALUES(1, 2);
+INSERT INTO order_chauffeur VALUES(1, 5);
 
 INSERT INTO subscription_menu VALUES(1, 1, 1);
 
-INSERT INTO sub_delivery_days VALUES(1, 1, true, true, true, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(1, true, true, true, true, true, true, true);
 
 INSERT INTO subscription_customer VALUES(1, 2, 4444-44-44, 4444-44-44);

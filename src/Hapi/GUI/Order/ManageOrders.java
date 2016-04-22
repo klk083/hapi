@@ -118,7 +118,7 @@ public class ManageOrders extends JFrame {
 
                     }
                 } else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
-                    deleteSubOrder((list2.get(subList.getSelectedIndex())));
+                    removeSubFromCustomer((list2.get(subList.getSelectedIndex())),selectedInt );
                     dispose();
                     ManageOrders customers = new ManageOrders(selected, selectedInt);
                 }
