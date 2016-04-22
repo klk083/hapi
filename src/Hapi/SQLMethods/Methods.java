@@ -1514,39 +1514,6 @@ public class Methods {
         }
     }
 
-    public static boolean deleteSubOrder(int subID) {
-        if(subID < 1) {
-            return false;
-        }
-        boolean ok =false;
-        try {
-            con = SQLConnection.openConnection();
-            SQLConnection.setAutoCommitOff(con);
-            String deleteSQL = "";
-
-
-
-            deleteSQL = "DELETE FROM subscription_customer WHERE subscription_id = ?";
-            stm = con.prepareStatement(deleteSQL);
-            stm.setInt(1, subID);
-
-            stm.executeUpdate();
-            con.commit();
-
-            ok = true;
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during order deletion, Code: 8000029";
-            SQLConnection.writeMessage(e, errorMessage);
-            SQLConnection.rollback(con);
-
-            ok = false;
-        } finally {
-            closeSQL();
-
-            return ok;
-        }
-    }
-
     public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
         if (subscriptionId < 1) {
             return null;
@@ -1903,7 +1870,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String insertSQL = "DELETE FROM subscription_customer WHERE order_id = ? AND customer_id = ?";
+            String insertSQL = "DELETE FROM subscription_customer WHERE subscription_id = ? AND customer_id = ?";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, subID);
             stm.setInt(2, customerID);
