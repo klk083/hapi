@@ -717,6 +717,30 @@ public class MethodsTest {
         assertEquals(expRes, testRes5);
     }
 
+    @Test
+    public void deleteSub() throws Exception {
+        // Create subscription to delete
+        String name = "Test subscription", description = "Test";
+        int price = 100;
+        int testRes1 = Methods.createSub(name, description, price);
+        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
+        int expRes = Integer.parseInt(search.get(1).get(0));
+
+        assertEquals(expRes, testRes1);
+
+        // Remove test subscription
+        boolean testRes2 = Methods.deleteSub(expRes);
+
+        assertEquals(true, testRes2);
+
+        // Test with negative subscriptionID
+        int subscriptionID = -1;
+        boolean testRes3 = Methods.deleteSub(subscriptionID);
+
+        assertEquals(false, testRes3);
+
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
