@@ -418,19 +418,151 @@ public class MethodsTest {
         assertEquals(expName, search.get(0).get(0));
         assertEquals(expID, search.get(1).get(0));
     }
-/*
+
     @Test
     public void listIngredients() throws Exception {
+        String expName1 = "Burger", expName2 = "Ost";
+        int expAmount = 6;
 
+        // Blank search lists all ingredients
+        ArrayList<ArrayList<String>> search = Methods.listIngredients("");
+
+        assertEquals(expName1, search.get(0).get(0));
+        assertEquals(expName2, search.get(0).get(1));
+        assertEquals(expAmount, search.get(0).size());
+
+
+        // Search for ingredient
+        String name = "Potet";
+        search = Methods.listIngredients(name);
+
+        assertEquals(name, search.get(0).get(0));
     }
 
     @Test
     public void listIngredientsInMenu() throws Exception {
+        int menuID = 5, expAmount = 2;
+        String expName1 = "Ost", expName2 = "Luft";
+        ArrayList<ArrayList<String>> search = Methods.listIngredientsInMenu(menuID);
+
+        assertEquals(expName1, search.get(0).get(0));
+        assertEquals(expName2, search.get(0).get(1));
+        assertEquals(expAmount, search.get(0).size());
+
+
+        // Search with negative menuID
+        search = Methods.listIngredientsInMenu(-1);
+
+        assertEquals(null, search);
+    }
+
+    @Test
+    public void isMenuInOrder() throws Exception {
+        int menuID = 1;
+        boolean testRes1 = Methods.isMenuInOrder(menuID);
+
+        assertEquals(true, testRes1);
+
+        // Test with negative menuID
+        boolean testRes2 = Methods.isMenuInOrder(-1);
+
+        assertEquals(false, testRes2);
+
+        // Test with menuID which is not in order
+        menuID = 10;
+        boolean testRes3 = Methods.isMenuInOrder(menuID);
+
+        assertEquals(false, testRes3);
+    }
+
+    @Test
+    public void changeIngredient() throws Exception {
+        String name = "Ost", unit = "g", ingredientID = "2";
+        int price = 2;
+        boolean testRes1 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(true, testRes1);
+
+        // Test negative price
+        price = -1;
+        boolean testRes2 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes2);
+
+        // Test blank name
+        price = 1;
+        name = "";
+        boolean testRes3 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes3);
+
+        // Test blank unit
+        name = "Ost";
+        unit = "";
+        boolean testRes4 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes4);
+
+        // Test blank ingredientID
+        unit = "g";
+        ingredientID = "";
+        boolean testRes5 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes5);
+
+        // Test negative ingredientID
+        ingredientID = "-1";
+        boolean testRes6 = Methods.changeIngredient(ingredientID, name, price, unit);
+
+        assertEquals(false, testRes6);
+    }
+
+    @Test
+    public void getIngredientInfo() throws Exception {
+        String ingredientID = "1", expName = "Burger", expUnit = "stk", expPrice = "100";
+        ArrayList<String> search = Methods.getIngredientInfo(ingredientID);
+
+
+        // Test for correct name
+        assertEquals(expName, search.get(0));
+        // Test for correct ingredientID
+        assertEquals(ingredientID, search.get(1));
+        // Test for correct unit
+        assertEquals(expUnit, search.get(2));
+        // Test for correct price
+        assertEquals(expPrice, search.get(3));
 
     }
 
+    @Test
+    public void listSubs() throws Exception {
+        // Tests both listSubs-methods
 
-*/
+        // Test for listSubs(String part1Name)
+        String name = "Burger Abonnement";
+        int expID = 1;
+        ArrayList<ArrayList<String>> search = Methods.listSubs(name);
+
+        assertEquals(name, search.get(0).get(0));
+        assertEquals(expID, Integer.parseInt(search.get(1).get(0)));
+
+
+        // Test for listSubs(int customerID)
+        int customerID = 1, expID2 = 1;
+        ArrayList<Integer> search2 = Methods.listSubs(customerID);
+        int testRes = search2.get(0);
+
+        assertEquals(expID2, testRes);
+
+
+        // Test listSubs(int customerID) with negative ID
+        customerID = -1;
+        search2 = Methods.listSubs(customerID);
+
+        assertEquals(null, search2);
+    }
+
+
     @AfterClass
     public static void after() throws Exception {
         // Removal of test user

@@ -42,7 +42,7 @@ CREATE TABLE menu_order(
   menu_id INTEGER NOT NULL,
   quantity INTEGER NOT NULL,
   description VARCHAR(100),
-  inprogress BOOLEAN NOT NULL,
+  ready BOOLEAN NOT NULL,
   CONSTRAINT menu_order_pk PRIMARY KEY (order_id, menu_id),
   CONSTRAINT menu_order_fk1 FOREIGN KEY (order_id) REFERENCES orders(order_id),
   CONSTRAINT menu_order_fk2 FOREIGN KEY (menu_id) REFERENCES menu(menu_id));
@@ -120,3 +120,10 @@ CREATE TABLE order_chauffeur(
   CONSTRAINT order_chauffeur_pk PRIMARY KEY (order_id),
   CONSTRAINT order_chauffeur_fk1 FOREIGN KEY (order_id) REFERENCES orders(order_id),
   CONSTRAINT order_chauffeur_fk2 FOREIGN KEY (employee_id) REFERENCES employee(employee_id));
+
+CREATE TABLE order_cook(
+  order_id INTEGER NOT NULL,
+  employee_ID INTEGER NOT NULL,
+  CONSTRAINT order_cook_pk PRIMARY KEY (order_id),
+  CONSTRAINT order_cook_fk1 FOREIGN KEY (order_id) REFERENCES orders(order_id),
+  CONSTRAINT order_cook_fk2 FOREIGN KEY (employee_id) REFERENCES employee(employee_id));

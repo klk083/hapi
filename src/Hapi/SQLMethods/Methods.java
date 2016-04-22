@@ -70,7 +70,7 @@ public class Methods {
         }
     }
 
-    private static boolean setDeliveryDaysID(int subID, int customerID, ArrayList<Boolean> days) {
+    private static boolean setDeliveryDays(int subID, int customerID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
             return false;
         }
@@ -1174,7 +1174,6 @@ public class Methods {
     }
 
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
-        part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
         String forSQL1 = "%" + part1Name + "%";
 
@@ -1476,7 +1475,7 @@ public class Methods {
 
             stm.executeUpdate();
 
-            if (setDeliveryDaysID(subID, customerID, days)) {
+            if (setDeliveryDays(subID, customerID, days)) {
                 ok = true;
                 con.commit();
             } else {
@@ -1496,6 +1495,12 @@ public class Methods {
 
     public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
         if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
+            return false;
+        }
+
+        int ingredientID2 = Integer.parseInt(ingredientID);
+
+        if (ingredientID2 < 1) {
             return false;
         }
 
@@ -1584,8 +1589,8 @@ public class Methods {
         }
     }
 
-    public static boolean addOrderToChauffeur(int orderID,int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+    public static boolean addOrderToChauffeur(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok=false;
@@ -1611,8 +1616,8 @@ public class Methods {
 
     }
 
-    public static boolean removeOrderFromChauffeur(int orderID,int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+    public static boolean removeOrderFromChauffeur(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok=false;
@@ -1637,8 +1642,8 @@ public class Methods {
         }
     }
 
-    public static boolean setORderToDelivered(int orderID,int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+    public static boolean setOrderToDelivered(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
 
@@ -1657,7 +1662,7 @@ public class Methods {
 
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during adding order to employee in order_chauffeur table, Code: 8000046";
+            String errorMessage = "SQL Exception while setting order to delivered, Code: 8000049";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -1684,8 +1689,9 @@ public class Methods {
             return false;
         }
     }
+
     public static int getID() {
-        int id=-1;
+        int id = -1;
         try
         {
             FileInputStream fileIn = new FileInputStream("./employeeID.ser");
@@ -1704,6 +1710,5 @@ public class Methods {
         }
         return id;
     }
-
 
 }
