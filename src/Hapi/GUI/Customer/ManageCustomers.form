@@ -28,7 +28,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="bf69b" class="javax.swing.JList" binding="list1" default-binding="true">
+              <component id="bf69b" class="javax.swing.JList" binding="displayList" default-binding="true">
                 <constraints/>
                 <properties/>
               </component>

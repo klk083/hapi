@@ -115,7 +115,7 @@ public class CreateCourse extends JFrame{
                         Courses temp = new Courses();
                         dispose();
                     }else{
-                        showMessageDialog(null, "Something wrong with deleting of the menu");
+                        showMessageDialog(null, "Something wrong with deleting of the course");
                     }
                 } else{
                     Courses temp = new Courses();

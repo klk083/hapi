@@ -17,7 +17,7 @@ import static javax.swing.JOptionPane.showOptionDialog;
  * Created by klk94 on 16.03.2016.
  */
 public class ManageCustomers extends JFrame {
-    private JList list1;
+    private JList displayList;
     private JTextField textField1;
     private JButton searchButton;
     private JButton editButton;
@@ -46,7 +46,7 @@ public class ManageCustomers extends JFrame {
         for (String enuser : list.get(0)) {
             listModel.addElement(enuser);
         }
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
 
         searchButton.addActionListener(new ActionListener() {
@@ -63,7 +63,7 @@ public class ManageCustomers extends JFrame {
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
 
             }
         });
@@ -82,7 +82,7 @@ public class ManageCustomers extends JFrame {
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
             }
         });
         createButton.addActionListener(new ActionListener() {
@@ -96,7 +96,7 @@ public class ManageCustomers extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list1.isSelectionEmpty()) {
+                if (displayList.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
                 } else {
                     int choice = showOptionDialog(null,
@@ -106,7 +106,7 @@ public class ManageCustomers extends JFrame {
                             JOptionPane.QUESTION_MESSAGE,
                             null, null, null);
                     if (choice == JOptionPane.YES_OPTION) {
-                        deleteCustomer(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                        deleteCustomer(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));
                         dispose();
                         ManageCustomers customers = new ManageCustomers();
 
@@ -118,10 +118,10 @@ public class ManageCustomers extends JFrame {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list1.isSelectionEmpty()) {
+                if (displayList.isSelectionEmpty()) {
                     showMessageDialog(null, "DO ar dum din tolling");
                 } else {
-                    ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));
                     EditCustomer edit = new EditCustomer(info.get(0), info.get(1));
                     dispose();
                 }

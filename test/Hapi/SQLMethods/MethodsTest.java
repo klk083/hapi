@@ -541,7 +541,7 @@ public class MethodsTest {
         // Test for listSubs(String part1Name)
         String name = "Burger Abonnement";
         int expID = 1;
-        ArrayList<ArrayList<String>> search = Methods.listSubs(name);
+        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
 
         assertEquals(name, search.get(0).get(0));
         assertEquals(expID, Integer.parseInt(search.get(1).get(0)));
@@ -562,6 +562,44 @@ public class MethodsTest {
         assertEquals(null, search2);
     }
 
+    @Test
+    public void changeMenu() throws Exception {
+        int menuID = 1, price = 1;
+        String name = "Dummymat", description = "Meget dummy";
+        boolean testRes1 = Methods.changeMenu(menuID, name, price, description);
+
+        assertEquals(true, testRes1);
+
+        // Test with negative menuID
+        menuID = -1;
+        boolean testRes2 = Methods.changeMenu(menuID, name, price, description);
+
+        assertEquals(false, testRes2);
+
+        // Test with negative price
+        menuID = 1;
+        price = -1;
+
+        boolean testRes3 = Methods.changeMenu(menuID, name, price, description);
+
+        assertEquals(false, testRes3);
+
+        // Test with blank name
+        price = 1;
+        name = "";
+
+        boolean testRes4 = Methods.changeMenu(menuID, name, price, description);
+
+        assertEquals(false, testRes4);
+
+        // Test with blank description
+        name = "Dummymat";
+        description = "";
+
+        boolean testRes5 = Methods.changeMenu(menuID, name, price, description);
+
+        assertEquals(false, testRes5);
+    }
 
     @AfterClass
     public static void after() throws Exception {
