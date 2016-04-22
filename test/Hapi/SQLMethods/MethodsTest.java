@@ -778,6 +778,43 @@ public class MethodsTest {
 
         assertEquals(null, search);
     }
+
+    @Test
+    public void addMenuToSub() throws Exception {
+        int menuID = 2, subID = 1, quantity = 2;
+        boolean testRes1 = Methods.addMenuToSub(menuID, subID, quantity);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test addition
+        boolean testRes2 = Methods.removeMenuFromSub(menuID, subID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.addMenuToSub(menuID, subID, quantity);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative subID
+        menuID = 2;
+        subID = -1;
+        boolean testRes4 = Methods.addMenuToSub(menuID, subID, quantity);
+
+        assertEquals(false, testRes4);
+
+
+        // Test with negative quantity
+        subID = 1;
+        quantity = -1;
+        boolean testRes5 = Methods.addMenuToSub(menuID, subID, quantity);
+
+        assertEquals(false, testRes5);
+    }
 /*
     @Test
     public void addMenuToSub() throws Exception {
