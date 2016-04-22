@@ -1,7 +1,11 @@
 # noinspection SqlNoDataSourceInspectionForFile
 INSERT INTO employee VALUES(DEFAULT, 1, "admin", "admin", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+INSERT INTO employee VALUES(DEFAULT, 1, "knut", "knut", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+INSERT INTO employee VALUES(DEFAULT, 2, "håkon", "håkon", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
+INSERT INTO employee VALUES(DEFAULT, 3, "kenny", "kenny", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
 INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "ivar", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
-INSERT INTO employee VALUES(DEFAULT, 4, "Luft lars", "luft", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
+INSERT INTO employee VALUES(DEFAULT, 5, "Luft lars", "luft", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
+INSERT INTO employee VALUES(DEFAULT, 6, "magnus", "magnus", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
 
 INSERT INTO role VALUES(DEFAULT, 'CEO');
 INSERT INTO role VALUES(DEFAULT, 'Secretary');
