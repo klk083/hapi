@@ -261,6 +261,25 @@ public class MethodsTest {
     }
 
     @Test
+    public void getOrderInfo() throws Exception {
+        int orderID = 1;
+        String expOrderID = "1", expCustomerID = "2", expDelivery = "2008-11-11", expReady = "true";
+        ArrayList<String> search = Methods.getOrderInfo(orderID);
+
+        assertEquals(expOrderID, search.get(0));
+        assertEquals(expCustomerID, search.get(1));
+        assertEquals(expDelivery, search.get(2));
+        assertEquals(expReady, search.get(3));
+
+
+        // Test with negative orderID
+        orderID = -1;
+        search = Methods.getOrderInfo(orderID);
+
+        assertEquals(null, search);
+    }
+
+    @Test
     public void addMenuToOrder() throws Exception {
         String name = "Billy Bob", description = "";
         int menuID = 1, quantity = 1;
@@ -738,6 +757,11 @@ public class MethodsTest {
         boolean testRes3 = Methods.deleteSub(subscriptionID);
 
         assertEquals(false, testRes3);
+
+    }
+
+    @Test
+    public void addMenuToSub() throws Exception {
 
     }
 
