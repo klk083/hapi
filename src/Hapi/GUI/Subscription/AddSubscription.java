@@ -55,9 +55,9 @@ public class AddSubscription extends JFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         ArrayList<String> info = Methods.getSubInfo(subscriptionId);
-        pricefield.setText(info.get(2));
+        pricefield.setText(info.get(1));
         subName.setText(info.get(0));
-        descriptionF.setText(info.get(1));
+        descriptionF.setText(info.get(2));
         costP.setText(info.get(3));
 
         for (String aCourse : list.get(0)) {
@@ -133,8 +133,8 @@ public class AddSubscription extends JFrame {
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
                         try {
-                            if (Methods.addMenuToSub(subscriptionId,
-                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
+                            if (Methods.addMenuToSub(
+                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())),subscriptionId, Integer.parseInt(quantity.getText()))) {
                                 AddSubscription temp = new AddSubscription(subscriptionId,isNew);
                                 dispose();
 

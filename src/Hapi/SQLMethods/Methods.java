@@ -70,6 +70,37 @@ public class Methods {
         }
     }
 
+    private static int getSubCostPrice(int subscriptionId) {
+        if (subscriptionId < 1) {
+            return -1;
+        }
+
+        int output = 0;
+        try {
+            con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
+
+            String selectSQL = "SELECT menu_price, quantity FROM menu NATURAL JOIN subscription_menu WHERE subscription_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, subscriptionId);
+            res = stm.executeQuery();
+
+            while (res.next()) {
+                output += res.getInt("menu_price") * res.getInt("quantity");
+            }
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of subscription cost price, Code: 8000049";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            output = -1;
+        } finally {
+            closeSQL();
+
+            return output;
+        }
+    }
+
     private static boolean setDeliveryDays(int subID, int customerID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
             return false;
@@ -1279,9 +1310,9 @@ public class Methods {
             res.next();
 
             info.add(res.getString("name"));
-            info.add(res.getString("price"));
             info.add(res.getString("description"));
-            info.add(Integer.toString(getMenuCostPrice(subscriptionId)));
+            info.add(res.getString("price"));
+            info.add(Integer.toString(getSubCostPrice(subscriptionId)));
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of subscription info, Code: 8000038";
             SQLConnection.writeMessage(e, errorMessage);
@@ -1855,6 +1886,32 @@ public class Methods {
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during change of subscription, Code: 8000051";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean removeSubFromCustomer(int subID, int customerID) {
+        if (subID < 1 || customerID < 1) {
+            return false;
+        }
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "DELETE FROM subscription_customer WHERE order_id = ? AND customer_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, subID);
+            stm.setInt(2, customerID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of subscription from customer, Code: 8000052";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
