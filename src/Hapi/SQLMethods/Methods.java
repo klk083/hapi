@@ -539,19 +539,24 @@ public class Methods {
 
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT menu_name, menu_id FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
+            String selectSQL = "SELECT menu_name, menu_id, quantity, menu_price FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, orderID);
             res = stm.executeQuery();
 
-            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>(), quantity = new ArrayList<String>(),menu_price = new ArrayList<String>();
             while (res.next()) {
                 navn.add(res.getString("menu_name"));
                 id.add(res.getString("menu_id"));
+                quantity.add(res.getString("quantity"));
+                menu_price.add(res.getString("menu_price"));
+
             }
 
             menus.add(navn);
             menus.add(id);
+            menus.add(quantity);
+            menus.add(menu_price);
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
             SQLConnection.writeMessage(e, errorMessage);
@@ -751,6 +756,14 @@ public class Methods {
 
             try {
                 deleteSQL = "DELETE FROM menu_order WHERE order_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, orderID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                deleteSQL = "DELETE FROM subscription_order WHERE order_id = ?";
                 stm = con.prepareStatement(deleteSQL);
                 stm.setInt(1, orderID);
 
@@ -1262,6 +1275,37 @@ public class Methods {
         }
     }
 
+    public static ArrayList<String> getOrderInfo(int orderId) {
+        if (orderId < 1) {
+            return null;
+        }
+
+        ArrayList<String> info = new ArrayList<String>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id, customer_id, delivery_time, ready FROM orders  WHERE order_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, orderId);
+
+            res = stm.executeQuery();
+            res.next();
+
+            info.add(res.getString("order_id"));
+            info.add(res.getString("customer_id"));
+            info.add(res.getString("delivery_time"));
+            info.add(res.getString("ready"));
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of order info, Code: 8000038";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return info;
+        }
+    }
+
     public static boolean removeMenuFromSub(int menuID, int subscriptionId) {
         if( menuID < 1 || subscriptionId < 1) {
             return false;
@@ -1419,6 +1463,40 @@ public class Methods {
             return ok;
         }
     }
+
+    public static boolean deleteSubOrder(int subID) {
+        if(subID < 1) {
+            return false;
+        }
+        boolean ok =false;
+        try {
+            con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+
+
+            deleteSQL = "DELETE FROM subscription_customer WHERE subscription_id = ?";
+            stm = con.prepareStatement(deleteSQL);
+            stm.setInt(1, subID);
+
+            stm.executeUpdate();
+            con.commit();
+
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during order deletion, Code: 8000029";
+            SQLConnection.writeMessage(e, errorMessage);
+            SQLConnection.rollback(con);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
 
     public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
         if (subscriptionId < 1) {
@@ -1711,4 +1789,34 @@ public class Methods {
         return id;
     }
 
+    public static int findTotalPrice(int orderID) {
+        if (orderID < 1) {
+            return -1;
+        }
+
+
+        int sum = 0;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT menu_price, quantity FROM menu_order NATURAL JOIN menu WHERE order_id = ? ORDER BY menu_name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, orderID);
+            res = stm.executeQuery();
+
+
+            while (res.next()) {
+                sum += (res.getInt("menu_price") * res.getInt("quantity"));
+            }
+
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return sum;
+
+        }
+    }
 }

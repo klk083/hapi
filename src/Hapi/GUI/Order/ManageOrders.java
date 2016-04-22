@@ -12,8 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static Hapi.SQLMethods.Methods.deleteCustomer;
-import static Hapi.SQLMethods.Methods.deleteOrder;
+import static Hapi.SQLMethods.Methods.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showOptionDialog;
 
@@ -80,7 +79,7 @@ public class ManageOrders extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 ManageCustomerOrders cOrders = new ManageCustomerOrders();
-                showMessageDialog(null, selected + "" + selectedInt);
+
             }
         });
 
@@ -104,10 +103,10 @@ public class ManageOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (subList.isSelectionEmpty() && ordersList.isSelectionEmpty()) {
-                    showMessageDialog(null, "DO ar dum din tolling");
+                    showMessageDialog(null, "You need to select an order");
                 } else if(subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0)   {
                     int choice = showOptionDialog(null,
-                            "You really want to delete that customer?",
+                            "You really want to delete that order?",
                             "Quit?",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
@@ -119,12 +118,47 @@ public class ManageOrders extends JFrame {
 
                     }
                 } else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
-                    deleteOrder((list2.get(subList.getSelectedIndex())));
+                    deleteSubOrder((list2.get(subList.getSelectedIndex())));
                     dispose();
                     ManageOrders customers = new ManageOrders(selected, selectedInt);
                 }
 
 
+
+            }
+        });
+        viewOrderButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(subList.isSelectionEmpty() && ordersList.isSelectionEmpty() ) {
+                    showMessageDialog(null, "You forgot to select an order");
+                }
+                else if (subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0){
+
+
+
+                    ArrayList<ArrayList<String>> menuList =
+                            Methods.listMenusInOrder((list1.get(ordersList.getSelectedIndex())));
+
+
+
+                    ArrayList<String> info =  Methods.getOrderInfo(list1.get(ordersList.getSelectedIndex()));
+                    int sum = Methods.findTotalPrice((list1.get(ordersList.getSelectedIndex())));
+
+                    ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
+
+
+                }
+                /*else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
+                    ArrayList<String> Info =  Methods.getSubInfo(list2.get(subList.getSelectedIndex()));
+                    ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3));
+
+                }*/
 
             }
         });
