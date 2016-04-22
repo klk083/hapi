@@ -27,7 +27,7 @@ INSERT INTO menu VALUES(DEFAULT, 'Baconburger med bacon', 125, 'Meget oppgående
 INSERT INTO menu VALUES(DEFAULT, 'Fritert hamster', 100, 'Myk og fyldig smak');
 INSERT INTO menu VALUES(DEFAULT, 'Hakkemat', 500, 'Mat for de som er litt ekstra fan av hakking');
 
-INSERT INTO subscription VALUES(DEFAULT, 'Burger abonnement', 100,'Himmelsk burger med smak');
+INSERT INTO subscription VALUES(DEFAULT, 'Burger Abonnement', 100,'Himmelsk burger med smak');
 
 INSERT INTO ingredient VALUES(DEFAULT, 'Burger', 'stk', 100);
 INSERT INTO ingredient VALUES(DEFAULT, 'Ost', 'g', 1);

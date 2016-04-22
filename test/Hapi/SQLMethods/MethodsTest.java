@@ -539,12 +539,12 @@ public class MethodsTest {
         // Tests both listSubs-methods
 
         // Test for listSubs(String part1Name)
-        String name = "Burger abonnement";
+        String name = "Burger Abonnement";
         int expID = 1;
         ArrayList<ArrayList<String>> search = Methods.listSubs(name);
 
         assertEquals(name, search.get(0).get(0));
-        assertEquals(expID, Integer.parseInt(search.get(1).get(0));
+        assertEquals(expID, Integer.parseInt(search.get(1).get(0)));
 
 
         // Test for listSubs(int customerID)
