@@ -54,6 +54,6 @@ INSERT INTO order_chauffeur VALUES(1, 5);
 
 INSERT INTO subscription_menu VALUES(1, 1, 1);
 
-INSERT INTO sub_delivery_days VALUES(1, 1, true, true, true, true, true, true, true);
+INSERT INTO sub_delivery_days VALUES(1, true, true, true, true, true, true, true);
 
 INSERT INTO subscription_customer VALUES(1, 2, 4444-44-44, 4444-44-44);
