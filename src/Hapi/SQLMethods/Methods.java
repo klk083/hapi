@@ -1822,7 +1822,7 @@ public class Methods {
 
 
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
+            String errorMessage = "SQL Exception during calculation of total price for menu in order, Code: 8000050";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1850,7 +1850,7 @@ public class Methods {
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during change of subscription, Code: 8000043";
+            String errorMessage = "SQL Exception during change of subscription, Code: 8000051";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
