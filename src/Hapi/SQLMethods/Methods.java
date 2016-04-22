@@ -1630,15 +1630,15 @@ public class Methods {
             stm = con.prepareStatement(selectSQL);
             res = stm.executeQuery();
 
-            ArrayList<String> adress = new ArrayList<String>(), id = new ArrayList<String>();
+            ArrayList<String> address = new ArrayList<String>(), id = new ArrayList<String>();
             int temp=0;
             while (res.next()) {
-                adress.add(res.getString("customer_address"));
+                address.add(res.getString("customer_address"));
                 temp = res.getInt("order_id");
                 id.add(Integer.toString(temp));
             }
 
-            list.add(adress);
+            list.add(address);
             list.add(id);
 
         } catch (SQLException e) {
@@ -1743,6 +1743,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "DELETE FROM order_chauffeur WHERE order_id = ? AND employee_id = ?";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, orderID);
@@ -1753,6 +1754,7 @@ public class Methods {
             stm.setInt(1, orderID);
             stm.executeUpdate();
 
+            con.commit();
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception while setting order to delivered, Code: 8000049";
@@ -1820,7 +1822,7 @@ public class Methods {
 
 
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of menus in order, Code: 8000036";
+            String errorMessage = "SQL Exception during calculation of total price for menu in order, Code: 8000050";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
@@ -1829,6 +1831,7 @@ public class Methods {
 
         }
     }
+
     public static boolean changeSub(int subscriptionId, String name, int price, String description) {
         if (subscriptionId < 1 || name.equals("") || description.equals("") || price < 1) {
             return false;
@@ -1847,7 +1850,7 @@ public class Methods {
             stm.executeUpdate();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during change of subscription, Code: 8000043";
+            String errorMessage = "SQL Exception during change of subscription, Code: 8000051";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
