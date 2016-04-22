@@ -534,6 +534,33 @@ public class MethodsTest {
 
     }
 
+    @Test
+    public void listSubs() throws Exception {
+        // Tests both listSubs-methods
+
+        // Test for listSubs(String part1Name)
+        String name = "Burger abonnement";
+        int expID = 1;
+        ArrayList<ArrayList<String>> search = Methods.listSubs(name);
+
+        assertEquals(name, search.get(0).get(0));
+        assertEquals(expID, Integer.parseInt(search.get(1).get(0));
+
+
+        // Test for listSubs(int customerID)
+        int customerID = 1, expID2 = 1;
+        ArrayList<Integer> search2 = Methods.listSubs(customerID);
+
+        assertEquals(expID2, search2.get(0));
+
+
+        // Test listSubs(int customerID) with negative ID
+        customerID = -1;
+        search2 = Methods.listSubs(customerID);
+
+        assertEquals(null, search2);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
