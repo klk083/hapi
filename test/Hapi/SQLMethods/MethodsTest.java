@@ -761,10 +761,29 @@ public class MethodsTest {
     }
 
     @Test
+    public void getSubInfo() throws Exception {
+        int subscriptionId = 1;
+        String expName = "Burger Abonnement", expDescription = "For den som vil automatisk få levert burger", expPrice = "100", expCostPrice = "100";
+        ArrayList<String> search = Methods.getSubInfo();
+
+        assertEquals(expName, search.get(0));
+        assertEquals(expDescription, search.get(1));
+        assertEquals(expPrice, search.get(2));
+        assertEquals(expCostPrice, search.get(3));
+
+
+        // Test with negative subscriptionID
+        subscriptionId = -1;
+        ArrayList<String> search = Methods.getSubInfo();
+
+        assertEquals(null, search);
+    }
+/*
+    @Test
     public void addMenuToSub() throws Exception {
 
     }
-
+*/
 
     @AfterClass
     public static void after() throws Exception {
