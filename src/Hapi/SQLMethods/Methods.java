@@ -1174,7 +1174,6 @@ public class Methods {
     }
 
     public static ArrayList<ArrayList<String>> listSubs(String part1Name) {
-        part1Name.toLowerCase();
         ArrayList<ArrayList<String>> subscription = new ArrayList<ArrayList<String>>();
         String forSQL1 = "%" + part1Name + "%";
 
