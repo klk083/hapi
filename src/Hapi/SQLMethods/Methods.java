@@ -1718,7 +1718,7 @@ public class Methods {
     }
 
     public static boolean addOrderToChauffeur(int orderID, int employeeID) {
-        if (orderID < 1 || employeeID < 1) {
+        if (orderID < 1 || employeeID != 4) {
             return false;
         }
         boolean ok = false;
