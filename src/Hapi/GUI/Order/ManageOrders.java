@@ -164,6 +164,20 @@ public class ManageOrders extends JFrame {
         });
 
 
+        editOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                if(subList.isSelectionEmpty() && ordersList.isSelectionEmpty() ) {
+                    showMessageDialog(null, "You forgot to select an order");
+                }
+                else if (subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0) {
+                    int orderId = list1.get(ordersList.getSelectedIndex());
+                    dispose();
+                    EditOrder order = new EditOrder(selected, orderId, selectedInt, true);
+
+                }
+            }
+        });
     }
 }
