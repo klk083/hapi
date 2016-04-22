@@ -157,7 +157,7 @@ public class EditOrder extends JFrame {
                         try {
                             if (Methods.addMenuToOrder(
                                     orderId, Integer.parseInt(selectedOrder.getId()), Integer.parseInt(quantity.getText()), description.getText())) {
-                                EditOrder temp = new EditOrder(selected,orderId, selectedId, true );
+                                EditOrder temp = new EditOrder(selected,orderId, selectedId, isNew );
                                 dispose();
 
 
@@ -172,6 +172,23 @@ public class EditOrder extends JFrame {
                 }
             }
 
+        });
+        createOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(!isNew) {
+                    if(Methods.deleteOrder(orderId)) {
+                        ManageOrders orders = new ManageOrders(selected, selectedId );
+                        dispose();
+                    }else{
+                        showMessageDialog(null, "Something wrong with deleting of the course");
+                    }
+                } else{
+                    ManageOrders orders = new ManageOrders(selected, selectedId );
+                    dispose();
+                }
+            }
         });
 
 
