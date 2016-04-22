@@ -541,7 +541,7 @@ public class MethodsTest {
         // Test for listSubs(String part1Name)
         String name = "Burger Abonnement";
         int expID = 1;
-        ArrayList<ArrayList<String>> search = Methods.listSubs(name);
+        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
 
         assertEquals(name, search.get(0).get(0));
         assertEquals(expID, Integer.parseInt(search.get(1).get(0)));

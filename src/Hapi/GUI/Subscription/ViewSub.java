@@ -1,60 +1,61 @@
 package Hapi.GUI.Subscription;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class ViewSub extends JDialog {
+public class ViewSub extends JFrame {
+    private JPanel viewSub;
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JLabel nameL;
+    private JLabel descL;
+    private JLabel costPL;
+    private JLabel priceL;
+    private JList list1;
+    private JButton closeButton;
 
-    public ViewSub() {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+    public ViewSub(String name, String desc, String price, String costP, ArrayList<ArrayList<String>> menuList) {
+        super("eFood");
+        setContentPane(viewSub);
+        pack();
 
-        buttonOK.addActionListener(new ActionListener() {
+        setVisible(true);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+
+        nameL.setText(name);
+        descL.setText(desc);
+        priceL.setText(price + " kr");
+        costPL.setText(costP + " kr");
+
+
+        DefaultListModel listModel = new DefaultListModel();
+
+        double cosP =0.0;
+
+        for(int i =0; i<menuList.get(0).size();i++) {
+            listModel.addElement(menuList.get(0).get(i) + "            " + menuList.get(2).get(i)
+                    + " ");
+
+        }
+
+
+        list1.setModel(listModel);
+
+        closeButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                dispose();
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-// call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-// call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    private void onOK() {
-// add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-// add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        ViewSub dialog = new ViewSub();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }

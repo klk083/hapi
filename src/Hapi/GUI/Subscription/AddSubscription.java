@@ -1,22 +1,24 @@
 package Hapi.GUI.Subscription;
 
-import javax.swing.*;
 import Hapi.SQLMethods.Methods;
-import java.awt.*;
+
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  * Created by Håkon on 19.04.2016.
  */
 public class AddSubscription extends JFrame {
-    private JPanel AddSubPanel;
+    private JPanel content;
     private JButton backButton;
     private JButton createButton;
     private JButton searchCourseButton;
@@ -30,6 +32,7 @@ public class AddSubscription extends JFrame {
     private JButton addButton;
     private JButton removeButton;
     private JLabel costP;
+    private JPanel AddSubPanel;
 
     int subscriptionId;
 
@@ -43,6 +46,7 @@ public class AddSubscription extends JFrame {
     public AddSubscription(int subscriptionId, boolean isNew) {
         super("eFood");
         this.subscriptionId = subscriptionId;
+
         setContentPane(AddSubPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,9 +55,9 @@ public class AddSubscription extends JFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         ArrayList<String> info = Methods.getSubInfo(subscriptionId);
-        pricefield.setText(info.get(1));
+        pricefield.setText(info.get(2));
         subName.setText(info.get(0));
-        descriptionF.setText(info.get(2));
+        descriptionF.setText(info.get(1));
         costP.setText(info.get(3));
 
         for (String aCourse : list.get(0)) {
@@ -63,18 +67,27 @@ public class AddSubscription extends JFrame {
 
         list1 = Methods.listCoursesInSub(subscriptionId);
 
-        for (String anIngredient : list1.get(0)) {
-            listModel1.addElement(anIngredient);
+        for (String aCourse : list1.get(0)) {
+            listModel1.addElement(aCourse);
         }
         subscriptionCourses.setModel(listModel1);
 
+
+
         searchCourseButton.addActionListener(new ActionListener(){
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e){
 
                list = Methods.listMenu(searchField.getText());
 
+
                listModel.removeAllElements();
+
 
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
@@ -84,6 +97,11 @@ public class AddSubscription extends JFrame {
         });
 
         backButton.addActionListener(new ActionListener(){
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e){
                 if(isNew){
@@ -115,8 +133,8 @@ public class AddSubscription extends JFrame {
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
                         try {
-                            if (Methods.addMenuToSub(
-                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())),subscriptionId, Integer.parseInt(quantity.getText()))) {
+                            if (Methods.addMenuToSub(subscriptionId,
+                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())), Integer.parseInt(quantity.getText()))) {
                                 AddSubscription temp = new AddSubscription(subscriptionId,isNew);
                                 dispose();
 
@@ -141,7 +159,7 @@ public class AddSubscription extends JFrame {
            @Override
             public void actionPerformed(ActionEvent e) {
                 if(subscriptionCourses.isSelectionEmpty()) {
-                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                    showMessageDialog(null,"You forgot to select a course to remove");
                 } else{
                     if(Methods.removeMenuFromSub(
                             subscriptionId, Integer.parseInt(list1.get(1).get(subscriptionCourses.getSelectedIndex())) )) {
@@ -156,7 +174,7 @@ public class AddSubscription extends JFrame {
             }
         });
 
-        existingCourses.addListSelectionListener(new ListSelectionListener() {
+       existingCourses.addListSelectionListener(new ListSelectionListener() {
             /**
              * Called whenever the value of the selection changes.
              *
@@ -165,6 +183,8 @@ public class AddSubscription extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(existingCourses.isSelectionEmpty()) {
+
+                }else{
 
                 }
 
@@ -179,11 +199,11 @@ public class AddSubscription extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Methods.changeMenu(subscriptionId,subName.getText(),Integer.parseInt(pricefield.getText()),descriptionF.getText() )) {
+                if(Methods.changeSub(subscriptionId,subName.getText(),Integer.parseInt(pricefield.getText()),descriptionF.getText() )) {
                     ManageSub temp = new ManageSub();
                     dispose();
                 } else {
-                    showMessageDialog(null, "Something wrong when creating/changing course");
+                    showMessageDialog(null, "Something wrong when creating sub");
                 }
             }
         });
