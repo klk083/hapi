@@ -565,7 +565,7 @@ public class MethodsTest {
     @Test
     public void changeMenu() throws Exception {
         int menuID = 1, price = 1;
-        String name = "Dummymat", description = "Meget dummy";
+        String name = "Dummymat", description = "Dummy";
         boolean testRes1 = Methods.changeMenu(menuID, name, price, description);
 
         assertEquals(true, testRes1);
@@ -600,6 +600,26 @@ public class MethodsTest {
 
         assertEquals(false, testRes5);
     }
+
+    @Test
+    public void getMenuInfo() throws Exception {
+        String expName = "Dummymat", expDescription = "Dummy", expPrice = "1", expID = "1";
+        int menuID = 1;
+        ArrayList<String> search = Methods.getMenuInfo(menuID);
+
+        assertEquals(expName, search.get(0));
+        assertEquals(expDescription, search.get(1));
+        assertEquals(expPrice, search.get(2));
+        assertEquals(expID, search.get(3));
+
+        // Test with negative menuID
+        menuID = -1;
+        search = Methods.getMenuInfo(menuID);
+
+        assertEquals(null, search);
+    }
+
+
 
     @AfterClass
     public static void after() throws Exception {
