@@ -101,6 +101,10 @@ public class Methods {
     }
 
     public static boolean login(String username, String password) {
+        username = username.trim();
+        if (username.equals("")) {
+            return false;
+        }
         String hashFromDatabase = "", saltFromDatabase = "";
         try {
             con = SQLConnection.openConnection();
@@ -172,6 +176,8 @@ public class Methods {
     }
 
     public static boolean createUser(String username, String password, String name, int roleID) {
+        name = name.trim();
+        username = username.trim();
         String salt = generateSalt();
         String hash = generateHash(password, salt);
         boolean ok = false;
@@ -318,6 +324,7 @@ public class Methods {
     }
 
     public static boolean createCustomer(String name, String address, String tlf, boolean isCompany) {
+        name = name.trim();
         if (name.equals("") || address.equals("") || tlf.equals("")) {
             return false;
         }
@@ -876,6 +883,7 @@ public class Methods {
     }
 
     public static boolean addIngredient(String name, String unit, int price) {
+        name = name.trim();
         if (name.equals("") || unit.equals("") || price < 0) {
             return false;
         }
@@ -972,6 +980,7 @@ public class Methods {
     }
 
     public static int createMenu(String name, String description, int price) {
+        name = name.trim();
         if (name.equals("") || description.equals("") || price < 0) {
             return -1;
         }
@@ -1064,6 +1073,8 @@ public class Methods {
     }
 
     public static boolean changeMenu(int menuID, String name, int price, String description) {
+        name = name.trim();
+        description = description.trim();
         if (menuID < 1 || name.equals("") || description.equals("") || price < 1) {
             return false;
         }
@@ -1373,6 +1384,8 @@ public class Methods {
     }
 
     public static int createSub(String name, String description, int price) {
+        name = name.trim();
+        description = description.trim();
         if (name.equals("") || description.equals("") || price < 0) {
             return -1;
         }
@@ -1497,7 +1510,6 @@ public class Methods {
         }
     }
 
-
     public static ArrayList<ArrayList<String>> listCoursesInSub(int subscriptionId) {
         if (subscriptionId < 1) {
             return null;
@@ -1536,7 +1548,7 @@ public class Methods {
     }
 
     public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime, ArrayList<Boolean> days) {
-        if (subID < 1 || customerID < 1) {
+        if (subID < 1 || customerID < 1 || fromTime.equals("") || toTime.equals("") || days.size() < 7) {
             return false;
         }
 
@@ -1572,6 +1584,7 @@ public class Methods {
     }
 
     public static boolean changeIngredient(String ingredientID, String name, int price, String unit) {
+        name = name.trim();
         if (ingredientID.equals("") || name.equals("") || unit.equals("") || price < 0) {
             return false;
         }
