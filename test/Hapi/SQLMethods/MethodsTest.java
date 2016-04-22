@@ -619,6 +619,47 @@ public class MethodsTest {
         assertEquals(null, search);
     }
 
+    @Test
+    public void addIngredientToMenu() throws Exception {
+        int menuID = 1, ingredientID = 1, quantity = 1;
+        boolean testRes1 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(true, testRes1);
+
+        // Remove addition
+        boolean testRes2 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes3);
+
+        // Test with negative ingredientID
+        menuID = 1;
+        ingredientID = -1;
+        boolean testRes4 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes4);
+
+        // Test with negative quantity
+        ingredientID = 1;
+        quantity = -1;
+        boolean testRes5 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(false, testRes5);
+    }
+
+    @Test
+    public void removeIngredientFromMenu() throws Exception {
+        int menuID = 1, ingredientID = 1, quantity = 1;
+        boolean testRes1 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
+
+        assertEquals(true, testRes1);
+    }
 
 
     @AfterClass
