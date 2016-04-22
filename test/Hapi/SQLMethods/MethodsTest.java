@@ -762,9 +762,9 @@ public class MethodsTest {
 
     @Test
     public void getSubInfo() throws Exception {
-        int subscriptionId = 1;
+        int subscriptionID = 1;
         String expName = "Burger Abonnement", expDescription = "For den som vil automatisk få levert burger", expPrice = "100", expCostPrice = "100";
-        ArrayList<String> search = Methods.getSubInfo();
+        ArrayList<String> search = Methods.getSubInfo(subscriptionID);
 
         assertEquals(expName, search.get(0));
         assertEquals(expDescription, search.get(1));
@@ -773,8 +773,8 @@ public class MethodsTest {
 
 
         // Test with negative subscriptionID
-        subscriptionId = -1;
-        ArrayList<String> search = Methods.getSubInfo();
+        subscriptionID = -1;
+        search = Methods.getSubInfo(subscriptionID);
 
         assertEquals(null, search);
     }
@@ -844,6 +844,65 @@ public class MethodsTest {
         boolean testRes4 = Methods.removeMenuFromSub(menuID, subID);
 
         assertEquals(false, testRes4);
+    }
+
+    @Test
+    public void addSubtoCustomer() throws Exception {
+        int subID = 1, customerID = 1;
+        String fromTime = "2016-03-10", toTime = "2016-05-10";
+        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
+        for (int i = 1; i < 7; i++) {
+            deliveryDays.add(true);
+        }
+
+        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test sub from customer
+        boolean testRes2 = Methods.removeSubFromCustomer(subID, customerID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative subID
+        subID = -1;
+        boolean testRes3 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative customerID
+        subID = 1;
+        customerID = -1;
+        boolean testRes4 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(false, testRes4);
+
+
+        // Test with blank fromTime
+        customerID = 1;
+        fromTime = "";
+        boolean testRes5 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(false, testRes5);
+
+
+        // Test with blank toTime
+        fromTime = "2016-03-10";
+        toTime = "";
+        boolean testRes6 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(false, testRes6);
+
+
+        // Test with deliveryDays less than 7 items
+        toTime = "2016-05-10";
+        deliveryDays.remove(true);
+        boolean testRes7 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(false, testRes7);
     }
 
 
