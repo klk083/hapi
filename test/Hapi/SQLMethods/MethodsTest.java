@@ -659,6 +659,25 @@ public class MethodsTest {
         boolean testRes1 = Methods.addIngredientToMenu(menuID, ingredientID, quantity);
 
         assertEquals(true, testRes1);
+
+        // Test of removal of ingredient from menu
+        boolean testRes2 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test of removal with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(false, testRes3);
+
+        // Test of removal with negative ingredientID
+        menuID = 1;
+        ingredientID = -1;
+        boolean testRes4 = Methods.removeIngredientFromMenu(menuID, ingredientID);
+
+        assertEquals(false, testRes4);
     }
 
 
