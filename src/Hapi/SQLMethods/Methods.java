@@ -1860,4 +1860,30 @@ public class Methods {
             return ok;
         }
     }
+
+    public static boolean removeSubFromCustomer(int subID, int customerID) {
+        if (subID < 1 || customerID < 1) {
+            return false;
+        }
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "DELETE FROM subscription_customer WHERE order_id = ? AND customer_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, subID);
+            stm.setInt(2, customerID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during removal of subscription from customer, Code: 8000052";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
 }
