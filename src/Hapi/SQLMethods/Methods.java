@@ -1589,8 +1589,8 @@ public class Methods {
         }
     }
 
-    public static boolean addOrderToChauffeur(int orderID,int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+    public static boolean addOrderToChauffeur(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok=false;
@@ -1616,8 +1616,8 @@ public class Methods {
 
     }
 
-    public static boolean removeOrderFromChauffeur(int orderID,int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+    public static boolean removeOrderFromChauffeur(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok=false;
@@ -1643,7 +1643,7 @@ public class Methods {
     }
 
     public static boolean setOrderToDelivered(int orderID, int employeeID) {
-        if (orderID == -1 || employeeID == -1) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
 
@@ -1662,7 +1662,7 @@ public class Methods {
 
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during adding order to employee in order_chauffeur table, Code: 8000046";
+            String errorMessage = "SQL Exception while setting order to delivered, Code: 8000049";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -1691,7 +1691,7 @@ public class Methods {
     }
 
     public static int getID() {
-        int id=-1;
+        int id = -1;
         try
         {
             FileInputStream fileIn = new FileInputStream("./employeeID.ser");
