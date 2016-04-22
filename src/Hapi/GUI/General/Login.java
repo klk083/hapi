@@ -4,6 +4,7 @@ package Hapi.GUI.General;
 import Hapi.GUI.Chauffeur.OrderViewChauffeur;
 import Hapi.GUI.Cook.OrderViewCook;
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.MainMenu.Cook;
 import Hapi.GUI.MainMenu.Expert;
 import Hapi.GUI.MainMenu.Sale;
 import Hapi.SQLMethods.Methods;
@@ -110,7 +111,7 @@ public class Login extends JFrame {
                     ceo = new CEO();
                     break;
                 case 3:
-                    OrderViewCook cook = new OrderViewCook();
+                    Cook cook = new Cook();
                     break;
                 case 4:
                     OrderViewChauffeur chauffeur = new OrderViewChauffeur();

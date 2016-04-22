@@ -8,6 +8,7 @@ import Hapi.GUI.Order.ManageCustomerOrders;
 import Hapi.GUI.Order.ManageOrders;
 import Hapi.GUI.Subscription.ManageSub;
 import Hapi.GUI.User.ManageUsers;
+import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class CEO extends JFrame {
     private JButton signOut;
     private JButton coursesButton;
     private JButton subscriptionButton;
+    private JLabel nameL;
 
     public CEO() {
         super("eFood");
@@ -34,6 +36,8 @@ public class CEO extends JFrame {
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        nameL.setText("Logged in as: "+ Methods.getEmployeeName(Methods.getID()));
+
 
         manageUsersButton.addActionListener(new ActionListener() {
             @Override
@@ -59,13 +63,7 @@ public class CEO extends JFrame {
                 ManageCustomerOrders customers = new ManageCustomerOrders();
             }
         });
-        signOut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                Login login = new Login();
-            }
-        });
+
         coursesButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -83,6 +81,13 @@ public class CEO extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 ManageSub sub = new ManageSub();
+            }
+        });
+        signOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Login login = new Login();
             }
         });
     }

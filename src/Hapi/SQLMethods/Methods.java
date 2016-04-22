@@ -1921,4 +1921,133 @@ public class Methods {
             return ok;
         }
     }
+
+
+
+    public static ArrayList<ArrayList<String>> listOrdersForCourses() {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,menu_id,menu_name FROM orders NATURAL JOIN menu_order NATURAL JOIN menu WHERE ready = false AND delivered = false AND orders.order_id NOT IN (SELECT  order_id FROM order_cook) ORDER BY delivery_time ASC";
+            stm = con.prepareStatement(selectSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> menu_id = new ArrayList<String>(), order_id = new ArrayList<String>(), menu_name = new ArrayList<String>();
+            while (res.next()) {
+
+                menu_id.add(res.getString("menu_id"));
+                menu_name.add(res.getString("menu_name"));
+                order_id.add(res.getString("order_id"));
+            }
+
+            list.add(menu_id);
+            list.add(menu_name);
+            list.add(order_id);
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ready for cooking, Code: 8000054";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listOrdersForCookCourse(int employeeID) {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,menu_id,menu_name FROM  order_cook NATURAL JOIN menu_order NATURAL JOIN orders NATURAL JOIN menu WHERE  employee_id = ? ORDER BY delivery_time ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, employeeID);
+            res = stm.executeQuery();
+
+            ArrayList<String> menu_id = new ArrayList<String>(), order_id = new ArrayList<String>(), menu_name = new ArrayList<String>();
+            while (res.next()) {
+
+                menu_id.add(res.getString("menu_id"));
+                menu_name.add(res.getString("menu_name"));
+                order_id.add(res.getString("order_id"));
+            }
+
+            list.add(menu_id);
+            list.add(menu_name);
+            list.add(order_id);
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of orders on cook, Code: 8000053";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listOrdersForSubs() {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,menu_id,menu_name FROM orders NATURAL JOIN menu_order NATURAL JOIN menu WHERE ready = false AND delivered = false AND orders.order_id NOT IN (SELECT  order_id FROM order_cook) ORDER BY delivery_time ASC";
+            stm = con.prepareStatement(selectSQL);
+            res = stm.executeQuery();
+
+            ArrayList<String> menu_id = new ArrayList<String>(), order_id = new ArrayList<String>(), menu_name = new ArrayList<String>();
+            while (res.next()) {
+
+                menu_id.add(res.getString("menu_id"));
+                menu_name.add(res.getString("menu_name"));
+                order_id.add(res.getString("order_id"));
+            }
+
+            list.add(menu_id);
+            list.add(menu_name);
+            list.add(order_id);
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of ready for cooking, Code: 8000054";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
+    public static ArrayList<ArrayList<String>> listOrdersForCookSubs(int employeeID) {
+
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT order_id,menu_id,menu_name FROM  order_cook NATURAL JOIN menu_order NATURAL JOIN orders NATURAL JOIN menu WHERE  employee_id = ? ORDER BY delivery_time ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, employeeID);
+            res = stm.executeQuery();
+
+            ArrayList<String> menu_id = new ArrayList<String>(), order_id = new ArrayList<String>(), menu_name = new ArrayList<String>();
+            while (res.next()) {
+
+                menu_id.add(res.getString("menu_id"));
+                menu_name.add(res.getString("menu_name"));
+                order_id.add(res.getString("order_id"));
+            }
+
+            list.add(menu_id);
+            list.add(menu_name);
+            list.add(order_id);
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of orders on cook, Code: 8000053";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
 }

@@ -23,7 +23,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="admin"/>
+          <text value="kenny"/>
         </properties>
       </component>
       <component id="95196" class="javax.swing.JLabel">
@@ -49,7 +49,7 @@
           </grid>
         </constraints>
         <properties>
-          <text value="admin"/>
+          <text value="kenny"/>
         </properties>
       </component>
       <hspacer id="8308e">
