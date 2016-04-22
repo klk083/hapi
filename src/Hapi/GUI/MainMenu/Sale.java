@@ -1,11 +1,29 @@
 package Hapi.GUI.MainMenu;
 
+import Hapi.SQLMethods.Methods;
+
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by klk94 on 16.03.2016.
  */
-public class Sale {
-    private JCheckBox checkBox2;
-    private JButton manageCustomersButton;
+public class Sale extends JFrame {
+    private JButton customersButton;
+    private JButton orders;
+    private JButton statisitcs;
+    private JButton signOut;
+    private JPanel sale;
+    private JLabel nameL;
+
+    public Sale() {
+        super("eFood");
+        setContentPane(sale);
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        setVisible(true);
+        nameL.setText("Logged in as: "+ Methods.getEmployeeName(Methods.getID()));
+    }
 }

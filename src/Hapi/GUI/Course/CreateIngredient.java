@@ -57,7 +57,7 @@ public class CreateIngredient extends JFrame {
         });
     }
 
-    public CreateIngredient(int menuId, String ingredientID) {
+    public CreateIngredient(int menuId, String ingredientID, boolean isNew) {
         super("eFood");
 
         setContentPane(createIP);

@@ -1,6 +1,7 @@
 package Hapi.GUI.Subscription;
 
 import Hapi.GUI.Order.ListeElement;
+import Hapi.GUI.Order.ManageOrders;
 import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
 import Hapi.GUI.MainMenu.CEO;
@@ -40,11 +41,12 @@ public class ManageSub extends JFrame {
 
         ArrayList<ArrayList<String>> list = Methods.listSubscriptions("");
 
-        DefaultListModel<ListeElement2> listModel = new DefaultListModel<ListeElement2>();
+        DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
         for (int i = 0; i < list.get(0).size(); i++) {
-            String id = list.get(0).get(i);
-            listModel.addElement(new ListeElement2(id));
+            String name = list.get(0).get(i);
+            String id = list.get(1).get(i);
+            listModel.addElement(new ListeElement(id, name));
         }
         list1.setModel(listModel);
 
@@ -61,14 +63,16 @@ public class ManageSub extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listSubscriptions(text.getText());
 
 
-                DefaultListModel<ListeElement2> listModel = new DefaultListModel<ListeElement2>();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
                 //    String[] user = list;
                 for (int i = 0; i < list.get(0).size(); i++) {
-                    String id = list.get(0).get(i);
-                    listModel.addElement(new ListeElement2(id));
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id,name));
                 }
                 list1.setModel(listModel);
+
 
             }
         });
@@ -94,13 +98,16 @@ public class ManageSub extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e){
+
+
                 if(list1.isSelectionEmpty()){
                     showMessageDialog(null, "Please select a subscription");
                 }else{
+                    ListeElement selected = (ListeElement) list1.getSelectedValuesList().get(0);
                     ArrayList<ArrayList<String>> menuList =
-                            Methods.listCoursesInSub(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                            Methods.listCoursesInSub(Integer.parseInt(selected.getId()));
 
-                    ArrayList<String> Info =  Methods.getSubInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ArrayList<String> Info =  Methods.getSubInfo(Integer.parseInt(selected.getId()));
                     ViewSub viewSub = new ViewSub(Info.get(0),Info.get(1),Info.get(2),Info.get(3),menuList);
                 }
             }

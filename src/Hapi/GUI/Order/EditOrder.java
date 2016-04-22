@@ -110,6 +110,29 @@ public class EditOrder extends JFrame {
             }
         });
 
+        removeButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(menuInOrder.isSelectionEmpty()) {
+                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                } else{
+                    if(Methods.removeMenuFromOrder(
+                            orderId, Integer.parseInt(list.get(1).get(menuInOrder.getSelectedIndex())) )) {
+
+                        EditOrder temp = new EditOrder(selected,orderId, selectedId, isNew);
+                        dispose();
+                    }else{
+                        showMessageDialog(null, "Something went wrong");
+                    }
+                }
+
+            }
+        });
 
 
         comboBox1.addPopupMenuListener(new PopupMenuListener() {
@@ -260,7 +283,7 @@ public class EditOrder extends JFrame {
                         try {
                             if (Methods.addMenuToOrder(
                                     orderId, Integer.parseInt(list.get(1).get(menuNotInOrder.getSelectedIndex())), Integer.parseInt(quantity.getText()), description.getText())) {
-                                AddOrder temp = new AddOrder(selected,orderId, selectedId, true );
+                                EditOrder temp = new EditOrder(selected,orderId, selectedId, true );
                                 dispose();
 
 

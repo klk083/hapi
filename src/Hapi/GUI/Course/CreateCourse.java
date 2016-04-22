@@ -52,7 +52,7 @@ public class CreateCourse extends JFrame{
 
         setContentPane(createCourse);
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -205,7 +205,7 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
+                CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()), isNew);
                 dispose();
             }
         });
