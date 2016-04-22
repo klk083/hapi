@@ -66,14 +66,6 @@ public class ManageOrders extends JFrame {
         }
         subList.setModel(listModel2);
 
-
-
-
-
-
-
-
-
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,8 +87,14 @@ public class ManageOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int orderId = Methods.createOrder(selectedInt,"1000-01-01 00:00:00");
-                dispose();
-                AddOrder order = new AddOrder(selected, orderId,selectedInt, true);
+                if(selectedInt != -1) {
+                    dispose();
+                    AddOrder order = new AddOrder(selected, orderId, selectedInt, true);
+                }
+                else {
+                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                }
+
             }
         });
         deleteOrderButton.addActionListener(new ActionListener() {
