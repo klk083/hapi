@@ -1,5 +1,6 @@
 package Hapi.GUI.Subscription;
 
+import Hapi.GUI.Order.ListeElement;
 import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
 import Hapi.GUI.MainMenu.CEO;
@@ -39,10 +40,11 @@ public class ManageSub extends JFrame {
 
         ArrayList<ArrayList<String>> list = Methods.listSubscriptions("");
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<ListeElement2> listModel = new DefaultListModel<ListeElement2>();
 
-        for (String enuser : list.get(0)) {
-            listModel.addElement(enuser);
+        for (int i = 0; i < list.get(0).size(); i++) {
+            String id = list.get(0).get(i);
+            listModel.addElement(new ListeElement2(id));
         }
         list1.setModel(listModel);
 
@@ -59,11 +61,12 @@ public class ManageSub extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listSubscriptions(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement2> listModel = new DefaultListModel<ListeElement2>();
 
                 //    String[] user = list;
-                for (String enuser : list.get(0)) {
-                    listModel.addElement(enuser);
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String id = list.get(0).get(i);
+                    listModel.addElement(new ListeElement2(id));
                 }
                 list1.setModel(listModel);
 
@@ -102,6 +105,7 @@ public class ManageSub extends JFrame {
                 }
             }
         });
+
         createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
