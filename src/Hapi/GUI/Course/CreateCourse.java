@@ -206,6 +206,7 @@ public class CreateCourse extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
+                dispose();
             }
         });
 
@@ -221,6 +222,7 @@ public class CreateCourse extends JFrame{
                     if(Methods.removeIngredient(Integer.parseInt(list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex())))) {
                         showMessageDialog(null,"Ingredient deleted");
                         CreateCourse temp = new CreateCourse(menuId, isNew);
+                        dispose();
                     } else{
                         showMessageDialog(null, "Ingredient not deleted, something went wrong");
                     }

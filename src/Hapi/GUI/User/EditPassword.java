@@ -17,10 +17,12 @@ public class EditPassword extends JFrame {
     private JButton changeButton;
     private JButton cancelButton;
     private JPanel editPasswordPanel;
-    private String userName;
+    private JLabel userN;
 
-    public EditPassword(String userName) {
+
+    public EditPassword(String username) {
         super("EditPassword");
+        userN.setText("Username: " + username);
         setContentPane(editPasswordPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +34,7 @@ public class EditPassword extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(textField1.getText().equals(textField2.getText())){
-                     if(changePassword(userName, textField2.getText())) {
+                     if(changePassword(username, textField2.getText())) {
                          showMessageDialog(null, "Password changed");
                          dispose();
                          ManageUsers users = new ManageUsers();
