@@ -815,12 +815,37 @@ public class MethodsTest {
 
         assertEquals(false, testRes5);
     }
-/*
-    @Test
-    public void addMenuToSub() throws Exception {
 
+    @Test
+    public void removeMenuFromSub() throws Exception {
+        // Add menu to remove
+        int menuID = 2, subID = 1, quantity = 2;
+        boolean testRes1 = Methods.addMenuToSub(menuID, subID, quantity);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove menu
+        boolean testRes2 = Methods.removeMenuFromSub(menuID, subID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative menuID
+        menuID = -1;
+        boolean testRes3 = Methods.removeMenuFromSub(menuID, subID);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative subID
+        menuID = 2;
+        subID = -1;
+        boolean testRes4 = Methods.removeMenuFromSub(menuID, subID);
+
+        assertEquals(false, testRes4);
     }
-*/
+
 
     @AfterClass
     public static void after() throws Exception {
