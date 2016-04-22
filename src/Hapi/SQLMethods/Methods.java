@@ -1142,23 +1142,27 @@ public class Methods {
 
         boolean ok = false;
         try {
+
             con = SQLConnection.openConnection();
-            String insertSQL = "SELECT quantity FROM menu_ingredient WHERE menu_id = ? AND ingredient_id = ?";
-            stm = con.prepareStatement(insertSQL);
-            stm.setInt(1, menuID);
-            stm.setInt(2, ingredientID);
-            res = stm.executeQuery();
-            int antall=0;
-            if(res.next()) {
-                antall = Integer.parseInt(res.getString("quantity"));
-            }
-            insertSQL = "INSERT INTO menu_ingredient VALUES(?, ?, ?)";
+            SQLConnection.setAutoCommitOff(con);
+            try{
+                String insertSQL = "DELETE FROM menu_ingredient WHERE menu_id = ? AND ingredient_id = ?";
+                stm = con.prepareStatement(insertSQL);
+                stm.setInt(1, menuID);
+                stm.setInt(2, ingredientID);
+                stm.executeUpdate();
+
+
+            } catch (SQLException e){}
+
+            String insertSQL = "INSERT INTO menu_ingredient VALUES(?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, ingredientID);
             stm.setInt(2, menuID);
-            stm.setInt(3, quantity+antall);
+            stm.setInt(3, quantity);
 
             stm.executeUpdate();
+            con.commit();
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of ingredient to menu, Code: 8000020";
