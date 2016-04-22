@@ -905,6 +905,42 @@ public class MethodsTest {
         assertEquals(false, testRes7);
     }
 
+    @Test
+    public void removeSubFromCustomer() throws Exception {
+        // Create test addition
+        int subID = 1, customerID = 1;
+        String fromTime = "2016-03-10", toTime = "2016-05-10";
+        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
+        for (int i = 1; i < 7; i++) {
+            deliveryDays.add(true);
+        }
+
+        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test sub from customer
+        boolean testRes2 = Methods.removeSubFromCustomer(subID, customerID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative subID
+        subID = -1;
+        boolean testRes3 = Methods.removeSubFromCustomer(subID, customerID);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative customerID
+        subID = 1;
+        customerID = -1;
+        boolean testRes4 = Methods.removeSubFromCustomer(subID, customerID);
+
+        assertEquals(false, testRes4);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
