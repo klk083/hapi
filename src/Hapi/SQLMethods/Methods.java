@@ -1126,7 +1126,7 @@ public class Methods {
             info.add(res.getString("menu_price"));
             info.add(Integer.toString(getMenuCostPrice(menuID)));
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during retrieval of customer info, Code: 8000025";
+            String errorMessage = "SQL Exception during retrieval of menu info, Code: 8000025";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();

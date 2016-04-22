@@ -205,7 +205,7 @@ public class CreateCourse extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()));
+                CreateIngredient temp = new CreateIngredient(menuId,list.get(1).get(ingredientsIsNotInCourse.getSelectedIndex()), isNew);
                 dispose();
             }
         });
