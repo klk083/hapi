@@ -37,7 +37,7 @@ public class ManageSub extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
-        ArrayList<ArrayList<String>> list = Methods.listSubs("");
+        ArrayList<ArrayList<String>> list = Methods.listSubscriptions("");
 
         DefaultListModel listModel = new DefaultListModel();
 
@@ -47,11 +47,16 @@ public class ManageSub extends JFrame {
         list1.setModel(listModel);
 
         searchSubButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<ArrayList<String>> list = Methods.listSubs("");
+                ArrayList<ArrayList<String>> list = Methods.listSubscriptions(text.getText());
 
 
                 DefaultListModel listModel = new DefaultListModel();
@@ -79,17 +84,24 @@ public class ManageSub extends JFrame {
         });
 
         viewSubButton.addActionListener(new ActionListener(){
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e){
                 if(list1.isSelectionEmpty()){
                     showMessageDialog(null, "Please select a subscription");
                 }else{
-                    dispose();
-                    ViewSub viewsub = new ViewSub();
+                    ArrayList<ArrayList<String>> menuList =
+                            Methods.listCoursesInSub(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+
+                    ArrayList<String> Info =  Methods.getSubInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                    ViewSub viewSub = new ViewSub(Info.get(0),Info.get(1),Info.get(2),Info.get(3),menuList);
                 }
             }
         });
-
         createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

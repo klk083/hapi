@@ -78,7 +78,7 @@ public class CreateIngredient extends JFrame {
              *
              * @param e
              */
-            @Override
+           @Override
             public void actionPerformed(ActionEvent e) {
                 if(nameF.getText().equals("") || unitF.getText().equals("") || priceF.getText().equals("")) {
                     showMessageDialog(null, "Ingredient not made");
