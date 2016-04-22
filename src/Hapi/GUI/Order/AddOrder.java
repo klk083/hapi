@@ -111,6 +111,30 @@ public class AddOrder extends JFrame {
         });
 
 
+        removeButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(menuInOrder.isSelectionEmpty()) {
+                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                } else{
+                    if(Methods.removeMenuFromOrder(
+                            orderId, Integer.parseInt(list.get(1).get(menuInOrder.getSelectedIndex())) )) {
+
+                        AddOrder temp = new AddOrder(selected,orderId, selectedId, isNew);
+                        dispose();
+                    }else{
+                        showMessageDialog(null, "Something went wrong");
+                    }
+                }
+
+            }
+        });
+
 
         comboBox1.addPopupMenuListener(new PopupMenuListener() {
             @Override
