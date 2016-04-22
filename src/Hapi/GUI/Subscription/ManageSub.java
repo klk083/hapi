@@ -1,8 +1,6 @@
 package Hapi.GUI.Subscription;
 
 import Hapi.GUI.Order.ListeElement;
-import Hapi.GUI.Order.ManageOrders;
-import Hapi.GUI.Subscription.EditSubscription;
 import Hapi.SQLMethods.Methods;
 import Hapi.GUI.MainMenu.CEO;
 import javax.swing.*;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 //import static Hapi.SQLMethods.Methods.deleteSubscription;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
-import static javax.swing.JOptionPane.showOptionDialog;
 
 /**
  * Created by klk94 on 13.03.2016.
@@ -79,13 +76,18 @@ public class ManageSub extends JFrame {
 
 
         editSubButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list1.isSelectionEmpty()) {
-                    showMessageDialog(null, "Please select a subscription");
+                if(list1.isSelectionEmpty()){
+                    showMessageDialog(null, "You forgot to select a course");
                 } else {
+                    AddSubscription editS = new AddSubscription(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())),false);
                     dispose();
-                    EditSubscription editsub = new EditSubscription();
                 }
             }
         });
