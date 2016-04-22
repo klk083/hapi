@@ -550,8 +550,9 @@ public class MethodsTest {
         // Test for listSubs(int customerID)
         int customerID = 1, expID2 = 1;
         ArrayList<Integer> search2 = Methods.listSubs(customerID);
+        int testRes = search2.get(0);
 
-        assertEquals(expID2, search2.get(0));
+        assertEquals(expID2, testRes);
 
 
         // Test listSubs(int customerID) with negative ID
