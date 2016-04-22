@@ -38,7 +38,7 @@ public class ViewSub extends JFrame {
 
         for(int i =0; i<menuList.get(0).size();i++) {
             listModel.addElement(menuList.get(0).get(i) + "            " + menuList.get(2).get(i)
-                    + " ");
+                    + "                    " + menuList.get(3).get(i) + "   kr/pr.");
 
         }
 
