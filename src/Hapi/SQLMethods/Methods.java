@@ -101,7 +101,7 @@ public class Methods {
         }
     }
 
-    private static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
+    public static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
             return false;
         }

@@ -1,6 +1,7 @@
 package Hapi.GUI.Subscription;
 
 import Hapi.SQLMethods.Methods;
+import sun.swing.BakedArrayList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -52,6 +53,8 @@ public class AddSubscription extends JFrame {
     ArrayList<ArrayList<String>> list1 = Methods.listCoursesInSub(subscriptionId);
 
 
+
+
     public AddSubscription(int subscriptionId, boolean isNew) {
         super("eFood");
         this.subscriptionId = subscriptionId;
@@ -81,7 +84,6 @@ public class AddSubscription extends JFrame {
             listModel1.addElement(aCourse);
         }
         subscriptionCourses.setModel(listModel1);
-
 
 
         searchCourseButton.addActionListener(new ActionListener(){
@@ -211,6 +213,16 @@ public class AddSubscription extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                JCheckBox monday = mondayCheckBox;
+                JCheckBox tuesday = tuesdayCheckBox;
+                JCheckBox wednesday = wednesdayCheckBox;
+                JCheckBox thursday = thursdayCheckBox;
+                JCheckBox friday = fridayCheckBox;
+                JCheckBox saturday = saturdayCheckBox;
+                JCheckBox sunday = sundayCheckBox;
+
+                ArrayList<Boolean> checkboxes = new ArrayList<Boolean>();
+
 
                 if (pricefield.getText().equals(null) || pricefield.getText().equals("0") || pricefield.getText().equals("")) {
                     showMessageDialog(null, "Please create a subscription price");
@@ -221,13 +233,14 @@ public class AddSubscription extends JFrame {
                         if (descriptionF.getText().equals(null) || descriptionF.getText().equals("description") || descriptionF.getText().equals("")) {
                             showMessageDialog(null, "Please create a description for the subscription");
                         } else {
-                            if (mondayCheckBox.getSelectedObjects() == null && tuesdayCheckBox.getSelectedObjects() == null && wednesdayCheckBox.getSelectedObjects() == null &&
-                                    thursdayCheckBox.getSelectedObjects() == null && fridayCheckBox.getSelectedObjects() == null && saturdayCheckBox.getSelectedObjects() == null &&
-                                    sundayCheckBox.getSelectedObjects() == null) {
-                                showMessageDialog(null, "Please select  delvery day(s) for the subscription");
+                            if (monday.isSelected() == false && tuesday.isSelected() == false && wednesday.isSelected() == false &&
+                                    thursday.isSelected() == false && friday.isSelected() == false && saturday.isSelected() == false &&
+                                    sunday.isSelected() == false) {
+                                showMessageDialog(null, "Please select  delivery day(s) for the subscription");
 
                             } else {
-                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText())) {
+                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()) /*&& Methods.setDeliveryDays(subscriptionId, monday.getText(),tuesday.getText(), wednesday.getText()
+                                , thursday.(), friday.getSelectedObjects(), saturday.getSelectedObjects(), sunday.getSelectedObjects())*/){
                                     ManageSub temp = new ManageSub();
                                     dispose();
                                 } else {
