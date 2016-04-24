@@ -2041,29 +2041,60 @@ public class Methods {
         }
     }
 
-    public static boolean setOrderToReady(int orderID, int employeeID) {
+    public static boolean setOrderToReadyCourse(int orderID, int employeeID, boolean isCourse) {
         if (orderID < 1 || employeeID < 0) {
             return false;
         }
 
         boolean ok = false;
+        if(isCourse) {
+            try {
+                con = SQLConnection.openConnection();
+                SQLConnection.setAutoCommitOff(con);
+                String insertSQL = "DELETE FROM order_cook WHERE order_id = ? AND employee_id = ?";
+                stm = con.prepareStatement(insertSQL);
+                stm.setInt(1, orderID);
+                stm.setInt(2, employeeID);
+                stm.executeUpdate();
+                String insertSQL1 = "UPDATE orders SET orders.ready = true WHERE order_id = ?";
+                stm = con.prepareStatement(insertSQL1);
+                stm.setInt(1, orderID);
+                stm.executeUpdate();
+
+                con.commit();
+                ok = true;
+            } catch (SQLException e) {
+                String errorMessage = "SQL Exception while setting order to ready, Code: 8000057";
+                SQLConnection.writeMessage(e, errorMessage);
+
+                ok = false;
+            } finally {
+                closeSQL();
+
+                return ok;
+            }
+        } else {
+
+        }
+        return  ok;
+
+    }
+
+    public static boolean addOrderToCookSub(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 0) {
+            return false;
+        }
+        boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            SQLConnection.setAutoCommitOff(con);
-            String insertSQL = "DELETE FROM order_cook WHERE order_id = ? AND employee_id = ?";
+            String insertSQL = "INSERT INTO order_cook VALUES (?,?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, orderID);
             stm.setInt(2, employeeID);
             stm.executeUpdate();
-            String insertSQL1 = "UPDATE orders SET orders.ready = true WHERE order_id = ?";
-            stm = con.prepareStatement(insertSQL1);
-            stm.setInt(1, orderID);
-            stm.executeUpdate();
-
-            con.commit();
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception while setting order to ready, Code: 8000057";
+            String errorMessage = "SQL Exception during adding order to employee in order_cook table, Code: 8000055";
             SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
@@ -2072,6 +2103,72 @@ public class Methods {
 
             return ok;
         }
+
+    }
+
+    public static boolean removeOrderFromCookSube(int orderID, int employeeID) {
+        if (orderID < 1 || employeeID < 0) {
+            return false;
+        }
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String insertSQL = "DELETE FROM order_cook WHERE order_id = ? AND employee_id = ?";
+            stm = con.prepareStatement(insertSQL);
+            stm.setInt(1, orderID);
+            stm.setInt(2, employeeID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during adding order to employee in order_cook table, Code: 8000056";
+            SQLConnection.writeMessage(e, errorMessage);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean setOrderToReadySub(int orderID, int employeeID, boolean isCourse) {
+        if (orderID < 1 || employeeID < 0) {
+            return false;
+        }
+
+        boolean ok = false;
+        if(isCourse) {
+            try {
+                con = SQLConnection.openConnection();
+                SQLConnection.setAutoCommitOff(con);
+                String insertSQL = "DELETE FROM order_cook WHERE order_id = ? AND employee_id = ?";
+                stm = con.prepareStatement(insertSQL);
+                stm.setInt(1, orderID);
+                stm.setInt(2, employeeID);
+                stm.executeUpdate();
+                String insertSQL1 = "UPDATE orders SET orders.ready = true WHERE order_id = ?";
+                stm = con.prepareStatement(insertSQL1);
+                stm.setInt(1, orderID);
+                stm.executeUpdate();
+
+                con.commit();
+                ok = true;
+            } catch (SQLException e) {
+                String errorMessage = "SQL Exception while setting order to ready, Code: 8000057";
+                SQLConnection.writeMessage(e, errorMessage);
+
+                ok = false;
+            } finally {
+                closeSQL();
+
+                return ok;
+            }
+        } else {
+
+        }
+        return  ok;
+
     }
 
 }

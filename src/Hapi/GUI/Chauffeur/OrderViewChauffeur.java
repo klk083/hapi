@@ -23,6 +23,7 @@ public class OrderViewChauffeur extends JFrame {
     private JButton signOutButton;
     private JPanel View;
     private JLabel employee;
+    private JList viewOrders;
 
 
     int employeeID;

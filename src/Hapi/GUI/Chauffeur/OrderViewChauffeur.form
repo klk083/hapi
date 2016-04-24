@@ -45,10 +45,9 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="ebada" class="javax.swing.JList" binding="viewReady">
+              <component id="d3f42" class="javax.swing.JList" binding="viewOrders">
                 <constraints/>
                 <properties>
-                  <fixedCellHeight value="-1"/>
                   <fixedCellWidth value="200"/>
                 </properties>
               </component>

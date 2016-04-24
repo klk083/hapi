@@ -41,8 +41,8 @@ public class OrderViewCook extends JFrame{
         employeeID=Methods.getID();
         nameL.setText("Logged in as: "+ Methods.getEmployeeName(Methods.getID()));
 
-        DefaultListModel model = new DefaultListModel();
-
+        DefaultListModel model1 = new DefaultListModel();
+        DefaultListModel model2 = new DefaultListModel();
         if(isCourse) {
             listOrders = Methods.listOrdersForCourses();
             listCook = Methods.listOrdersForCookCourse(employeeID);
@@ -52,15 +52,15 @@ public class OrderViewCook extends JFrame{
 
         for (int i = 0; i< listOrders.size(); i++) {
 
-            model.addElement(listOrders.get(i));
+            model1.addElement(listOrders.get(i));
         }
-        viewOrders.setModel(model);
-        model.removeAllElements();
+        viewOrders.setModel(model1);
+
         for (int i = 0; i< listCook.size(); i++) {
 
-            model.addElement(listCook.get(i));
+            model2.addElement(listCook.get(i));
         }
-        viewOrdersOnCook.setModel(model);
+        viewOrdersOnCook.setModel(model2);
 
 
 
@@ -102,7 +102,7 @@ public class OrderViewCook extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                ActiveOrderCook temp = new ActiveOrderCook();
+                ActiveOrderCook temp = new ActiveOrderCook(isCourse);
                 dispose();
             }
         });

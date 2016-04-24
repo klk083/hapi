@@ -31,7 +31,6 @@ public class ActiveOrderChauffeur extends JFrame {
 
     public ActiveOrderChauffeur() {
         super("eFood");
-        this.employeeID = employeeID;
         loggedinas.setText("Active orders for: "+ Methods.getEmployeeName(employeeID));
         setContentPane(ActiveOrderW);
         pack();
