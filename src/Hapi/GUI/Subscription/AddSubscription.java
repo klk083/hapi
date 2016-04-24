@@ -1,16 +1,19 @@
 package Hapi.GUI.Subscription;
 
 import Hapi.SQLMethods.Methods;
+import sun.swing.BakedArrayList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
-
+import javax.swing.JComboBox;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -33,6 +36,13 @@ public class AddSubscription extends JFrame {
     private JButton removeButton;
     private JLabel costP;
     private JPanel AddSubPanel;
+    private JCheckBox mondayCheckBox;
+    private JCheckBox tuesdayCheckBox;
+    private JCheckBox wednesdayCheckBox;
+    private JCheckBox thursdayCheckBox;
+    private JCheckBox fridayCheckBox;
+    private JCheckBox saturdayCheckBox;
+    private JCheckBox sundayCheckBox;
 
     int subscriptionId;
 
@@ -41,6 +51,8 @@ public class AddSubscription extends JFrame {
 
     ArrayList<ArrayList<String>> list = Methods.listMenu("");
     ArrayList<ArrayList<String>> list1 = Methods.listCoursesInSub(subscriptionId);
+
+
 
 
     public AddSubscription(int subscriptionId, boolean isNew) {
@@ -55,9 +67,10 @@ public class AddSubscription extends JFrame {
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
         ArrayList<String> info = Methods.getSubInfo(subscriptionId);
-        pricefield.setText(info.get(1));
+
+        pricefield.setText(info.get(2));
         subName.setText(info.get(0));
-        descriptionF.setText(info.get(2));
+        descriptionF.setText(info.get(1));
         costP.setText(info.get(3));
 
         for (String aCourse : list.get(0)) {
@@ -71,7 +84,6 @@ public class AddSubscription extends JFrame {
             listModel1.addElement(aCourse);
         }
         subscriptionCourses.setModel(listModel1);
-
 
 
         searchCourseButton.addActionListener(new ActionListener(){
@@ -132,46 +144,47 @@ public class AddSubscription extends JFrame {
                     if (quantity.getText().equals(null) || quantity.getText().equals("")) {
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
-                        try {
-                            if (Methods.addMenuToSub(
-                                    Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())),subscriptionId, Integer.parseInt(quantity.getText()))) {
-                                AddSubscription temp = new AddSubscription(subscriptionId,isNew);
-                                dispose();
+                            try {
+                                if (Methods.addMenuToSub(
+                                        Integer.parseInt(list.get(1).get(existingCourses.getSelectedIndex())), subscriptionId, Integer.parseInt(quantity.getText()))) {
+                                    AddSubscription temp = new AddSubscription(subscriptionId, isNew);
+                                    dispose();
 
 
-                            } else {
-                                showMessageDialog(null, "Something wrong with adding");
+                                } else {
+                                    showMessageDialog(null, "Something wrong with adding");
+                                }
+                            } catch (IllegalFormatException t) {
+                                System.out.println(t + "Wrong input in quantity");
                             }
-                        } catch (IllegalFormatException t) {
-                            System.out.println(t + "Wrong input in quantity");
                         }
                     }
                 }
-            }
 
         });
+
         removeButton.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e
-             */
-           @Override
-            public void actionPerformed(ActionEvent e) {
-                if(subscriptionCourses.isSelectionEmpty()) {
-                    showMessageDialog(null,"You forgot to select a course to remove");
-                } else{
-                    if(Methods.removeMenuFromSub(
-                            subscriptionId, Integer.parseInt(list1.get(1).get(subscriptionCourses.getSelectedIndex())) )) {
+                /**
+                 * Invoked when an action occurs.
+                 *
+                 * @param e
+                 */
+                @Override
+                public void actionPerformed (ActionEvent e){
+                    if (subscriptionCourses.isSelectionEmpty()) {
+                        showMessageDialog(null, "You forgot to select a course to remove");
+                    } else {
+                        if (Methods.removeMenuFromSub(
+                                subscriptionId, Integer.parseInt(list1.get(1).get(subscriptionCourses.getSelectedIndex())))) {
 
-                        AddSubscription temp = new AddSubscription(subscriptionId, isNew);
-                        dispose();
-                    }else{
-                        showMessageDialog(null, "Something went wrong");
+                            AddSubscription temp = new AddSubscription(subscriptionId, isNew);
+                            dispose();
+                        } else {
+                            showMessageDialog(null, "Something went wrong");
+                        }
                     }
-                }
 
-            }
+                }
         });
 
        existingCourses.addListSelectionListener(new ListSelectionListener() {
@@ -191,6 +204,7 @@ public class AddSubscription extends JFrame {
             }
         });
 
+
         createButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -199,14 +213,44 @@ public class AddSubscription extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Methods.changeSub(subscriptionId,subName.getText(),Integer.parseInt(pricefield.getText()),descriptionF.getText() )) {
-                    ManageSub temp = new ManageSub();
-                    dispose();
+                JCheckBox monday = mondayCheckBox;
+                JCheckBox tuesday = tuesdayCheckBox;
+                JCheckBox wednesday = wednesdayCheckBox;
+                JCheckBox thursday = thursdayCheckBox;
+                JCheckBox friday = fridayCheckBox;
+                JCheckBox saturday = saturdayCheckBox;
+                JCheckBox sunday = sundayCheckBox;
+
+                ArrayList<Boolean> checkboxes = new ArrayList<Boolean>();
+
+
+                if (pricefield.getText().equals(null) || pricefield.getText().equals("0") || pricefield.getText().equals("")) {
+                    showMessageDialog(null, "Please create a subscription price");
                 } else {
-                    showMessageDialog(null, "Something wrong when creating sub");
+                    if (subName.getText().equals(null) || subName.getText().equals("name") || subName.getText().equals("")) {
+                        showMessageDialog(null, "Please create a subscription name");
+                    } else {
+                        if (descriptionF.getText().equals(null) || descriptionF.getText().equals("description") || descriptionF.getText().equals("")) {
+                            showMessageDialog(null, "Please create a description for the subscription");
+                        } else {
+                            if (monday.isSelected() == false && tuesday.isSelected() == false && wednesday.isSelected() == false &&
+                                    thursday.isSelected() == false && friday.isSelected() == false && saturday.isSelected() == false &&
+                                    sunday.isSelected() == false) {
+                                showMessageDialog(null, "Please select  delivery day(s) for the subscription");
+
+                            } else {
+                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()) /*&& Methods.setDeliveryDays(subscriptionId, monday.getText(),tuesday.getText(), wednesday.getText()
+                                , thursday.(), friday.getSelectedObjects(), saturday.getSelectedObjects(), sunday.getSelectedObjects())*/){
+                                    ManageSub temp = new ManageSub();
+                                    dispose();
+                                } else {
+                                    showMessageDialog(null, "Something wrong when creating sub");
+                                }
+                            }
+                        }
+                    }
                 }
             }
         });
-
-        }
     }
+}

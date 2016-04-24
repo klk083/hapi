@@ -186,7 +186,7 @@ public class AddOrder extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if ((comboBox1.getSelectedIndex() > -1) && (comboBox2.getSelectedIndex() > -1) && (comboBox3.getSelectedIndex() > -1) && (comboBox4.getSelectedIndex() > -1) && (comboBox5.getSelectedIndex() > -1)) {
-                    showMessageDialog(null, "Bra knut!");
+
 
                     String year =  comboBox3.getSelectedItem().toString() ;
                     String month = comboBox2.getSelectedItem().toString();
@@ -199,7 +199,7 @@ public class AddOrder extends JFrame {
                     Methods.createOrder(selectedId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
 
-                }else showMessageDialog(null, "ikke bra");
+                }else showMessageDialog(null, "You must fill in full dateinformation");
             }
         });
 
