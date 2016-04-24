@@ -24,12 +24,12 @@ public class ActiveOrderChauffeur extends JFrame {
     private JButton removeButton;
     private JLabel loggedinas;
 
-    int employeeID;
+    int employeeID = Methods.getID();
 
     private DefaultListModel model = new DefaultListModel();
     ArrayList<ArrayList<String>> list = Methods.listOrdersForChauffeur(employeeID);
 
-    public ActiveOrderChauffeur(int employeeID) {
+    public ActiveOrderChauffeur() {
         super("eFood");
         this.employeeID = employeeID;
         loggedinas.setText("Active orders for: "+ Methods.getEmployeeName(employeeID));
@@ -60,7 +60,7 @@ public class ActiveOrderChauffeur extends JFrame {
                 } else {
                     if (Methods.removeOrderFromChauffeur(Integer.parseInt(list.get(1).get(view.getSelectedIndex())), employeeID)) {
                         showMessageDialog(null, "Order removed");
-                        ActiveOrderChauffeur temp = new ActiveOrderChauffeur(employeeID);
+                        ActiveOrderChauffeur temp = new ActiveOrderChauffeur();
                         dispose();
                     } else {
                         showMessageDialog(null, "Something went wrong, order not removed");
@@ -81,7 +81,7 @@ public class ActiveOrderChauffeur extends JFrame {
                 } else {
                     if (Methods.setOrderToDelivered(Integer.parseInt(list.get(1).get(view.getSelectedIndex())), employeeID)) {
                         showMessageDialog(null, "Order derlivered");
-                        ActiveOrderChauffeur temp = new ActiveOrderChauffeur(employeeID);
+                        ActiveOrderChauffeur temp = new ActiveOrderChauffeur();
                         dispose();
                     } else {
                         showMessageDialog(null, "Something went wrong, order not delivered");

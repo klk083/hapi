@@ -107,7 +107,7 @@ public class OrderViewChauffeur extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                ActiveOrderChauffeur temp = new ActiveOrderChauffeur(employeeID);
+                ActiveOrderChauffeur temp = new ActiveOrderChauffeur();
                 dispose();
             }
         });

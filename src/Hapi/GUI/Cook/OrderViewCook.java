@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  * Created by klk94 on 19.04.2016.
  */
@@ -24,8 +26,8 @@ public class OrderViewCook extends JFrame{
     private JLabel nameL;
     private int employeeID;
 
-    ArrayList<ArrayList<String>> listOrders;
-    ArrayList<ArrayList<String>> listCook;
+    ArrayList<String> listOrders;
+    ArrayList<String> listCook;
 
 
     public OrderViewCook(boolean isCourse) {
@@ -40,10 +42,6 @@ public class OrderViewCook extends JFrame{
         nameL.setText("Logged in as: "+ Methods.getEmployeeName(Methods.getID()));
 
         DefaultListModel model = new DefaultListModel();
-        DefaultListModel modelCook = new DefaultListModel();
-
-
-
 
         if(isCourse) {
             listOrders = Methods.listOrdersForCourses();
@@ -52,17 +50,17 @@ public class OrderViewCook extends JFrame{
 
         }
 
-        for (int i = 0; i< listOrders.get(2).size(); i++) {
+        for (int i = 0; i< listOrders.size(); i++) {
 
-            model.addElement(listOrders.get(1).get(i) + " - order: " + listOrders.get(2).get(i));
+            model.addElement(listOrders.get(i));
         }
-        for (int i = 0; i< listCook.get(2).size(); i++) {
-
-            modelCook.addElement(listOrders.get(1).get(i) + " - order: " + listOrders.get(2).get(i));
-        }
-
         viewOrders.setModel(model);
-        viewOrdersOnCook.setModel(modelCook);
+        model.removeAllElements();
+        for (int i = 0; i< listCook.size(); i++) {
+
+            model.addElement(listCook.get(i));
+        }
+        viewOrdersOnCook.setModel(model);
 
 
 
@@ -71,21 +69,41 @@ public class OrderViewCook extends JFrame{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(viewOrders.isSelectionEmpty()) {
+                    showMessageDialog(null,"You didnt select any orders to add");
+                } else {
+                    if (Methods.addOrderToCookCourse(Integer.parseInt(listOrders.get(viewOrders.getSelectedIndex())), employeeID)) {
+                        showMessageDialog(null, "Order added");
+                        OrderViewCook temp = new OrderViewCook(isCourse);
+                        dispose();
+                    } else {
+                        showMessageDialog(null, "Something went wrong, order not added");
+                    }
+                }
             }
         });
         removeButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if(viewOrdersOnCook.isSelectionEmpty()) {
+                    showMessageDialog(null,"You didnt select any orders to remove");
+                } else {
+                    if (Methods.removeOrderFromCookCourse(Integer.parseInt(listCook.get(viewOrdersOnCook.getSelectedIndex())), employeeID)) {
+                        showMessageDialog(null, "Order removed");
+                        OrderViewCook temp = new OrderViewCook(isCourse);
+                        dispose();
+                    } else {
+                        showMessageDialog(null, "Something went wrong, order not removed");
+                    }
+                }
             }
         });
         continueButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ActiveOrderCook temp = new ActiveOrderCook();
+                dispose();
             }
         });
         mainMenu.addActionListener(new ActionListener() {
