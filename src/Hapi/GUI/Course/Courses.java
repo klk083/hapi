@@ -1,15 +1,13 @@
 package Hapi.GUI.Course;
 
-import Hapi.GUI.Customer.EditCustomer;
-import Hapi.GUI.General.Login;
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.Order.ListeElement;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showConfirmDialog;
@@ -24,7 +22,7 @@ public class Courses extends JFrame{
     private JButton viewCourseButton;
     private JButton createCourseButton;
     private JButton mainMenuButton;
-    private JList list1;
+    private JList displayList;
     private JTextField textField1;
     private JButton searchButton;
     private JPanel Courses;
@@ -42,13 +40,15 @@ public class Courses extends JFrame{
         ArrayList<ArrayList<String>> list = Methods.listMenu("");
 
 
-        DefaultListModel listModel = new DefaultListModel();
+        DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
-
-        for (String enCourse : list.get(0)) {
-            listModel.addElement(enCourse);
+        //    String[] user = list;
+        for (int i = 0; i < list.get(0).size(); i++) {
+            String name = list.get(0).get(i);
+            String id = list.get(1).get(i);
+            listModel.addElement(new ListeElement(id, name));
         }
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
         searchButton.addActionListener(new ActionListener() {
             /**
@@ -63,13 +63,15 @@ public class Courses extends JFrame{
                 ArrayList<ArrayList<String>> list = Methods.listMenu(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
                 //    String[] user = list;
-                for (String enCourse : list.get(0)) {
-                    listModel.addElement(enCourse);
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id, name));
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
             }
         });
 
@@ -81,14 +83,15 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty()) {
+                if(displayList.isSelectionEmpty()) {
                     showMessageDialog(null, "You have not selected a course");
                 } else {
-                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                    ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
+                    if(Methods.isMenuInOrder(Integer.parseInt(selected.getId()))) {
                         showMessageDialog(null,"The course you are trying to delete has active orders");
                     }
                     if(showConfirmDialog(null,"You sure you want to delete the course")==JOptionPane.YES_OPTION) {
-                       if(Methods.deleteMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                       if(Methods.deleteMenu(Integer.parseInt(selected.getId()))) {
                            showMessageDialog(null,"Course deleted");
                            dispose();
                            Courses temp = new Courses();
@@ -108,10 +111,11 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty()){
+                if(displayList.isSelectionEmpty()){
                     showMessageDialog(null, "You forgot to select a course");
                 } else {
-                    CreateCourse editC = new CreateCourse(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())),false);
+                    ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
+                    CreateCourse editC = new CreateCourse(Integer.parseInt(selected.getId()),false);
                     dispose();
                 }
             }
@@ -125,14 +129,14 @@ public class Courses extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() ) {
+                if(displayList.isSelectionEmpty() ) {
                     showMessageDialog(null, "You forgot to select a course");
                 }
                 else {
                     ArrayList<ArrayList<String>> ingridentList =
-                            Methods.listIngredientsInMenu(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
-
-                    ArrayList<String> Info =  Methods.getMenuInfo(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())));
+                            Methods.listIngredientsInMenu(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));
+                    ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
+                    ArrayList<String> Info =  Methods.getMenuInfo(Integer.parseInt(selected.getId()));
                     ViewCourse viewCourse = new ViewCourse(Info.get(0),Info.get(1),Info.get(2),Info.get(3),ingridentList);
                 }
             }

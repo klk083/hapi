@@ -198,6 +198,7 @@ public class AddOrder extends JFrame {
                     showMessageDialog(null, delivery);
                     Methods.createOrder(selectedId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
+                    dispose();
 
                 }else showMessageDialog(null, "You must fill in full dateinformation");
             }
