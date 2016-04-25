@@ -1419,7 +1419,6 @@ public class Methods {
         }
     }
 
-
     public static int createSub(String name, String description, int price) {
         name = name.trim();
         description = description.trim();
@@ -1890,8 +1889,6 @@ public class Methods {
             return ok;
         }
     }
-
-
 
     public static ArrayList<ArrayList<String>> listOrdersForCourses() {
 

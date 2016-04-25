@@ -941,6 +941,22 @@ public class MethodsTest {
         assertEquals(false, testRes4);
     }
 
+    @Test
+    public void listCoursesInSub() throws Exception {
+        int subID = 1;
+        ArrayList<ArrayList<String>> search = Methods.listCoursesInSub(subID);
+        String expName = "Dummymat", expID = "1";
+
+        assertEquals(expName, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
+
+
+        // Test with negative subID
+        search = Methods.listCoursesInSub(subID);
+
+        assertEquals(null, search);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
