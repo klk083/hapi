@@ -990,20 +990,58 @@ public class MethodsTest {
         assertEquals(true, testRes1);
 
 
+        // Remove test order from chauffeur
+
+        boolean testRes2 = Methods.removeOrderFromChauffeur(orderID, employeeID);
+
+        assertEquals(true, testRes2);
+
+
         // Test with negative orderID
         orderID = -1;
-        boolean testRes2 = Methods.addOrderToChauffeur(orderID, employeeID);
+        boolean testRes3 = Methods.addOrderToChauffeur(orderID, employeeID);
 
-        assertEquals(false, testRes2);
+        assertEquals(false, testRes3);
 
 
         // Test with negative employeeID
         orderID = 1;
         employeeID = -1;
-        boolean testRes3 = Methods.addOrderToChauffeur(orderID, employeeID);
+        boolean testRes4 = Methods.addOrderToChauffeur(orderID, employeeID);
+
+        assertEquals(false, testRes4);
+    }
+
+    @Test
+    public void removeOrderFromChauffeur() throws Exception {
+        int orderID = 1, employeeID = 2;
+        boolean testRes1 = Methods.addOrderToChauffeur(orderID, employeeID);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test order from chauffeur
+
+        boolean testRes2 = Methods.removeOrderFromChauffeur(orderID, employeeID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative orderID
+        orderID = -1;
+        boolean testRes3 = Methods.removeOrderFromChauffeur(orderID, employeeID);
 
         assertEquals(false, testRes3);
+
+
+        // Test with negative employeeID
+        orderID = 1;
+        employeeID = -1;
+        boolean testRes4 = Methods.removeOrderFromChauffeur(orderID, employeeID);
+
+        assertEquals(false, testRes4);
     }
+
 
     @AfterClass
     public static void after() throws Exception {
