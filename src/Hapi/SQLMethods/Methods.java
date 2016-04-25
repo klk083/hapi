@@ -1655,6 +1655,9 @@ public class Methods {
     }
 
     public static ArrayList<ArrayList<String>> listOrdersForChauffeur(int employeeID) {
+        if (employeeID < 0) {
+            return null;
+        }
 
         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
