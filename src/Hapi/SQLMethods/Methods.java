@@ -781,9 +781,6 @@ public class Methods {
         }
     }
 
-
-
-
     public static boolean deleteOrder(int orderID) {
         if (orderID < 1) {
             return false;
@@ -1896,8 +1893,6 @@ public class Methods {
         }
     }
 
-
-
     public static ArrayList<String> listOrdersForCourses() {
 
         ArrayList<String> list = new ArrayList<String>();
@@ -1992,7 +1987,6 @@ public class Methods {
             return list;
         }
     }
-
 
     public static boolean addOrderToCookCourse(int orderID, int employeeID) {
         if (orderID < 1 || employeeID < 0) {
