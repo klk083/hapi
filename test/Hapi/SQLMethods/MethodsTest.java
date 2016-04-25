@@ -1091,6 +1091,22 @@ public class MethodsTest {
         assertEquals(employeeID, result);
     }
 
+    @Test
+    public void findTotalPrice() throws Exception {
+        int orderID = 1, expRes = 1;
+        int testRes1 = Methods.findTotalPrice(orderID);
+
+        assertEquals(expRes, testRes1);
+
+
+        // Test wih negative orderID
+        orderID = -1;
+        expRes = -1;
+        int testRes2 = Methods.findTotalPrice(orderID);
+
+        assertEquals(expRes, testRes2);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
