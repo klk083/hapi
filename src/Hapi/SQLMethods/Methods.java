@@ -1292,6 +1292,39 @@ public class Methods {
         }
     }
 
+    public static ArrayList<ArrayList<String>> listSubOnCustomer(int customerID) {
+        if (customerID < 1) {
+            return null;
+        }
+
+        ArrayList<ArrayList<String>> subList = new ArrayList<ArrayList<String>>();
+
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT name, subscription_id FROM subscription_customer NATURAL JOIN subscription WHERE customer_id = ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+            res = stm.executeQuery();
+
+            ArrayList<String> navn = new ArrayList<String>(), id = new ArrayList<String>();
+            while (res.next()) {
+                navn.add(res.getString("name"));
+                id.add(res.getString("subscription_id"));
+
+            }
+
+            subList.add(navn);
+            subList.add(id);
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of subscription on customer, Code: 8000060";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return subList;
+        }
+    }
+
     public static ArrayList<Integer> listSubs(int customerId) {
         if (customerId < 1) {
             return null;
