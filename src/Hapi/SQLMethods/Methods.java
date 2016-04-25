@@ -2002,29 +2002,6 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> listOrdersForSub() {
-
-        ArrayList<String> list = new ArrayList<String>();
-        try {
-            con = SQLConnection.openConnection();
-            String selectSQL = "SELECT order_id FROM orders  WHERE ready = false AND delivered = false AND orders.order_id NOT IN (SELECT order_id FROM order_cook) ORDER BY delivery_time ASC";
-            stm = con.prepareStatement(selectSQL);
-            res = stm.executeQuery();
-
-            while (res.next()) {
-                list.add(res.getString("order_id"));
-            }
-
-        } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of orders ready for cooking, Code: 8000054";
-            SQLConnection.writeMessage(e, errorMessage);
-        } finally {
-            closeSQL();
-
-            return list;
-        }
-    }
-
     public static ArrayList<String> listOrdersForCookSubs(int employeeID) {
 
         ArrayList<String> list = new ArrayList<String>();
