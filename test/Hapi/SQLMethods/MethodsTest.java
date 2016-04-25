@@ -982,6 +982,28 @@ public class MethodsTest {
         assertEquals(null, search);
     }
 
+    @Test
+    public void addOrderToChauffeur() throws Exception {
+        int orderID = 1, employeeID = 2;
+        boolean testRes1 = Methods.addOrderToChauffeur(orderID, employeeID);
+
+        assertEquals(true, testRes1);
+
+
+        // Test with negative orderID
+        orderID = -1;
+        boolean testRes2 = Methods.addOrderToChauffeur(orderID, employeeID);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with negative employeeID
+        orderID = 1;
+        employeeID = -1;
+        boolean testRes3 = Methods.addOrderToChauffeur(orderID, employeeID);
+
+        assertEquals(false, testRes3);
+    }
 
     @AfterClass
     public static void after() throws Exception {
