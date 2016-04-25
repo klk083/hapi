@@ -2272,4 +2272,31 @@ public class Methods {
             return subscriptionID;
         }
     }
+
+    public static ArrayList<String> getSubDates(int customerID) {
+        if (customerID < 1) {
+            return null;
+        }
+
+        ArrayList<String> dates = new ArrayList<String>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT from_date, to_date FROM subscription_customer WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+            res = stm.executeQuery();
+            res.next();
+
+            dates.add(res.getString("from_date"));
+            dates.add(res.getString("to_date"));
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of subscription dates, Code: 8000062";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return dates;
+        }
+    }
 }
