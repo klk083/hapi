@@ -411,6 +411,7 @@ public class Methods {
             stm.setInt(1, customerID);
 
             stm.executeUpdate();
+            con.commit();
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during customer deletion, Code: 8000019";
