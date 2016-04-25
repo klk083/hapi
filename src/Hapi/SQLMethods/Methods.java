@@ -1542,7 +1542,7 @@ public class Methods {
             } catch (SQLException e) {}
 
             try {
-                deleteSQL = "DELETE FROM subscription_menu WHERE menu_id = ?";
+                deleteSQL = "DELETE FROM sub_delivery_days WHERE subscription_id = ?";
                 stm = con.prepareStatement(deleteSQL);
                 stm.setInt(1, subscriptionId);
 
