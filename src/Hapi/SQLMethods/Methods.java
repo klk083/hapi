@@ -1447,16 +1447,17 @@ public class Methods {
         }
     }
 
-    public static int createSub(String name, String description, int price) {
+    public static int createSub(String name, String description, int price, ArrayList<Boolean> days) {
         name = name.trim();
         description = description.trim();
-        if (name.equals("") || description.equals("") || price < 0) {
+        if (name.equals("") || description.equals("") || price < 0 || days.size() < 7) {
             return -1;
         }
 
         int subscriptionId = -1;
         try {
             con = SQLConnection.openConnection();
+            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
@@ -1474,6 +1475,10 @@ public class Methods {
             res.next();
             subscriptionId = res.getInt("subscription_id");
 
+            if (!setDeliveryDays(subscriptionId, days)) {
+                subscriptionId = -1;
+                SQLConnection.rollback(con);
+            }
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during creation of subscription, Code: 8000021";
             SQLConnection.writeMessage(e, errorMessage);
@@ -1580,15 +1585,14 @@ public class Methods {
         }
     }
 
-    public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime, ArrayList<Boolean> days) {
-        if (subID < 1 || customerID < 1 || fromTime.equals("") || toTime.equals("") || days.size() < 7) {
+    public static boolean addSubToCustomer (int subID, int customerID, String fromTime, String toTime) {
+        if (subID < 1 || customerID < 1 || fromTime.equals("") || toTime.equals("")) {
             return false;
         }
 
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "INSERT INTO subscription_customer VALUES(?, ?, ?, ?)";
             stm = con.prepareStatement(insertSQL);
             stm.setInt(1, subID);
@@ -1598,12 +1602,7 @@ public class Methods {
 
             stm.executeUpdate();
 
-            if (setDeliveryDays(subID, days)) {
-                ok = true;
-                con.commit();
-            } else {
-                SQLConnection.rollback(con);
-            }
+            ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during addition of subscription to customer, Code: 8000040";
             SQLConnection.writeMessage(e, errorMessage);
