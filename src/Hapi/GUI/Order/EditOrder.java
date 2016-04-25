@@ -177,17 +177,22 @@ public class EditOrder extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(!isNew) {
-                    if(Methods.deleteOrder(orderId)) {
-                        ManageOrders orders = new ManageOrders(selected, selectedId );
-                        dispose();
-                    }else{
-                        showMessageDialog(null, "Something wrong with deleting of the course");
-                    }
-                } else{
-                    ManageOrders orders = new ManageOrders(selected, selectedId );
+                if ((comboBox1.getSelectedIndex() > -1) && (comboBox2.getSelectedIndex() > -1) && (comboBox3.getSelectedIndex() > -1) && (comboBox4.getSelectedIndex() > -1) && (comboBox5.getSelectedIndex() > -1)) {
+
+
+                    String year =  comboBox3.getSelectedItem().toString() ;
+                    String month = comboBox2.getSelectedItem().toString();
+                    String day = comboBox1.getSelectedItem().toString();
+                    String hour =  comboBox4.getSelectedItem().toString();
+                    String minute =  comboBox5.getSelectedItem().toString();
+
+                    String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+                    showMessageDialog(null, delivery);
+                    Methods.createOrder(selectedId, delivery);
+                    ManageOrders orders = new ManageOrders(selected, selectedId);
                     dispose();
-                }
+
+                }else showMessageDialog(null, "You must fill in full dateinformation");
             }
         });
 

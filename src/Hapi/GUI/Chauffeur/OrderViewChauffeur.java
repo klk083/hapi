@@ -23,6 +23,7 @@ public class OrderViewChauffeur extends JFrame {
     private JButton signOutButton;
     private JPanel View;
     private JLabel employee;
+    private JList viewOrders;
 
 
     int employeeID;
@@ -107,7 +108,7 @@ public class OrderViewChauffeur extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                ActiveOrderChauffeur temp = new ActiveOrderChauffeur(employeeID);
+                ActiveOrderChauffeur temp = new ActiveOrderChauffeur();
                 dispose();
             }
         });

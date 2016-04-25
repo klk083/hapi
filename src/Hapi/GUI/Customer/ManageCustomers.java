@@ -1,6 +1,7 @@
 package Hapi.GUI.Customer;
 
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.Order.ListeElement;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -39,12 +40,14 @@ public class ManageCustomers extends JFrame {
 
         ArrayList<ArrayList<String>> list = Methods.listCustomers("");
 
-
-        DefaultListModel listModel = new DefaultListModel();
-
         //    String[] user = list;
-        for (String enuser : list.get(0)) {
-            listModel.addElement(enuser);
+        DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
+
+
+        for (int i = 0; i < list.get(0).size(); i++) {
+            String name = list.get(0).get(i);
+            String id = list.get(1).get(i);
+            listModel.addElement(new ListeElement(id, name));
         }
         displayList.setModel(listModel);
 
@@ -57,11 +60,13 @@ public class ManageCustomers extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
-                //    String[] user = list;
-                for (String enuser : list.get(0)) {
-                    listModel.addElement(enuser);
+
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id, name));
                 }
                 displayList.setModel(listModel);
 
@@ -76,11 +81,13 @@ public class ManageCustomers extends JFrame {
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
 
-                DefaultListModel listModel = new DefaultListModel();
+                DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
-                //    String[] user = list;
-                for (String enuser : list.get(0)) {
-                    listModel.addElement(enuser);
+
+                for (int i = 0; i < list.get(0).size(); i++) {
+                    String name = list.get(0).get(i);
+                    String id = list.get(1).get(i);
+                    listModel.addElement(new ListeElement(id, name));
                 }
                 displayList.setModel(listModel);
             }
@@ -106,7 +113,8 @@ public class ManageCustomers extends JFrame {
                             JOptionPane.QUESTION_MESSAGE,
                             null, null, null);
                     if (choice == JOptionPane.YES_OPTION) {
-                        deleteCustomer(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));
+                        ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
+                        deleteCustomer(Integer.parseInt(selected.getId()));
                         dispose();
                         ManageCustomers customers = new ManageCustomers();
 
