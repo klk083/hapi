@@ -1107,6 +1107,34 @@ public class MethodsTest {
         assertEquals(false, testRes5);
     }
 
+    @Test
+    public void setDeliveryDays() throws Exception {
+        int subID = 1;
+        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
+
+        for (int i = 0; i < 6; i++) {
+            deliveryDays.add(true);
+        }
+
+        boolean testRes1 = Methods.setDeliveryDays(subID, deliveryDays);
+
+        assertEquals(true, testRes1);
+
+
+        // Test setting delivery days with ArrayList of size less than 7
+        deliveryDays.remove(true);
+        boolean testRes2 = Methods.setDeliveryDays(subID, deliveryDays);
+
+        assertEquals(true, testRes2);
+
+
+        // Test setting delivery days with null ArrayList
+        deliveryDays = null;
+        boolean testRes3 = Methods.setDeliveryDays(subID, deliveryDays);
+
+        assertEquals(true, testRes3);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
