@@ -36,6 +36,7 @@ public class AddOrder extends JFrame {
     private JTextField textField1;
     private JPanel addOrderPannel;
     private JTextField description;
+    private JLabel customerLabel;
 
     int orderId;
 
@@ -46,6 +47,7 @@ public class AddOrder extends JFrame {
     public AddOrder(String selected, int orderId, int selectedId, boolean isNew) {
         super("eFood");
         this.orderId = orderId;
+        customerLabel.setText(selected);
 
         setContentPane(addOrderPannel);
         pack();
@@ -196,7 +198,7 @@ public class AddOrder extends JFrame {
 
                     String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
                     showMessageDialog(null, delivery);
-                    Methods.createOrder(selectedId, delivery);
+                    Methods.setOrderDeliveryTime(orderId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
                     dispose();
 
@@ -339,6 +341,11 @@ public class AddOrder extends JFrame {
         });
 
 
+        createCourseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+            }
+        });
     }
 }

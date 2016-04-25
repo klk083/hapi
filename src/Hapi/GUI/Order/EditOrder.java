@@ -35,6 +35,7 @@ public class EditOrder extends JFrame {
     private JTextField textField1;
     private JPanel editOrderPannel;
     private JTextField description;
+    private JLabel customerLabel;
 
     int orderId;
 
@@ -45,6 +46,7 @@ public class EditOrder extends JFrame {
     public EditOrder(String selected, int orderId, int selectedId, boolean isNew) {
         super("eFood");
         this.orderId = orderId;
+        customerLabel.setText(selected);
 
         setContentPane(editOrderPannel);
         pack();
@@ -188,7 +190,7 @@ public class EditOrder extends JFrame {
 
                     String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
                     showMessageDialog(null, delivery);
-                    Methods.createOrder(selectedId, delivery);
+                    Methods.setOrderDeliveryTime(orderId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
                     dispose();
 

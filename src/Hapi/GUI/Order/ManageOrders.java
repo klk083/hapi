@@ -79,6 +79,13 @@ public class ManageOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                if(selectedInt != -1) {
+                    dispose();
+                    SetSubPeriod order = new SetSubPeriod(selected, selectedInt, true);
+                }
+                else {
+                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                }
             }
         });
 
@@ -87,6 +94,7 @@ public class ManageOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int orderId = Methods.createOrder(selectedInt,"1000-01-01 00:00:00");
+
                 if(selectedInt != -1) {
                     dispose();
                     AddOrder order = new AddOrder(selected, orderId, selectedInt, true);
@@ -116,6 +124,7 @@ public class ManageOrders extends JFrame {
 
                     }
                 } else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
+                    ordersList.clearSelection();
                     removeSubFromCustomer((list2.get(subList.getSelectedIndex())),selectedInt );
                     dispose();
                     ManageOrders customers = new ManageOrders(selected, selectedInt);
@@ -151,12 +160,23 @@ public class ManageOrders extends JFrame {
                     ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
 
 
-                }
-                /*else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
-                    ArrayList<String> Info =  Methods.getSubInfo(list2.get(subList.getSelectedIndex()));
-                    ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3));
+                }else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0){
 
-                }*/
+
+
+                    ArrayList<ArrayList<String>> menuList =
+                            Methods.listMenusInOrder((list1.get(ordersList.getSelectedIndex())));
+
+
+
+                    ArrayList<String> info =  Methods.getOrderInfo(list1.get(ordersList.getSelectedIndex()));
+                    int sum = Methods.findTotalPrice((list1.get(ordersList.getSelectedIndex())));
+
+                    ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
+
+
+                }
+
 
             }
         });
