@@ -1070,7 +1070,41 @@ public class MethodsTest {
     @Test
     public void changeSub() throws Exception {
         String name = "Burger Abonnement", description = "For den som vil automatisk få levert burger";
+        int subID = 1, price = 100;
+        boolean testRes1 = Methods.changeSub(subID, name, price, description);
 
+        assertEquals(true, testRes1);
+
+
+        // Test with negative subID
+        subID = -1;
+        boolean testRes2 = Methods.changeSub(subID, name, price, description);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with blank name
+        subID = 1;
+        name = "";
+        boolean testRes3 = Methods.changeSub(subID, name, price, description);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with blank description
+        name = "Burger Abonnement";
+        description = "";
+        boolean testRes4 = Methods.changeSub(subID, name, price, description);
+
+        assertEquals(false, testRes4);
+
+
+        // test with negative price
+        description = "For den som vil automatisk få levert burger";
+        price = -1;
+        boolean testRes5 = Methods.changeSub(subID, name, price, description);
+
+        assertEquals(false, testRes5);
     }
 
 
