@@ -101,7 +101,7 @@ public class Methods {
         }
     }
 
-    private static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
+    public static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
         if (days == null || days.size() != 7) {
             return false;
         }
@@ -112,7 +112,7 @@ public class Methods {
             String selectSQL = "INSERT INTO sub_delivery_days VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1,subID);
-            for (int i = 1; i < days.size(); i++) {
+            for (int i = 1; i < days.size()+1; i++) {
                 stm.setBoolean((i + 1), days.get(i - 1));
             }
             stm.executeUpdate();
@@ -1484,15 +1484,12 @@ public class Methods {
         int subscriptionId = -1;
         try {
             con = SQLConnection.openConnection();
-            SQLConnection.setAutoCommitOff(con);
             String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, 'StartN', 0, 'descrip')";
             stm = con.prepareStatement(insertSQL);
             stm.executeUpdate();
 
-
             String selectSQL = "SELECT subscription_id FROM subscription WHERE name = 'StartN'";
             stm = con.prepareStatement(selectSQL);
-
 
             res = stm.executeQuery();
             res.next();
@@ -1504,9 +1501,9 @@ public class Methods {
 
             if (!setDeliveryDays(subscriptionId, days)) {
                 subscriptionId = -1;
-                SQLConnection.rollback(con);
+
             }
-            con.commit();
+
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during creation of subscription, Code: 8000021";
             SQLConnection.writeMessage(e, errorMessage);

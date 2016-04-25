@@ -187,24 +187,6 @@ public class AddSubscription extends JFrame {
                 }
         });
 
-       existingCourses.addListSelectionListener(new ListSelectionListener() {
-            /**
-             * Called whenever the value of the selection changes.
-             *
-             * @param e the event that characterizes the change.
-             */
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(existingCourses.isSelectionEmpty()) {
-
-                }else{
-
-                }
-
-            }
-        });
-
-
         createButton.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -213,15 +195,7 @@ public class AddSubscription extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JCheckBox monday = mondayCheckBox;
-                JCheckBox tuesday = tuesdayCheckBox;
-                JCheckBox wednesday = wednesdayCheckBox;
-                JCheckBox thursday = thursdayCheckBox;
-                JCheckBox friday = fridayCheckBox;
-                JCheckBox saturday = saturdayCheckBox;
-                JCheckBox sunday = sundayCheckBox;
-
-                ArrayList<Boolean> checkboxes = new ArrayList<Boolean>();
+                      ArrayList<Boolean> checkboxes = new ArrayList<Boolean>();
 
 
                 if (pricefield.getText().equals(null) || pricefield.getText().equals("0") || pricefield.getText().equals("")) {
@@ -233,14 +207,21 @@ public class AddSubscription extends JFrame {
                         if (descriptionF.getText().equals(null) || descriptionF.getText().equals("description") || descriptionF.getText().equals("")) {
                             showMessageDialog(null, "Please create a description for the subscription");
                         } else {
-                            if (monday.isSelected() == false && tuesday.isSelected() == false && wednesday.isSelected() == false &&
-                                    thursday.isSelected() == false && friday.isSelected() == false && saturday.isSelected() == false &&
-                                    sunday.isSelected() == false) {
+                            if (mondayCheckBox.isSelected() == false && tuesdayCheckBox.isSelected() == false && wednesdayCheckBox.isSelected() == false &&
+                                    thursdayCheckBox.isSelected() == false && fridayCheckBox.isSelected() == false && saturdayCheckBox.isSelected() == false &&
+                                    sundayCheckBox.isSelected() == false) {
                                 showMessageDialog(null, "Please select  delivery day(s) for the subscription");
 
                             } else {
-                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()) /*&& Methods.setDeliveryDays(subscriptionId, monday.getText(),tuesday.getText(), wednesday.getText()
-                                , thursday.(), friday.getSelectedObjects(), saturday.getSelectedObjects(), sunday.getSelectedObjects())*/){
+                                checkboxes.add(mondayCheckBox.isSelected());
+                                checkboxes.add(tuesdayCheckBox.isSelected());
+                                checkboxes.add(wednesdayCheckBox.isSelected());
+                                checkboxes.add(thursdayCheckBox.isSelected());
+                                checkboxes.add(fridayCheckBox.isSelected());
+                                checkboxes.add(saturdayCheckBox.isSelected());
+                                checkboxes.add(sundayCheckBox.isSelected());
+
+                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()) && Methods.setDeliveryDays(subscriptionId, checkboxes)){
                                     ManageSub temp = new ManageSub();
                                     dispose();
                                 } else {
