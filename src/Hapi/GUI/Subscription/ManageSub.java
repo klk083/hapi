@@ -115,10 +115,10 @@ public class ManageSub extends JFrame {
             }
         });
 
-       /* createSubscriptionButton.addActionListener(new ActionListener() {
+        createSubscriptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int subscriptionId = Methods.createSub("name", "description", 0, );
+                int subscriptionId = Methods.createSub();
                 if (subscriptionId != -1) {
                     AddSubscription addsub = new AddSubscription(subscriptionId, true);
                     dispose();
@@ -127,7 +127,7 @@ public class ManageSub extends JFrame {
                 }
             }
 
-        });*/
+        });
 
         backButton.addActionListener(new ActionListener(){
             @Override

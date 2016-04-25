@@ -1480,33 +1480,27 @@ public class Methods {
         }
     }
 
-    public static int createSub(String name, String description, int price, ArrayList<Boolean> days) {
-        name = name.trim();
-        description = description.trim();
-        if (name.equals("") || description.equals("") || price < 0 || days.size() < 7) {
-            return -1;
-        }
-
+    public static int createSub() {
         int subscriptionId = -1;
         try {
             con = SQLConnection.openConnection();
             SQLConnection.setAutoCommitOff(con);
-            String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, ?, ?, ?)";
+            String insertSQL = "INSERT INTO subscription VALUES(DEFAULT, 'StartN', 0, 'descrip')";
             stm = con.prepareStatement(insertSQL);
-            stm.setString(1, name);
-            stm.setInt(2, price);
-            stm.setString(3, description);
-
             stm.executeUpdate();
 
 
-            String selectSQL = "SELECT subscription_id FROM subscription WHERE name = ?";
+            String selectSQL = "SELECT subscription_id FROM subscription WHERE name = 'StartN'";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, name);
+
 
             res = stm.executeQuery();
             res.next();
             subscriptionId = res.getInt("subscription_id");
+            ArrayList<Boolean> days = new ArrayList<Boolean>();
+            for(int i=0;i<7;i++) {
+                days.add(false);
+            }
 
             if (!setDeliveryDays(subscriptionId, days)) {
                 subscriptionId = -1;
