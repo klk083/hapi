@@ -31,6 +31,9 @@ INSERT INTO menu VALUES(DEFAULT, 'Fritert hamster', 100, 'Myk og fyldig smak');
 INSERT INTO menu VALUES(DEFAULT, 'Hakkemat', 500, 'Mat for de som er litt ekstra fan av hakking');
 
 INSERT INTO subscription VALUES(DEFAULT, 'Burger abonnement', 100, 'For den som vil automatisk få levert burger');
+INSERT INTO subscription VALUES(DEFAULT, 'Reke abonnement', 50, 'For den som vil automatisk få levert reker');
+INSERT INTO subscription VALUES(DEFAULT, 'Pølse abonnement', 200, 'For den som vil automatisk få levert pølse');
+INSERT INTO subscription VALUES(DEFAULT, 'Hamster abonnement', 200, 'For den som vil automatisk få levert hamster');
 
 INSERT INTO ingredient VALUES(DEFAULT, 'Burger', 'stk', 100);
 INSERT INTO ingredient VALUES(DEFAULT, 'Ost', 'g', 1);
@@ -54,6 +57,9 @@ INSERT INTO menu_ingredient VALUES(1, 6, 2);
 INSERT INTO order_chauffeur VALUES(1, 5);
 
 INSERT INTO subscription_menu VALUES(1, 1, 1);
+INSERT INTO subscription_menu VALUES(2, 2, 10);
+INSERT INTO subscription_menu VALUES(3, 4, 2);
+INSERT INTO subscription_menu VALUES(4, 9, 5);
 
 INSERT INTO sub_delivery_days VALUES(1, true, true, true, true, true, true, true);
 
