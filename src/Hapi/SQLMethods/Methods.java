@@ -2198,4 +2198,32 @@ public class Methods {
 
     }
 
+    public static ArrayList<Boolean> getSubDeliveryDays(int subID) {
+        ArrayList<Boolean> list = new ArrayList<Boolean>();
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT * FROM sub_delivery_days WHERE subscription_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, subID);
+            res = stm.executeQuery();
+            res.next();
+
+            list.add(res.getBoolean("monday"));
+            list.add(res.getBoolean("tuesday"));
+            list.add(res.getBoolean("wednesday"));
+            list.add(res.getBoolean("thursday"));
+            list.add(res.getBoolean("friday"));
+            list.add(res.getBoolean("saturday"));
+            list.add(res.getBoolean("sunday"));
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during listing of subscription delivery days, Code: 8000059";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return list;
+        }
+    }
+
 }
