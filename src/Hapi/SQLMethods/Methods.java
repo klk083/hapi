@@ -2257,4 +2257,28 @@ public class Methods {
         }
     }
 
+    public static int getSubIDFromCustID(int customerID) {
+        if (customerID < 0) {
+            return -1;
+        }
+        int subscriptionID = -1;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT subscription_id FROM subscription_customer WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+            res = stm.executeQuery();
+            res.next();
+
+            subscriptionID = res.getInt("subscriptionID");
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during retrieval of subscription ID by customer ID, Code: 8000061";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return subscriptionID;
+        }
+    }
 }

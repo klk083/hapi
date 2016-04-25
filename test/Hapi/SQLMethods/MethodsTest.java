@@ -954,6 +954,7 @@ public class MethodsTest {
 
 
         // Test with negative subID
+        subID = -1;
         search = Methods.listCoursesInSub(subID);
 
         assertEquals(null, search);
@@ -1107,21 +1108,30 @@ public class MethodsTest {
         assertEquals(expRes, testRes2);
     }
 
+    @Test
+    public void changeSub() throws Exception {
+        String name = "Burger Abonnement", description = "For den som vil automatisk få levert burger";
+
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerID = Integer.parseInt(search.get(1).get(0));
+
         // Removal of test user
         String username = "testuser";
         Methods.deleteUser(username);
 
-        // Removal of test customer
-        String name = "Billy Bob";
-        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
-        int customerID = Integer.parseInt(search.get(1).get(0));
-        Methods.deleteCustomer(customerID);
-
         // Removal of test order
         ArrayList<Integer> orderSearch = Methods.listOrders(customerID);
         Methods.deleteOrder(orderSearch.get(0));
+
+        // Removal of test customer
+        Methods.deleteCustomer(customerID);
+
+
     }
 }
