@@ -1547,7 +1547,7 @@ public class Methods {
             } catch (SQLException e) {}
 
             try {
-                String updateSQL = "UPDATE subscription_customer SET subscription_id = 0 WHERE subscription_id = ?";
+                String updateSQL = "DELETE FROM subscription_customer WHERE subscription_id = ?";
                 stm = con.prepareStatement(updateSQL);
                 stm.setInt(1, subscriptionId);
 
