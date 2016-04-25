@@ -1998,7 +1998,7 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> listOrdersForSubs() {
+    public static ArrayList<String> listOrdersForSub() {
 
         ArrayList<String> list = new ArrayList<String>();
         try {
@@ -2011,10 +2011,8 @@ public class Methods {
                 list.add(res.getString("order_id"));
             }
 
-
-
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during listing of ready for cooking, Code: 8000054";
+            String errorMessage = "SQL Exception during listing of orders ready for cooking, Code: 8000054";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
