@@ -102,7 +102,7 @@ public class Methods {
     }
 
     private static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
-        if (days == null || days.size() < 7) {
+        if (days == null || days.size() != 7) {
             return false;
         }
 
@@ -113,7 +113,7 @@ public class Methods {
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1,subID);
             for (int i = 1; i < days.size(); i++) {
-                stm.setBoolean((i + 1), days.get(0));
+                stm.setBoolean((i + 1), days.get(i - 1));
             }
             stm.executeUpdate();
 
@@ -2270,7 +2270,7 @@ public class Methods {
             res = stm.executeQuery();
             res.next();
 
-            subscriptionID = res.getInt("subscriptionID");
+            subscriptionID = res.getInt("subscription_id");
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of subscription ID by customer ID, Code: 8000061";
