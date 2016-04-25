@@ -703,7 +703,11 @@ public class MethodsTest {
     public void createSub() throws Exception {
         String name = "Test subscription", description = "Test";
         int price = 100;
-        int testRes1 = Methods.createSub(name, description, price);
+        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
+        for (int i = 1; i < 7; i++) {
+            deliveryDays.add(true);
+        }
+        int testRes1 = Methods.createSub(name, description, price, deliveryDays);
         ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
         int expRes = Integer.parseInt(search.get(1).get(0));
 
@@ -717,23 +721,29 @@ public class MethodsTest {
         // Test with blank name
         name = "";
         expRes = -1;
-        int testRes3 = Methods.createSub(name, description, price);
+        int testRes3 = Methods.createSub(name, description, price, deliveryDays);
 
         assertEquals(expRes, testRes3);
 
         // Test with blank description
         name = "Test Subscription";
         description = "";
-        int testRes4 = Methods.createSub(name, description, price);
+        int testRes4 = Methods.createSub(name, description, price, deliveryDays);
 
         assertEquals(expRes, testRes4);
 
         // Test with negative price
         description = "Test";
         price = -1;
-        int testRes5 = Methods.createSub(name, description, price);
+        int testRes5 = Methods.createSub(name, description, price, deliveryDays);
 
         assertEquals(expRes, testRes5);
+
+        // Test with deliveryDays less than 7 items
+        deliveryDays.remove(true);
+        int testRes6 = Methods.createSub(name, description, price, deliveryDays);
+
+        assertEquals(expRes, testRes6);
     }
 
     @Test
@@ -741,7 +751,11 @@ public class MethodsTest {
         // Create subscription to delete
         String name = "Test subscription", description = "Test";
         int price = 100;
-        int testRes1 = Methods.createSub(name, description, price);
+        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
+        for (int i = 1; i < 7; i++) {
+            deliveryDays.add(true);
+        }
+        int testRes1 = Methods.createSub(name, description, price, deliveryDays);
         ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
         int expRes = Integer.parseInt(search.get(1).get(0));
 
@@ -850,12 +864,8 @@ public class MethodsTest {
     public void addSubtoCustomer() throws Exception {
         int subID = 1, customerID = 1;
         String fromTime = "2016-03-10", toTime = "2016-05-10";
-        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
-        for (int i = 1; i < 7; i++) {
-            deliveryDays.add(true);
-        }
 
-        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(true, testRes1);
 
@@ -868,7 +878,7 @@ public class MethodsTest {
 
         // Test with negative subID
         subID = -1;
-        boolean testRes3 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes3 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(false, testRes3);
 
@@ -876,7 +886,7 @@ public class MethodsTest {
         // Test with negative customerID
         subID = 1;
         customerID = -1;
-        boolean testRes4 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes4 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(false, testRes4);
 
@@ -884,7 +894,7 @@ public class MethodsTest {
         // Test with blank fromTime
         customerID = 1;
         fromTime = "";
-        boolean testRes5 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes5 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(false, testRes5);
 
@@ -892,17 +902,9 @@ public class MethodsTest {
         // Test with blank toTime
         fromTime = "2016-03-10";
         toTime = "";
-        boolean testRes6 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes6 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(false, testRes6);
-
-
-        // Test with deliveryDays less than 7 items
-        toTime = "2016-05-10";
-        deliveryDays.remove(true);
-        boolean testRes7 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
-
-        assertEquals(false, testRes7);
     }
 
     @Test
@@ -915,7 +917,7 @@ public class MethodsTest {
             deliveryDays.add(true);
         }
 
-        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime, deliveryDays);
+        boolean testRes1 = Methods.addSubToCustomer(subID, customerID, fromTime, toTime);
 
         assertEquals(true, testRes1);
 
@@ -1064,6 +1066,31 @@ public class MethodsTest {
 
         assertEquals(false, testRes3);
     }
+
+    @Test
+    public void writeID() throws Exception {
+        int employeeID = 1;
+        boolean testRes1 = Methods.writeID(employeeID);
+
+        assertEquals(true, testRes1);
+
+        int result = Methods.getID();
+
+        assertEquals(employeeID, result);
+    }
+
+    @Test
+    public void getID() throws Exception {
+        int employeeID = 1;
+        boolean testRes1 = Methods.writeID(employeeID);
+
+        assertEquals(true, testRes1);
+
+        int result = Methods.getID();
+
+        assertEquals(employeeID, result);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
