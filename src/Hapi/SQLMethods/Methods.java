@@ -119,10 +119,23 @@ public class Methods {
 
             ok = true;
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during insertion of delivery days, ID Code: 8000041";
-            SQLConnection.writeMessage(e, errorMessage);
+           try {
+               con = SQLConnection.openConnection();
+               String selectSQL = "UPDATE sub_delivery_days SET monday =? , tuesday =? , wednesday =? , thursday =? , friday =? , saturday =? , sunday=? WHERE subscription_id=?";
+               stm = con.prepareStatement(selectSQL);
+               for (int i = 0; i < days.size(); i++) {
+                   stm.setBoolean((i+1), days.get(i));
+               }
+               stm.setInt(8, subID);
+               stm.executeUpdate();
+               ok=true;
 
-            ok = false;
+           } catch (SQLException f) {
+               String errorMessage = "SQL Exception during insertion of delivery days, ID Code: 8000041";
+               SQLConnection.writeMessage(f, errorMessage);
+               ok = false;
+           }
+
         } finally {
             closeSQL();
 
@@ -1422,7 +1435,7 @@ public class Methods {
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM menu_subscription WHERE subscription_id = ? AND menu_id = ?";
+            String deleteSQL = "DELETE FROM subscription_menu WHERE subscription_id = ? AND menu_id = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setInt(1, subscriptionId);
             stm.setInt(2, menuID);

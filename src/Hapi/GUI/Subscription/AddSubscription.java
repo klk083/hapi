@@ -85,6 +85,16 @@ public class AddSubscription extends JFrame {
         }
         subscriptionCourses.setModel(listModel1);
 
+        ArrayList<Boolean> boxDays = Methods.getSubDeliveryDays(subscriptionId);
+
+        mondayCheckBox.setSelected(boxDays.get(0));
+        tuesdayCheckBox.setSelected(boxDays.get(1));
+        wednesdayCheckBox.setSelected(boxDays.get(2));
+        thursdayCheckBox.setSelected(boxDays.get(3));
+        fridayCheckBox.setSelected(boxDays.get(4));
+        saturdayCheckBox.setSelected(boxDays.get(5));
+        sundayCheckBox.setSelected(boxDays.get(6));
+
 
         searchCourseButton.addActionListener(new ActionListener(){
             /**
@@ -174,8 +184,8 @@ public class AddSubscription extends JFrame {
                     if (subscriptionCourses.isSelectionEmpty()) {
                         showMessageDialog(null, "You forgot to select a course to remove");
                     } else {
-                        if (Methods.removeMenuFromSub(
-                                subscriptionId, Integer.parseInt(list1.get(1).get(subscriptionCourses.getSelectedIndex())))) {
+                        if (Methods.removeMenuFromSub(Integer.parseInt(list1.get(1).get(subscriptionCourses.getSelectedIndex())),
+                        subscriptionId)) {
 
                             AddSubscription temp = new AddSubscription(subscriptionId, isNew);
                             dispose();
@@ -221,10 +231,12 @@ public class AddSubscription extends JFrame {
                                 checkboxes.add(saturdayCheckBox.isSelected());
                                 checkboxes.add(sundayCheckBox.isSelected());
 
-                                if (Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()) && Methods.setDeliveryDays(subscriptionId, checkboxes)){
+                                if ((Methods.changeSub(subscriptionId, subName.getText(), Integer.parseInt(pricefield.getText()), descriptionF.getText()))
+                                        && Methods.setDeliveryDays(subscriptionId, checkboxes)) {
                                     ManageSub temp = new ManageSub();
                                     dispose();
-                                } else {
+
+                                }else{
                                     showMessageDialog(null, "Something wrong when creating sub");
                                 }
                             }
