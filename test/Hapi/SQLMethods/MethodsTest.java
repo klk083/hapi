@@ -701,68 +701,27 @@ public class MethodsTest {
 
     @Test
     public void createSub() throws Exception {
-        String name = "Test subscription", description = "Test";
-        int price = 100;
-        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
-        for (int i = 1; i < 7; i++) {
-            deliveryDays.add(true);
-        }
-        int testRes1 = Methods.createSub(name, description, price, deliveryDays);
-        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
-        int expRes = Integer.parseInt(search.get(1).get(0));
+        int create = Methods.createSub();
+        boolean expRes = true, testRes1 = (create != -1);
 
         assertEquals(expRes, testRes1);
 
         // Remove test subscription
-        boolean testRes2 = Methods.deleteSub(expRes);
+        boolean testRes2 = Methods.deleteSub(create);
 
         assertEquals(true, testRes2);
-
-        // Test with blank name
-        name = "";
-        expRes = -1;
-        int testRes3 = Methods.createSub(name, description, price, deliveryDays);
-
-        assertEquals(expRes, testRes3);
-
-        // Test with blank description
-        name = "Test Subscription";
-        description = "";
-        int testRes4 = Methods.createSub(name, description, price, deliveryDays);
-
-        assertEquals(expRes, testRes4);
-
-        // Test with negative price
-        description = "Test";
-        price = -1;
-        int testRes5 = Methods.createSub(name, description, price, deliveryDays);
-
-        assertEquals(expRes, testRes5);
-
-        // Test with deliveryDays less than 7 items
-        deliveryDays.remove(true);
-        int testRes6 = Methods.createSub(name, description, price, deliveryDays);
-
-        assertEquals(expRes, testRes6);
     }
 
     @Test
     public void deleteSub() throws Exception {
         // Create subscription to delete
-        String name = "Test subscription", description = "Test";
-        int price = 100;
-        ArrayList<Boolean> deliveryDays = new ArrayList<Boolean>();
-        for (int i = 1; i < 7; i++) {
-            deliveryDays.add(true);
-        }
-        int testRes1 = Methods.createSub(name, description, price, deliveryDays);
-        ArrayList<ArrayList<String>> search = Methods.listSubscriptions(name);
-        int expRes = Integer.parseInt(search.get(1).get(0));
+        int create = Methods.createSub();
+        boolean expRes = true, testRes1 = (create != -1);
 
         assertEquals(expRes, testRes1);
 
         // Remove test subscription
-        boolean testRes2 = Methods.deleteSub(expRes);
+        boolean testRes2 = Methods.deleteSub(create);
 
         assertEquals(true, testRes2);
 
