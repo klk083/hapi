@@ -101,7 +101,7 @@ public class Methods {
         }
     }
 
-    public static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
+    private static boolean setDeliveryDays(int subID, ArrayList<Boolean> days) {
         if (days == null || days.size() < 7) {
             return false;
         }
@@ -822,6 +822,33 @@ public class Methods {
             String errorMessage = "SQL Exception during order deletion, Code: 8000029";
             SQLConnection.writeMessage(e, errorMessage);
             SQLConnection.rollback(con);
+
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
+    public static boolean setOrderDeliveryTime(int orderID, String deliveryTime) {
+        if (deliveryTime.equals("") || orderID < 1) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String updateSQL = "UPDATE orders SET delivery_time = ? WHERE order_id = ?";
+            stm = con.prepareStatement(updateSQL);
+            stm.setString(1, deliveryTime);
+            stm.setInt(2, orderID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during update of order delivery time, Code: 8000058";
+            SQLConnection.writeMessage(e, errorMessage);
 
             ok = false;
         } finally {
