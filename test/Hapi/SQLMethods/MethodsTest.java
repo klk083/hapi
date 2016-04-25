@@ -966,6 +966,22 @@ public class MethodsTest {
         assertEquals(expID, search.get(1).get(0));
     }
 
+    @Test
+    public void listOrdersForChauffeur() throws  Exception {
+        int employeeID = 2;
+        ArrayList<ArrayList<String>> search = Methods.listOrdersForChauffeur(employeeID);
+        String expAddress = "Bukta 12",expID = "2" ;
+
+        assertEquals(expAddress, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
+
+
+        // Test with negative employeeID
+        search = Methods.listOrdersForChauffeur(-1);
+
+        assertEquals(null, search);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
