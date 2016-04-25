@@ -1,6 +1,5 @@
 package Hapi.GUI.Order;
 
-import Hapi.GUI.Course.CreateCourse;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class EditOrder extends JFrame {
     private JButton createCourseButton;
     private JButton addButton;
     private JButton removeButton;
-    private JButton createOrderButton;
+    private JButton confirmOrderButton;
     private JButton backButton;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
@@ -87,7 +86,7 @@ public class EditOrder extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ManageOrders orders = new ManageOrders(selected, selectedId );
+                ManageOrders orders = new ManageOrders(selected, selectedId);
             }
         });
 
@@ -175,7 +174,7 @@ public class EditOrder extends JFrame {
             }
 
         });
-        createOrderButton.addActionListener(new ActionListener() {
+        confirmOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

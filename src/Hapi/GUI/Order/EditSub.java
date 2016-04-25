@@ -16,7 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 /**
  * Created by Knut on 14.04.2016.
  */
-public class AddSub extends JFrame {
+public class EditSub extends JFrame {
     private JButton searchCourseButton;
     private JList subNotInOrder;
     private JList subInOrder;
@@ -42,7 +42,7 @@ public class AddSub extends JFrame {
 
 
 
-    public AddSub(String selected, int selectedId, boolean isNew, String from, String to) {
+    public EditSub(String selected, int selectedId, boolean isNew, String from, String to) {
         super("eFood");
 
         customerLabel.setText(selected);
@@ -84,11 +84,9 @@ public class AddSub extends JFrame {
 
 
 
-
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
 
                         ManageOrders orders = new ManageOrders(selected, selectedId);
                         dispose();
@@ -130,7 +128,6 @@ public class AddSub extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if(subInOrder.isSelectionEmpty()) {
                     showMessageDialog(null,"You forgot to select an ingredient to remove");
                 } else{
@@ -162,14 +159,14 @@ public class AddSub extends JFrame {
                     showMessageDialog(null, "You didnt select a subscription menu to add to the subscription");
                 } else
 
-                      {
-                        ListeElement selectedOrder = (ListeElement) subNotInOrder.getSelectedValuesList().get(0);
-                            if (Methods.addSubToCustomer(
-                                    Integer.parseInt(selectedOrder.getId()), selectedId, from, to)) {
-                                AddSub temp = new AddSub(selected, selectedId, isNew, from, to );
-                                dispose();
-                            } else {
-                                showMessageDialog(null, "something wrong with removing existing sub");
+                {
+                    ListeElement selectedOrder = (ListeElement) subNotInOrder.getSelectedValuesList().get(0);
+                    if (Methods.addSubToCustomer(
+                            Integer.parseInt(selectedOrder.getId()), selectedId, from, to)) {
+                        AddSub temp = new AddSub(selected, selectedId, isNew, from, to );
+                        dispose();
+                    } else {
+                        showMessageDialog(null, "something wrong with removing existing sub");
 
                     }
                 }

@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 
+import static Hapi.SQLMethods.Methods.deleteOrder;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showOptionDialog;
 
 /**
  * Created by Knut on 14.04.2016.
@@ -186,8 +188,10 @@ public class AddOrder extends JFrame {
         createOrderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if ((comboBox1.getSelectedIndex() > -1) && (comboBox2.getSelectedIndex() > -1) && (comboBox3.getSelectedIndex() > -1) && (comboBox4.getSelectedIndex() > -1) && (comboBox5.getSelectedIndex() > -1)) {
+                if (menuInOrder.getModel().getSize() < 1) {
+                    showMessageDialog(null, "You need to add a menu to your order");
+                }
+                else if ((comboBox1.getSelectedIndex() > -1) && (comboBox2.getSelectedIndex() > -1) && (comboBox3.getSelectedIndex() > -1) && (comboBox4.getSelectedIndex() > -1) && (comboBox5.getSelectedIndex() > -1)) {
 
 
                     String year =  comboBox3.getSelectedItem().toString() ;
@@ -205,6 +209,16 @@ public class AddOrder extends JFrame {
                 }else showMessageDialog(null, "You must fill in full dateinformation");
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                if(isNew) {
+                    Methods.deleteOrder(orderId);
+
+                }
+            }
+        });
+
+
 
 
 
@@ -341,11 +355,6 @@ public class AddOrder extends JFrame {
         });
 
 
-        createCourseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 }

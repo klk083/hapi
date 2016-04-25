@@ -1872,7 +1872,7 @@ public class Methods {
         return id;
     }
 
-    public static int findTotalPrice(int orderID) {
+    public static int findTotalPriceOrder(int orderID) {
         if (orderID < 1) {
             return -1;
         }
@@ -1902,6 +1902,38 @@ public class Methods {
 
         }
     }
+    public static int findTotalPriceSub(int customerID) {
+        if (customerID < 1) {
+            return -1;
+        }
+
+
+        int sum = 0;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "SELECT price FROM subscription NATURAL JOIN subscription_customer WHERE customer_id = ? ORDER BY name ASC";
+            stm = con.prepareStatement(selectSQL);
+            stm.setInt(1, customerID);
+            res = stm.executeQuery();
+
+
+            while (res.next()) {
+                sum += (res.getInt("price"));
+            }
+
+
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during calculation of total price for menu in order, Code: 8000050";
+            SQLConnection.writeMessage(e, errorMessage);
+        } finally {
+            closeSQL();
+
+            return sum;
+
+        }
+    }
+
+
 
     public static boolean changeSub(int subscriptionId, String name, int price, String description) {
         if (subscriptionId < 1 || name.equals("") || description.equals("") || price < 1) {

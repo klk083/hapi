@@ -216,6 +216,12 @@ public class SetSubPeriod extends JFrame {
                 dispose();
             }
         });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ManageOrders orders = new ManageOrders(selected, selectedId);
+            }
+        });
     }
 
 }
