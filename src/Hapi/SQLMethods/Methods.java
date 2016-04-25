@@ -1479,6 +1479,7 @@ public class Methods {
                 subscriptionId = -1;
                 SQLConnection.rollback(con);
             }
+            con.commit();
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during creation of subscription, Code: 8000021";
             SQLConnection.writeMessage(e, errorMessage);
