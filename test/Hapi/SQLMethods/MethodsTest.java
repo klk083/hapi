@@ -957,6 +957,15 @@ public class MethodsTest {
         assertEquals(null, search);
     }
 
+    @Test
+    public void listOrdersForDelivery() throws Exception {
+        ArrayList<ArrayList<String>> search = Methods.listOrdersForDeliveries();
+        String expAddress = "Bukta 12", expID = "3";
+
+        assertEquals(expAddress, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
+    }
+
 
     @AfterClass
     public static void after() throws Exception {

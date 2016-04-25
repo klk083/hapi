@@ -42,8 +42,8 @@ INSERT INTO menu_ingredient VALUES(3, 5, 200);
 INSERT INTO menu_ingredient VALUES(3, 7, 1000);
 
 INSERT INTO orders VALUES (DEFAULT, 2, '2008-11-11 12:50:00', false, false);
-INSERT INTO orders VALUES (DEFAULT, 2, '2012-11-11 12:50:00', false, false);
 INSERT INTO orders VALUES (DEFAULT, 2, '2012-11-11 12:50:00', true, false);
+INSERT INTO orders VALUES (DEFAULT, 2, '2012-11-11 12:50:00', false, false);
 
 INSERT INTO menu_order VALUES(1, 1, 1, '', false);
 
