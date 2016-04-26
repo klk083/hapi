@@ -1,4 +1,11 @@
 # noinspection SqlNoDataSourceInspectionForFile
+INSERT INTO role VALUES(DEFAULT, 'CEO');
+INSERT INTO role VALUES(DEFAULT, 'Secretary');
+INSERT INTO role VALUES(DEFAULT, 'Cook');
+INSERT INTO role VALUES(DEFAULT, 'Driver');
+INSERT INTO role VALUES(DEFAULT, 'Sales Representative');
+INSERT INTO role VALUES(DEFAULT, 'Nutrition Expert');
+
 INSERT INTO employee VALUES(DEFAULT, 1, "admin", "admin", "$6$jv450qggfl621$nFLSFodaU3qTvW51TGSIebgwqPKEnl5UeYN9J2FQfcRPmSxgAcPXPdUS9f7WaZGGgnbQPPwtwTf2mrSYbYGhh0", "$6$jv450qggfl621");
 INSERT INTO employee VALUES(DEFAULT, 1, "knut", "knut", "$6$nufalq6mk6hse$Nema/b9tdB8HZv6MFlcm8a1jDd1sI.58JURXlzN0hZ/6Bj1uOqlyrzIc03KvFnqkTe075xtmpA9KahrLAJonz1", "$6$nufalq6mk6hse");
 INSERT INTO employee VALUES(DEFAULT, 2, "håkon", "håkon", "$6$u4ch7cjbrhjl8$9fo/mZnnsEA.CB9GUoECBZ1tDC8oi3Xu/uP8aEDtdIVkGfzpo5tCmlHSs0BygCmIUFfozRU2VVXnCjkbf50e00", "$6$u4ch7cjbrhjl8");
@@ -6,13 +13,6 @@ INSERT INTO employee VALUES(DEFAULT, 3, "kenny", "kenny", "$6$oc2jbknkgqok5$D01a
 INSERT INTO employee VALUES(DEFAULT, 4, "Ivar", "ivar", "$6$inrd2vt1sadn9$KGRzE/G2JZf6dXvOFvvTYDiro/avbSPPL.aZWaIjAFFaHCZR7ZZZU.0hT6TJjUztp0U0ARuGiiyDeb5Vw75A.1", "$6$inrd2vt1sadn9");
 INSERT INTO employee VALUES(DEFAULT, 5, "Luft lars", "luft", "$6$21ne21aunh713$rImoLoSGxio7xV.BbLP.O7Vx3Ps6TaeTIc0Qcr6OfhMtLIN02X5Qo7xL6U2RRxdTgEc//dVDGcznCmS4390Zn0", "$6$21ne21aunh713");
 INSERT INTO employee VALUES(DEFAULT, 6, "magnus", "magnus", "$6$14ftoi3h292sa$krUxljhBMuzMwPrBtbo90cBvCAiA94Ep9ZHAEiLF0XDPrKm8SQHP8mJIwrxB9FjPvFiJA6ycqY1PlNMi2TofI1", "$6$14ftoi3h292sa");
-
-INSERT INTO role VALUES(DEFAULT, 'CEO');
-INSERT INTO role VALUES(DEFAULT, 'Secretary');
-INSERT INTO role VALUES(DEFAULT, 'Cook');
-INSERT INTO role VALUES(DEFAULT, 'Driver');
-INSERT INTO role VALUES(DEFAULT, 'Sales Representative');
-INSERT INTO role VALUES(DEFAULT, 'Nutrition Expert');
 
 INSERT INTO customer VALUES(DEFAULT, 'Dummykunde', 'Dummyveien 1', '00000000', 0, false);
 INSERT INTO customer VALUES(DEFAULT, 'Ronny', 'Bukta 12', '95408740', 0, false);
@@ -52,8 +52,6 @@ INSERT INTO orders VALUES (DEFAULT, 2, '2008-11-11 12:50:00', false, false);
 INSERT INTO orders VALUES (DEFAULT, 2, '2012-11-11 12:50:00', false, false);
 
 INSERT INTO menu_order VALUES(1, 1, 1, '', false);
-
-INSERT INTO menu_ingredient VALUES(1, 6, 2);
 
 INSERT INTO order_chauffeur VALUES(1, 5);
 
