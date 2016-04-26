@@ -394,6 +394,13 @@ public class Methods {
             return false;
         }
 
+        int number;
+        try {
+            number = Integer.parseInt(tlf);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
@@ -401,7 +408,7 @@ public class Methods {
             stm = con.prepareStatement(insertSQL);
             stm.setString(1, name);
             stm.setString(2, address);
-            stm.setString(3, tlf);
+            stm.setInt(3, number);
             stm.setBoolean(4, isCompany);
 
             stm.executeUpdate();

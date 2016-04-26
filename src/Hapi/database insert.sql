@@ -41,6 +41,7 @@ INSERT INTO ingredient VALUES(DEFAULT, 'Luft', 'cm3', 5);
 INSERT INTO ingredient VALUES(DEFAULT, 'Potet', 'stk', 100);
 INSERT INTO ingredient VALUES(DEFAULT, 'Gress', 'cm3', 0);
 INSERT INTO ingredient VALUES(DEFAULT, 'Blod', 'ml', 1000);
+INSERT INTO ingredient VALUES(DEFAULT, 'Vann', 'dl', 0);
 
 INSERT INTO menu_ingredient VALUES(1, 6, 2);
 INSERT INTO menu_ingredient VALUES(2, 5, 2);
