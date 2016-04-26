@@ -820,7 +820,7 @@ public class MethodsTest {
     }
 
     @Test
-    public void addSubtoCustomer() throws Exception {
+    public void addSubToCustomer() throws Exception {
         int subID = 1, customerID = 1;
         String fromTime = "2016-03-10", toTime = "2016-05-10";
 
@@ -1133,6 +1133,27 @@ public class MethodsTest {
         boolean testRes3 = Methods.setDeliveryDays(subID, deliveryDays);
 
         assertEquals(true, testRes3);
+    }
+
+    @Test
+    public void listOrdersForCookCourse() throws Exception {
+        int employeeID = 4;
+        String expRes = "2";
+        ArrayList<String> search = Methods.listOrdersForCookCourse(employeeID);
+
+        assertEquals(expRes, search.get(0));
+
+
+        // Test with negative employeeID
+        employeeID = -1;
+        search = Methods.listOrdersForCookCourse(employeeID);
+
+        assertEquals(null, search);
+    }
+
+    @Test
+    public void listOrdersForCourses() throws Exception {
+
     }
 
 

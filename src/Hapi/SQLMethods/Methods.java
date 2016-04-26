@@ -1981,6 +1981,9 @@ public class Methods {
     }
 
     public static ArrayList<String> listOrdersForCookCourse(int employeeID) {
+        if (employeeID < 1) {
+            return null;
+        }
 
         ArrayList<String> list = new ArrayList<String>();
         try {
