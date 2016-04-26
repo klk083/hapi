@@ -1,6 +1,9 @@
 package Hapi.GUI.Customer;
 
+import Hapi.GUI.Order.ManageCustomerOrders;
+import Hapi.GUI.Order.ManageOrders;
 import Hapi.GUI.User.ManageUsers;
+import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,7 @@ public class EditCustomer extends JFrame {
     private JLabel oldPhone;
     private JLabel oldAdress;
 
-    public EditCustomer(String adress, String tlfNr) {
+    public EditCustomer(String address, String tlfNr, int customerId) {
         super("Create customer");
         setContentPane(EditCustomerPannel);
         pack();
@@ -32,17 +35,28 @@ public class EditCustomer extends JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
 
-        oldAdress.setText(adress);
+        oldAdress.setText(address);
         oldPhone.setText(tlfNr);
         changeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(oldAdress.getText().equals(textField2.getText())){
                     showMessageDialog(null, "This address is already registered");
+                } else {
+                    Methods.setCustomerAddress(customerId, textField2.getText());
                 }
                 if(oldPhone.getText().equals(textField3.getText())) {
                     showMessageDialog(null, "This phonenumber is already registered");
+                } else if ((Methods.setCustomerPhone(customerId, textField3.getText()) == false) && !textField3.getText().equals("") ){
+                   showMessageDialog(null, "This is not a phonenumber");
+
                 }
+                else {
+                    Methods.setCustomerPhone(customerId, textField3.getText());
+                    dispose();
+                    ManageCustomers customer = new ManageCustomers();
+                }
+
             }
         });
 

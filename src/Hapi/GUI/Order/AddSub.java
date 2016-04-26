@@ -106,7 +106,7 @@ public class AddSub extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JTextField text = textField1;
 
-                ArrayList<ArrayList<String>> list = Methods.listMenu(text.getText());
+                ArrayList<ArrayList<String>> list = Methods.listSubscriptions(text.getText());
 
 
                 DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
@@ -132,7 +132,7 @@ public class AddSub extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if(subInOrder.isSelectionEmpty()) {
-                    showMessageDialog(null,"You forgot to select an ingredient to remove");
+                    showMessageDialog(null,"You need to select the order you want to remove");
                 } else{
                     ListeElement selectedSubOrder = (ListeElement) subInOrder.getSelectedValuesList().get(0);
 

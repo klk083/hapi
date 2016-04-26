@@ -201,7 +201,6 @@ public class AddOrder extends JFrame {
                     String minute =  comboBox5.getSelectedItem().toString();
 
                     String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
-                    showMessageDialog(null, delivery);
                     Methods.setOrderDeliveryTime(orderId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
                     dispose();

@@ -42,12 +42,15 @@ public class ManageOrders extends JFrame {
 
         customerNameLabel.setText(selected + "'s" + " orders");
 
-        ArrayList<Integer> list1 = Methods.listOrders(selectedInt);
-        ArrayList<Integer> list2 = Methods.listSubs(selectedInt);
+
 
 
         DefaultListModel listModel1 = new DefaultListModel();
-        DefaultListModel listModel2 = new DefaultListModel();
+        DefaultListModel<ListeElement2> listModel2 = new DefaultListModel<ListeElement2>();
+
+        ArrayList<Integer> list1 = Methods.listOrders(selectedInt);
+        ArrayList<Integer> list2 = Methods.listSubs(selectedInt);
+
 
 
         for (int enuser : list1) {
@@ -57,10 +60,13 @@ public class ManageOrders extends JFrame {
 
 
 
-        for (int enuser : list2) {
-            listModel2.addElement(enuser);
+        for (int i = 0; i < list2.size(); i++) {
+            String id = Integer.toString(list2.get(i));
+            listModel2.addElement(new ListeElement2(id));
         }
         subList.setModel(listModel2);
+
+
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -106,7 +112,7 @@ public class ManageOrders extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (subList.isSelectionEmpty() && ordersList.isSelectionEmpty()) {
                     showMessageDialog(null, "You need to select an order");
-                } else if(subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0)   {
+                } else if(subList.isSelectionEmpty() && ((ordersList.getSelectedIndex())) > -1)   {
                     int choice = showOptionDialog(null,
                             "You really want to delete that order?",
                             "Quit?",
@@ -119,9 +125,9 @@ public class ManageOrders extends JFrame {
                         ManageOrders customers = new ManageOrders(selected, selectedInt);
 
                     }
-                } else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0) {
-                    ordersList.clearSelection();
-                    removeSubFromCustomer((list2.get(subList.getSelectedIndex())),selectedInt );
+                } else if (ordersList.isSelectionEmpty() && ((subList.getSelectedIndex())) > -1) {
+                    ListeElement2 selectedSub = (ListeElement2) subList.getSelectedValuesList().get(0);
+                    removeSubFromCustomer(Integer.parseInt(selectedSub.getId()),selectedInt );
                     dispose();
                     ManageOrders customers = new ManageOrders(selected, selectedInt);
                 }
@@ -141,14 +147,10 @@ public class ManageOrders extends JFrame {
                 if(subList.isSelectionEmpty() && ordersList.isSelectionEmpty() ) {
                     showMessageDialog(null, "You forgot to select an order");
                 }
-                else if (subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0){
-
-
+                else if (subList.isSelectionEmpty() && (((ordersList.getSelectedIndex())) > -1)){
 
                     ArrayList<ArrayList<String>> menuList =
                             Methods.listMenusInOrder((list1.get(ordersList.getSelectedIndex())));
-
-
 
                     ArrayList<String> info =  Methods.getOrderInfo(list1.get(ordersList.getSelectedIndex()));
                     int sum = Methods.findTotalPriceOrder((list1.get(ordersList.getSelectedIndex())));
@@ -156,22 +158,20 @@ public class ManageOrders extends JFrame {
                     ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
 
 
-                }else if (ordersList.isSelectionEmpty() && (((Integer)subList.getSelectedValue())) > 0){
+                }else {
+                    if (ordersList.isSelectionEmpty() && ((subList.getSelectedIndex())) > -1) {
+                        ListeElement2 selectedSub = (ListeElement2) subList.getSelectedValuesList().get(0);
+
+                        ArrayList<ArrayList<String>> listSubs =
+                                Methods.listSubOnCustomer(selectedInt);
+
+                        ArrayList<String> info = Methods.getSubInfo(Integer.parseInt(selectedSub.getId()));
+
+                        ViewSub viewSubs = new ViewSub(selectedInt, Integer.parseInt(selectedSub.getId()), info, listSubs);
 
 
 
-                    ArrayList<ArrayList<String>> listSubs =
-                            Methods.listSubOnCustomer((list2.get(subList.getSelectedIndex())));
-
-
-
-                    ArrayList<String> info =  Methods.getSubInfo(list2.get(subList.getSelectedIndex()));
-
-
-
-                    ViewSub viewSubs = new ViewSub(selectedInt,info, listSubs);
-
-
+                    }
                 }
 
 
@@ -185,14 +185,14 @@ public class ManageOrders extends JFrame {
 
                 if (subList.isSelectionEmpty() && ordersList.isSelectionEmpty()) {
                     showMessageDialog(null, "You forgot to select an order");
-                } else if (subList.isSelectionEmpty() && (((Integer) ordersList.getSelectedValue())) > 0) {
+                } else if (subList.isSelectionEmpty() && ((ordersList.getSelectedIndex())) > -1) {
                     int orderId = list1.get(ordersList.getSelectedIndex());
                     dispose();
                     EditOrder order = new EditOrder(selected, orderId, selectedInt, true);
-                } else if (ordersList.isSelectionEmpty() && (((Integer) subList.getSelectedValue())) > 0) {
-
+                } else if (ordersList.isSelectionEmpty() && ((subList.getSelectedIndex())) > -1) {
+                    ListeElement2 selectedSub = (ListeElement2) subList.getSelectedValuesList().get(0);
                     dispose();
-                    EditSub order = new EditSub(selected, selectedInt, true, getSubDates(selectedInt).get(0), getSubDates(selectedInt).get(1));
+                    EditSub order = new EditSub(selected, selectedInt, true, getSubDates((selectedInt), Integer.parseInt(selectedSub.getId())));
                 }
             }
         });
