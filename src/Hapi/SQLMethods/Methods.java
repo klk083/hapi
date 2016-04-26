@@ -798,7 +798,7 @@ public class Methods {
                 id.add(Integer.toString(temp));
             }
 
-            navn.remove("Dummybruker");
+            navn.remove("Dummykunde");
             id.remove("1");
 
             customers.add(navn);
