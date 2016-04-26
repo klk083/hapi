@@ -1159,6 +1159,35 @@ public class MethodsTest {
         assertEquals(expRes, search.get(0));
     }
 
+    @Test
+    public void addOrderToCookCourse() throws Exception {
+        int orderID = 3, employeeID = 4;
+        boolean testRes1 = Methods.addOrderToCookCourse(orderID, employeeID);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test addition of course
+        boolean testRes2 = Methods.removeOrderFromCookCourse(orderID, employeeID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative orderID
+        orderID = -1;
+        boolean testRes3 = Methods.addOrderToCookCourse(orderID, employeeID);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative employeeID
+        orderID = 3;
+        employeeID = -1;
+        boolean testRes4 = Methods.addOrderToCookCourse(orderID, employeeID);
+
+        assertEquals(false, testRes4);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
