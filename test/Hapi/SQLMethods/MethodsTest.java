@@ -1153,7 +1153,10 @@ public class MethodsTest {
 
     @Test
     public void listOrdersForCourses() throws Exception {
+        ArrayList<String> search = Methods.listOrdersForCourses();
+        String expRes = "3";
 
+        assertEquals(expRes, search.get(0));
     }
 
 
