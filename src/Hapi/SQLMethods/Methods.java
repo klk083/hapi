@@ -258,14 +258,36 @@ public class Methods {
             return false;
         }
 
+
+        int employeeID = getEmployeeID(username);
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
-            String deleteSQL = "DELETE FROM employee WHERE username = ?";
+            SQLConnection.setAutoCommitOff(con);
+            String deleteSQL = "";
+
+            try {
+                deleteSQL = "DELETE FROM order_chauffeur WHERE employee_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, employeeID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            try {
+                deleteSQL = "DELETE FROM order_cook WHERE employee_id = ?";
+                stm = con.prepareStatement(deleteSQL);
+                stm.setInt(1, employeeID);
+
+                stm.executeUpdate();
+            } catch (SQLException e) {}
+
+            deleteSQL = "DELETE FROM employee WHERE username = ?";
             stm = con.prepareStatement(deleteSQL);
             stm.setString(1, username.toLowerCase());
 
             stm.executeUpdate();
+            con.commit();
             ok = true;
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during user deletion, Code: 8000004";
