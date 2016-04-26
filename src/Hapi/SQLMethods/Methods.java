@@ -541,6 +541,32 @@ public class Methods {
         }
     }
 
+    public static boolean setCustomerPhone(int customerID, String phone) {
+        if (customerID < 1 || phone.equals("")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "UPDATE customer SET customer_tlf = ? WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, phone);
+            stm.setInt(2, customerID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during update of customer phone number, Code: 8000064";
+            SQLConnection.writeMessage(e, errorMessage);
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
     public static ArrayList<String> listOrders(String partName) {
         ArrayList<String> orders = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
