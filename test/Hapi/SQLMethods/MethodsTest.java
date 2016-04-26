@@ -1273,6 +1273,21 @@ public class MethodsTest {
         assertEquals(false, testRes3);
     }
 
+    @Test
+    public void getSubDeliveryDays() throws Exception {
+        int subID = 1;
+        ArrayList<Boolean> search = Methods.getSubDeliveryDays(subID);
+        // All 7 values in search should be true
+
+        assertEquals(true, search.get(0));
+        assertEquals(true, search.get(1));
+        assertEquals(true, search.get(2));
+        assertEquals(true, search.get(3));
+        assertEquals(true, search.get(4));
+        assertEquals(true, search.get(5));
+        assertEquals(true, search.get(6));
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
