@@ -13,8 +13,7 @@ public class ViewOrder extends JFrame{
     private JList displayList;
     private JButton closeButton;
     private JPanel viewOrder;
-    private JLabel orderId;
-    private JLabel customerId;
+
     private JLabel deliveryId;
     private JLabel readyL;
     private JLabel totalPrice;
@@ -28,8 +27,6 @@ public class ViewOrder extends JFrame{
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
-        orderId.setText(order);
-        customerId.setText(customer);
         deliveryId.setText(delivery);
         totalPrice.setText(String.valueOf(sum + "kr"));
         if(Integer.parseInt(ready) > 0) {
