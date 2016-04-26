@@ -1,15 +1,11 @@
 package Hapi.GUI.Order;
 
-import Hapi.SQLMethods.Methods;
-
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.IllegalFormatException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -19,27 +15,27 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class SetSubPeriod extends JFrame {
 
 
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
-    private JComboBox comboBox6;
+    private JComboBox dayBoxFrom;
+    private JComboBox monthBoxFrom;
+    private JComboBox yearBoxFrom;
+    private JComboBox dayBoxTo;
+    private JComboBox monthBoxTo;
+    private JComboBox yearBoxTo;
     private JButton continueButton;
     private JButton backButton;
-    private JPanel SetSubPeriodPannel;
+    private JPanel setSubPeriodPanel;
 
     public SetSubPeriod(String selected, int selectedId, boolean isNew) {
         super("eFood");
 
-        setContentPane(SetSubPeriodPannel);
+        setContentPane(setSubPeriodPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
-        comboBox1.addPopupMenuListener(new PopupMenuListener() {
+        dayBoxFrom.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -67,7 +63,7 @@ public class SetSubPeriod extends JFrame {
 
             }
         });
-        comboBox2.addPopupMenuListener(new PopupMenuListener() {
+        monthBoxFrom.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -95,7 +91,7 @@ public class SetSubPeriod extends JFrame {
 
             }
         });
-        comboBox3.addPopupMenuListener(new PopupMenuListener() {
+        yearBoxFrom.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -119,7 +115,7 @@ public class SetSubPeriod extends JFrame {
 
             }
         });
-        comboBox4.addPopupMenuListener(new PopupMenuListener() {
+        dayBoxTo.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -147,7 +143,7 @@ public class SetSubPeriod extends JFrame {
 
             }
         });
-        comboBox5.addPopupMenuListener(new PopupMenuListener() {
+        monthBoxTo.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -175,7 +171,7 @@ public class SetSubPeriod extends JFrame {
 
             }
         });
-        comboBox6.addPopupMenuListener(new PopupMenuListener() {
+        yearBoxTo.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -202,12 +198,12 @@ public class SetSubPeriod extends JFrame {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String year =  comboBox3.getSelectedItem().toString() ;
-                String month = comboBox2.getSelectedItem().toString();
-                String day = comboBox1.getSelectedItem().toString();
-                String year2 =  comboBox6.getSelectedItem().toString() ;
-                String month2 = comboBox5.getSelectedItem().toString();
-                String day2 = comboBox4.getSelectedItem().toString();
+                String year =  yearBoxFrom.getSelectedItem().toString() ;
+                String month = monthBoxFrom.getSelectedItem().toString();
+                String day = dayBoxFrom.getSelectedItem().toString();
+                String year2 =  yearBoxTo.getSelectedItem().toString() ;
+                String month2 = monthBoxTo.getSelectedItem().toString();
+                String day2 = dayBoxTo.getSelectedItem().toString();
 
                 String from = year + "-" + month + "-" + day;
                 String to = year2 + "-" + month2 + "-" + day2;

@@ -12,8 +12,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by klk94 on 11.03.2016.
  */
 public class EditPassword extends JFrame {
-    private JTextField textField1;
-    private JTextField textField2;
+    private JTextField passwordField;
+    private JTextField repeatPasswordField;
     private JButton changeButton;
     private JButton cancelButton;
     private JPanel editPasswordPanel;
@@ -33,8 +33,8 @@ public class EditPassword extends JFrame {
         changeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(textField1.getText().equals(textField2.getText())){
-                     if(changePassword(username, textField2.getText())) {
+                if(passwordField.getText().equals(repeatPasswordField.getText())){
+                     if(changePassword(username, repeatPasswordField.getText())) {
                          showMessageDialog(null, "Password changed");
                          dispose();
                          ManageUsers users = new ManageUsers();

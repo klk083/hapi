@@ -13,19 +13,19 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by klk94 on 16.03.2016.
  */
 public class CreateUser extends JFrame {
-    private JTextField textField1;
-    private JTextField textField4;
+    private JTextField roleField;
+    private JTextField usernameField;
+    private JTextField nameField;
     private JPasswordField ffsPasswordField;
     private JPasswordField passwordField2;
     private JButton cancelButton;
     private JButton OKButton;
-    private JPanel CreateUserPannel;
-    private JTextField textField2;
-    private JLabel RoleID;
+    private JPanel createUserPanel;
+
 
     public CreateUser() {
         super("Manage users");
-        setContentPane(CreateUserPannel);
+        setContentPane(createUserPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -38,9 +38,9 @@ public class CreateUser extends JFrame {
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField role = textField2;
-                JTextField user = textField1;
-                JTextField name = textField4;
+                JTextField role = roleField;
+                JTextField user = usernameField;
+                JTextField name = nameField;
                 JPasswordField passord = ffsPasswordField;
                 JPasswordField rpassord = passwordField2;
 

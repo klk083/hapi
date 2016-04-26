@@ -1,10 +1,7 @@
 package Hapi.GUI.User;
 
 import Hapi.GUI.MainMenu.CEO;
-import Hapi.GUI.User.CreateUser;
-import Hapi.GUI.User.EditPassword;
 import Hapi.SQLMethods.Methods;
-import jdk.nashorn.internal.runtime.options.Options;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -26,19 +23,20 @@ public class ManageUsers extends JFrame{
     private JButton deleteUserButton;
     private JButton createUserButton;
     private JButton backButton;
-    private JTextField textf1;
+    private JTextField searchField;
     private JButton searchButton;
-    private JPanel Userpannel;
-    private JList list1;
+    private JPanel userPanel;
+    private JList displayList;
     private JScrollPane scroll;
+
 
     public ManageUsers() {
         super("Manage users");
-        setContentPane(Userpannel);
+        setContentPane(userPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        textf1.setText("Search");
+        searchField.setText("Search");
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
@@ -51,7 +49,7 @@ public class ManageUsers extends JFrame{
         for (String enuser : list.get(0)) {
             listModel.addElement(enuser);
         }
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
 
 
@@ -73,11 +71,11 @@ public class ManageUsers extends JFrame{
         editPasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() ) {
+                if(displayList.isSelectionEmpty() ) {
                     showMessageDialog(null, "DO ar dum din tolling");
                 }
                 else {
-                    EditPassword edit = new EditPassword((String) list1.getSelectedValue());
+                    EditPassword edit = new EditPassword((String) displayList.getSelectedValue());
                     dispose();
                 }
             }
@@ -86,7 +84,7 @@ public class ManageUsers extends JFrame{
         deleteUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty() ) {
+                if(displayList.isSelectionEmpty() ) {
                     showMessageDialog(null, "DO ar dum din tolling");
                 }
                 else {
@@ -97,7 +95,7 @@ public class ManageUsers extends JFrame{
                             JOptionPane.QUESTION_MESSAGE,
                             null, null, null);
                     if (choice == JOptionPane.YES_OPTION) {
-                        deleteUser((String) list1.getSelectedValue());
+                        deleteUser((String) displayList.getSelectedValue());
                         dispose();
                         ManageUsers users = new ManageUsers();
 
@@ -107,10 +105,10 @@ public class ManageUsers extends JFrame{
             }
         });
 
-        textf1.addActionListener(new ActionListener() {
+        searchField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textf1;
+                JTextField text = searchField;
 
 
 
@@ -124,7 +122,7 @@ public class ManageUsers extends JFrame{
                     for (String enuser : list.get(0)) {
                         listModel.addElement(enuser);
                     }
-                    list1.setModel(listModel);
+                    displayList.setModel(listModel);
 
 
 
@@ -133,7 +131,7 @@ public class ManageUsers extends JFrame{
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textf1;
+                JTextField text = searchField;
 
                 ArrayList<ArrayList<String>> list = Methods.listEmployees(text.getText());
 
@@ -144,15 +142,15 @@ public class ManageUsers extends JFrame{
                 for (String enuser : list.get(0)) {
                     listModel.addElement(enuser);
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
 
             }
         });
 
-        list1.addContainerListener(new ContainerAdapter() {
+        displayList.addContainerListener(new ContainerAdapter() {
 
         });
-        list1.addListSelectionListener(new ListSelectionListener() {
+        displayList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 

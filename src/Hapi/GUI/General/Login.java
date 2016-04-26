@@ -2,7 +2,6 @@ package Hapi.GUI.General;
 
 
 import Hapi.GUI.Chauffeur.OrderViewChauffeur;
-import Hapi.GUI.Cook.OrderViewCook;
 import Hapi.GUI.MainMenu.CEO;
 import Hapi.GUI.MainMenu.Cook;
 import Hapi.GUI.MainMenu.Expert;
@@ -14,15 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import static java.nio.file.StandardOpenOption.*;
-
-import java.nio.ByteBuffer;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.charset.Charset;
-import java.nio.file.*;
-import java.io.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -30,8 +20,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by klk94 on 10.03.2016.
  */
 public class Login extends JFrame {
-    private JPanel panel1;
-    private JTextField textField2;
+    private JPanel loginPannel;
+    private JTextField userNameField;
     private JPasswordField passwordField1;
     private JButton signInButton;
 
@@ -39,10 +29,10 @@ public class Login extends JFrame {
 
     public Login() {
         super("eFood");
-        setContentPane(panel1);
+        setContentPane(loginPannel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JTextField user = textField2;
+        JTextField user = userNameField;
         JPasswordField pass = passwordField1;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);

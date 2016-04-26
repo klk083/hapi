@@ -21,15 +21,15 @@ public class ManageSub extends JFrame {
     private JButton editSubButton;
     private JButton backButton;
     private JButton createSubscriptionButton;
-    private JList list1;
-    private JTextField textField1;
+    private JList displayList;
+    private JTextField searchField;
     private JButton searchSubButton;
     private JButton viewSubButton;
-    private JPanel ManageSubPannel;
+    private JPanel manageSubPanel;
 
     public ManageSub() {
         super("eFood");
-        setContentPane(ManageSubPannel);
+        setContentPane(manageSubPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -45,7 +45,7 @@ public class ManageSub extends JFrame {
             String id = list.get(1).get(i);
             listModel.addElement(new ListeElement(id, name));
         }
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
         searchSubButton.addActionListener(new ActionListener() {
             /**
@@ -55,7 +55,7 @@ public class ManageSub extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField;
 
                 ArrayList<ArrayList<String>> list = Methods.listSubscriptions(text.getText());
 
@@ -68,7 +68,7 @@ public class ManageSub extends JFrame {
                     String id = list.get(1).get(i);
                     listModel.addElement(new ListeElement(id,name));
                 }
-                list1.setModel(listModel);
+                displayList.setModel(listModel);
 
 
             }
@@ -83,10 +83,10 @@ public class ManageSub extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(list1.isSelectionEmpty()){
+                if(displayList.isSelectionEmpty()){
                     showMessageDialog(null, "You forgot to select a course");
                 } else {
-                    AddSubscription editS = new AddSubscription(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())),false);
+                    AddSubscription editS = new AddSubscription(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())),false);
                     dispose();
                 }
             }
@@ -102,10 +102,10 @@ public class ManageSub extends JFrame {
             public void actionPerformed(ActionEvent e){
 
 
-                if(list1.isSelectionEmpty()){
+                if(displayList.isSelectionEmpty()){
                     showMessageDialog(null, "Please select a subscription");
                 }else{
-                    ListeElement selected = (ListeElement) list1.getSelectedValuesList().get(0);
+                    ListeElement selected = (ListeElement) displayList.getSelectedValuesList().get(0);
                     ArrayList<ArrayList<String>> menuList =
                             Methods.listCoursesInSub(Integer.parseInt(selected.getId()));
 
@@ -141,14 +141,14 @@ public class ManageSub extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
 
-                if(list1.isSelectionEmpty()) {
+                if(displayList.isSelectionEmpty()) {
                     showMessageDialog(null, "You have not selected a subscription");
                 } else {
-                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                    if(Methods.isMenuInOrder(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())))) {
                         showMessageDialog(null,"The subscription you are trying to delete has active orders");
                     }
                     if(showConfirmDialog(null,"You sure you want to delete the subscription")==JOptionPane.YES_OPTION) {
-                        if(Methods.deleteSub(Integer.parseInt(list.get(1).get(list1.getSelectedIndex())))) {
+                        if(Methods.deleteSub(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())))) {
                             showMessageDialog(null,"Subscription deleted");
                             dispose();
                             ManageSub temp = new ManageSub();

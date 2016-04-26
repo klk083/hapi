@@ -17,23 +17,19 @@ import static javax.swing.JOptionPane.showOptionDialog;
  */
 public class ManageOrders extends JFrame {
     private JList ordersList;
-    private JTextField textField1;
+    private JList subList;
     private JButton editOrderButton;
     private JButton backButton;
-    private JButton searchButton;
-    private JButton createNewCustomerButton;
     private JButton viewOrderButton;
-    private JPanel createOrderPannel;
     private JButton createOrderButton;
-    private JButton createCustomerButton;
     private JButton deleteOrderButton;
     private JButton createSubscriptionButton;
-    private JList subList;
     private JLabel customerNameLabel;
+    private JPanel createOrderPanel;
 
     public ManageOrders(String selected, int selectedInt) {
         super("Manage order");
-        setContentPane(createOrderPannel);
+        setContentPane(createOrderPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -86,7 +82,7 @@ public class ManageOrders extends JFrame {
                     SetSubPeriod order = new SetSubPeriod(selected, selectedInt, true);
                 }
                 else {
-                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                    showMessageDialog(null, "Something with the creation of the subscription went wrong");
                 }
             }
         });
@@ -102,7 +98,7 @@ public class ManageOrders extends JFrame {
                     AddOrder order = new AddOrder(selected, orderId, selectedInt, true);
                 }
                 else {
-                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                    showMessageDialog(null, "Something with the creation of the order went wrong");
                 }
 
             }
@@ -187,12 +183,13 @@ public class ManageOrders extends JFrame {
                     showMessageDialog(null, "You forgot to select an order");
                 } else if (subList.isSelectionEmpty() && ((ordersList.getSelectedIndex())) > -1) {
                     int orderId = list1.get(ordersList.getSelectedIndex());
-                    dispose();
+
                     EditOrder order = new EditOrder(selected, orderId, selectedInt, true);
+                    dispose();
                 } else if (ordersList.isSelectionEmpty() && ((subList.getSelectedIndex())) > -1) {
                     ListeElement2 selectedSub = (ListeElement2) subList.getSelectedValuesList().get(0);
-                    dispose();
                     EditSub order = new EditSub(selected, selectedInt, true, getSubDates((selectedInt), Integer.parseInt(selectedSub.getId())));
+                    dispose();
                 }
             }
         });

@@ -97,7 +97,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="b32dc" class="javax.swing.JList" binding="list1" default-binding="true">
+          <component id="b32dc" class="javax.swing.JList" binding="displayList" default-binding="true">
             <constraints/>
             <properties/>
           </component>

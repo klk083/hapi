@@ -13,7 +13,7 @@ public class ViewSub extends JFrame {
     private JLabel descL;
     private JLabel costPL;
     private JLabel priceL;
-    private JList list1;
+    private JList displayList;
     private JButton closeButton;
 
     public ViewSub(String name, String desc, String price, String costP, ArrayList<ArrayList<String>> menuList) {
@@ -43,7 +43,7 @@ public class ViewSub extends JFrame {
         }
 
 
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
         closeButton.addActionListener(new ActionListener() {
             /**

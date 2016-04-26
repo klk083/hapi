@@ -25,11 +25,11 @@ public class Courses extends JFrame{
     private JList displayList;
     private JTextField textField1;
     private JButton searchButton;
-    private JPanel Courses;
+    private JPanel courses;
 
     public Courses() {
         super("eFood");
-        setContentPane(Courses);
+        setContentPane(courses);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

@@ -3,13 +3,10 @@ package Hapi.GUI.Order;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -24,30 +21,16 @@ public class EditSub extends JFrame {
     private JButton removeButton;
     private JButton createOrderButton;
     private JButton backButton;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
-    private JTextField quantity;
-    private JTextField textField1;
-    private JPanel addOrderPannel;
-    private JTextField description;
+    private JTextField searchField;
+    private JPanel addOrderPanel;
     private JLabel customerLabel;
-    private JComboBox comboBox6;
-
-
-
-
-
-
 
     public EditSub(String selected, int selectedId, boolean isNew, ArrayList<String> dates) {
         super("eFood");
 
         customerLabel.setText(selected);
 
-        setContentPane(addOrderPannel);
+        setContentPane(addOrderPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -102,7 +85,7 @@ public class EditSub extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField;
 
                 ArrayList<ArrayList<String>> list = Methods.listMenu(text.getText());
 

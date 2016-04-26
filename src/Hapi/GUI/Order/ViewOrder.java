@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by Knut on 20.04.2016.
  */
 public class ViewOrder extends JFrame{
-    private JList list1;
+    private JList displayList;
     private JButton closeButton;
     private JPanel viewOrder;
     private JLabel orderId;
@@ -51,7 +51,7 @@ public class ViewOrder extends JFrame{
 
         }
 
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
 
 

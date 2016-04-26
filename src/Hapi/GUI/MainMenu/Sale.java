@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class Sale extends JFrame {
     private JButton customersButton;
     private JButton orders;
-    private JButton statisitcs;
+    private JButton statistics;
     private JButton signOut;
     private JPanel sale;
     private JLabel nameL;

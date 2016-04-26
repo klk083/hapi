@@ -1,19 +1,14 @@
 package Hapi.GUI.Subscription;
 
 import Hapi.SQLMethods.Methods;
-import sun.swing.BakedArrayList;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
-import javax.swing.JComboBox;
+
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -21,7 +16,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by Håkon on 19.04.2016.
  */
 public class AddSubscription extends JFrame {
-    private JPanel content;
     private JButton backButton;
     private JButton createButton;
     private JButton searchCourseButton;
@@ -35,7 +29,7 @@ public class AddSubscription extends JFrame {
     private JButton addButton;
     private JButton removeButton;
     private JLabel costP;
-    private JPanel AddSubPanel;
+    private JPanel addSubPanel;
     private JCheckBox mondayCheckBox;
     private JCheckBox tuesdayCheckBox;
     private JCheckBox wednesdayCheckBox;
@@ -43,6 +37,7 @@ public class AddSubscription extends JFrame {
     private JCheckBox fridayCheckBox;
     private JCheckBox saturdayCheckBox;
     private JCheckBox sundayCheckBox;
+    private JPanel content;
 
     int subscriptionId;
 
@@ -59,7 +54,7 @@ public class AddSubscription extends JFrame {
         super("eFood");
         this.subscriptionId = subscriptionId;
 
-        setContentPane(AddSubPanel);
+        setContentPane(addSubPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -242,6 +237,15 @@ public class AddSubscription extends JFrame {
                             }
                         }
                     }
+                }
+            }
+        });
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                if(isNew) {
+                    Methods.deleteSub(subscriptionId);
+
                 }
             }
         });
