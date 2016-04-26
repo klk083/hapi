@@ -1305,6 +1305,31 @@ public class MethodsTest {
         assertEquals(null, search);
     }
 
+    @Test
+    public void getSubDates() throws Exception {
+        String expFromTime = "2015-10-12", expToTime = "2016-12-10";
+        int customerID = 1, subID = 1;
+        ArrayList<String> search = Methods.getSubDates(customerID, subID);
+
+        assertEquals(expFromTime, search.get(0));
+        assertEquals(expToTime, search.get(1));
+
+
+        // Test with negative customerID
+        customerID = -1;
+        search = Methods.getSubDates(customerID, subID);
+
+        assertEquals(null, search);
+
+
+        // Test with negative subID
+        customerID = 1;
+        subID = -1;
+        search = Methods.getSubDates(customerID, subID);
+
+        assertEquals(null, search);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {

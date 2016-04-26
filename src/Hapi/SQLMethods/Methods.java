@@ -2375,7 +2375,7 @@ public class Methods {
     }
 
     public static ArrayList<String> getSubDates(int customerID, int subID) {
-        if (customerID < 1) {
+        if (customerID < 1 || subID < 1) {
             return null;
         }
 

@@ -56,4 +56,4 @@ INSERT INTO subscription_menu VALUES(1, 1, 1);
 
 INSERT INTO sub_delivery_days VALUES(1, true, true, true, true, true, true, true);
 
-INSERT INTO subscription_customer VALUES(1, 1, 4444-44-44, 4444-44-44);
+INSERT INTO subscription_customer VALUES(1, 1, 2015-10-12, 2016-12-10);
