@@ -1,9 +1,5 @@
 package Hapi.GUI.Order;
 
-import Hapi.GUI.Course.ViewCourse;
-import Hapi.GUI.Customer.CreateCustomer;
-import Hapi.GUI.Customer.ManageCustomers;
-import Hapi.GUI.MainMenu.CEO;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -155,7 +151,7 @@ public class ManageOrders extends JFrame {
 
 
                     ArrayList<String> info =  Methods.getOrderInfo(list1.get(ordersList.getSelectedIndex()));
-                    int sum = Methods.findTotalPrice((list1.get(ordersList.getSelectedIndex())));
+                    int sum = Methods.findTotalPriceOrder((list1.get(ordersList.getSelectedIndex())));
 
                     ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
 
@@ -164,15 +160,16 @@ public class ManageOrders extends JFrame {
 
 
 
-                    ArrayList<ArrayList<String>> menuList =
-                            Methods.listMenusInOrder((list1.get(ordersList.getSelectedIndex())));
+                    ArrayList<ArrayList<String>> listSubs =
+                            Methods.listSubOnCustomer((list2.get(subList.getSelectedIndex())));
 
 
 
-                    ArrayList<String> info =  Methods.getOrderInfo(list1.get(ordersList.getSelectedIndex()));
-                    int sum = Methods.findTotalPrice((list1.get(ordersList.getSelectedIndex())));
+                    ArrayList<String> info =  Methods.getSubInfo(list2.get(subList.getSelectedIndex()));
 
-                    ViewOrder viewOrder = new ViewOrder(info.get(0),info.get(1),info.get(2), info.get(3), menuList, sum);
+
+
+                    ViewSub viewSubs = new ViewSub(selectedInt,info, listSubs);
 
 
                 }
@@ -186,14 +183,16 @@ public class ManageOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(subList.isSelectionEmpty() && ordersList.isSelectionEmpty() ) {
+                if (subList.isSelectionEmpty() && ordersList.isSelectionEmpty()) {
                     showMessageDialog(null, "You forgot to select an order");
-                }
-                else if (subList.isSelectionEmpty() && (((Integer)ordersList.getSelectedValue())) > 0) {
+                } else if (subList.isSelectionEmpty() && (((Integer) ordersList.getSelectedValue())) > 0) {
                     int orderId = list1.get(ordersList.getSelectedIndex());
                     dispose();
                     EditOrder order = new EditOrder(selected, orderId, selectedInt, true);
+                } else if (ordersList.isSelectionEmpty() && (((Integer) subList.getSelectedValue())) > 0) {
 
+                    dispose();
+                    EditSub order = new EditSub(selected, selectedInt, true, getSubDates(selectedInt).get(0), getSubDates(selectedInt).get(1));
                 }
             }
         });
