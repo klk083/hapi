@@ -515,6 +515,32 @@ public class Methods {
         }
     }
 
+    public static boolean setCustomerAddress(int customerID, String address) {
+        if (customerID < 1 || address.equals("")) {
+            return false;
+        }
+
+        boolean ok = false;
+        try {
+            con = SQLConnection.openConnection();
+            String selectSQL = "UPDATE customer SET customer_address = ? WHERE customer_id = ?";
+            stm = con.prepareStatement(selectSQL);
+            stm.setString(1, address);
+            stm.setInt(2, customerID);
+
+            stm.executeUpdate();
+            ok = true;
+        } catch (SQLException e) {
+            String errorMessage = "SQL Exception during update of customer address, Code: 8000063";
+            SQLConnection.writeMessage(e, errorMessage);
+            ok = false;
+        } finally {
+            closeSQL();
+
+            return ok;
+        }
+    }
+
     public static ArrayList<String> listOrders(String partName) {
         ArrayList<String> orders = new ArrayList<String>();
         String forSQL = "%" + partName + "%";
