@@ -2005,7 +2005,7 @@ public class Methods {
 
 
         } catch (SQLException e) {
-            String errorMessage = "SQL Exception during calculation of total price for menu in order, Code: 8000050";
+            String errorMessage = "SQL Exception during calculation of total price for subscriptions on customer, Code: 8000065";
             SQLConnection.writeMessage(e, errorMessage);
         } finally {
             closeSQL();
