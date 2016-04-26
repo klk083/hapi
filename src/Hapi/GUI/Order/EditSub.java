@@ -42,7 +42,7 @@ public class EditSub extends JFrame {
 
 
 
-    public EditSub(String selected, int selectedId, boolean isNew, String from, String to) {
+    public EditSub(String selected, int selectedId, boolean isNew, ArrayList<String> dates) {
         super("eFood");
 
         customerLabel.setText(selected);
@@ -137,7 +137,7 @@ public class EditSub extends JFrame {
                     if(Methods.removeSubFromCustomer(
                             Integer.parseInt(selectedSubOrder.getId()), selectedId )) {
 
-                        AddSub temp = new AddSub(selected, selectedId, isNew, from, to);
+                        EditSub temp = new EditSub(selected, selectedId, isNew, dates);
                         dispose();
                     }else{
                         showMessageDialog(null, "Something went wrong");
@@ -162,8 +162,8 @@ public class EditSub extends JFrame {
                 {
                     ListeElement selectedOrder = (ListeElement) subNotInOrder.getSelectedValuesList().get(0);
                     if (Methods.addSubToCustomer(
-                            Integer.parseInt(selectedOrder.getId()), selectedId, from, to)) {
-                        AddSub temp = new AddSub(selected, selectedId, isNew, from, to );
+                            Integer.parseInt(selectedOrder.getId()), selectedId, dates.get(0), dates.get(1))) {
+                        EditSub temp = new EditSub(selected, selectedId, isNew, dates );
                         dispose();
                     } else {
                         showMessageDialog(null, "something wrong with removing existing sub");

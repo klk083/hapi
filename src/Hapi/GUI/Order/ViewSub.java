@@ -22,7 +22,7 @@ public class ViewSub extends JFrame{
     private JLabel priceLabel;
     private JLabel descrLabel;
 
-    public ViewSub(int selectedInt,  ArrayList<String> info, ArrayList<ArrayList<String>> listSubs) {
+    public ViewSub(int selectedInt, int subId,  ArrayList<String> info, ArrayList<ArrayList<String>> listSubs) {
         super("eFood");
         setContentPane(viewOrder);
         pack();
@@ -31,7 +31,7 @@ public class ViewSub extends JFrame{
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
-        ArrayList<String> date = Methods.getSubDates(selectedInt);
+        ArrayList<String> date = Methods.getSubDates(selectedInt, subId);
         ArrayList<ArrayList<String>> subList = Methods.listSubOnCustomer(selectedInt);
 
         DefaultListModel listModel = new DefaultListModel();
