@@ -1217,6 +1217,38 @@ public class MethodsTest {
         assertEquals(false, testRes4);
     }
 
+    @Test
+    public void setOrderToReadyCourse() throws Exception {
+        int orderID = 3, employeeID = 4;
+        boolean isCourse = true;
+        boolean testRes1 = Methods.setOrderToReadyCourse(orderID, employeeID, isCourse);
+
+        assertEquals(true, testRes1);
+
+
+        // Test with negative OrderID
+        orderID = -1;
+        boolean testRes2 = Methods.setOrderToReadyCourse(orderID, employeeID, isCourse);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with negative employeeID
+        employeeID = -1;
+        orderID = 3;
+        boolean testRes3 = Methods.setOrderToReadyCourse(orderID, employeeID, isCourse);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with false isCourse
+        employeeID = 4;
+        isCourse = false;
+        boolean testRes4 = Methods.setOrderToReadyCourse(orderID, employeeID, isCourse);
+
+        assertEquals(false, testRes4);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {

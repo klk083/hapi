@@ -2137,7 +2137,7 @@ public class Methods {
     }
 
     public static boolean setOrderToReadyCourse(int orderID, int employeeID, boolean isCourse) {
-        if (orderID < 1 || employeeID < 0) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
 
@@ -2169,14 +2169,12 @@ public class Methods {
                 return ok;
             }
         } else {
-
+            return  ok;
         }
-        return  ok;
-
     }
 
     public static boolean addOrderToCookSub(int orderID, int employeeID) {
-        if (orderID < 1 || employeeID < 0) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok = false;
@@ -2260,10 +2258,8 @@ public class Methods {
                 return ok;
             }
         } else {
-
+            return  ok;
         }
-        return  ok;
-
     }
 
     public static ArrayList<Boolean> getSubDeliveryDays(int subID) {
