@@ -154,7 +154,7 @@ public class EditOrder extends JFrame {
                         showMessageDialog(null, "You didnt set a quantity");
                     } else {
                         ListeElement selectedOrder = (ListeElement) menuNotInOrder.getSelectedValuesList().get(0);
-                        showMessageDialog(null, selectedOrder);
+
                         try {
                             if (Methods.addMenuToOrder(
                                     orderId, Integer.parseInt(selectedOrder.getId()), Integer.parseInt(quantity.getText()), description.getText())) {

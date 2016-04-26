@@ -245,5 +245,14 @@ public class AddSubscription extends JFrame {
                 }
             }
         });
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                if(isNew) {
+                    Methods.deleteSub(subscriptionId);
+
+                }
+            }
+        });
     }
 }

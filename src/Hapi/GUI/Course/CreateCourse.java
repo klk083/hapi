@@ -267,6 +267,14 @@ public class CreateCourse extends JFrame{
                 }
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                if(isNew) {
+                    Methods.deleteMenu(menuId);
+
+                }
+            }
+        });
 
     }
 

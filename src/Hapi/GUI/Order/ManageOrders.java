@@ -86,7 +86,7 @@ public class ManageOrders extends JFrame {
                     SetSubPeriod order = new SetSubPeriod(selected, selectedInt, true);
                 }
                 else {
-                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                    showMessageDialog(null, "Something with the creation of the subscription went wrong");
                 }
             }
         });
@@ -102,7 +102,7 @@ public class ManageOrders extends JFrame {
                     AddOrder order = new AddOrder(selected, orderId, selectedInt, true);
                 }
                 else {
-                    showMessageDialog(null, "Something with the creation of the course went wrong");
+                    showMessageDialog(null, "Something with the creation of the order went wrong");
                 }
 
             }
