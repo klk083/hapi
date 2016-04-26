@@ -1902,6 +1902,7 @@ public class Methods {
 
         }
     }
+
     public static int findTotalPriceSub(int customerID) {
         if (customerID < 1) {
             return -1;
@@ -1932,8 +1933,6 @@ public class Methods {
 
         }
     }
-
-
 
     public static boolean changeSub(int subscriptionId, String name, int price, String description) {
         if (subscriptionId < 1 || name.equals("") || description.equals("") || price < 1) {
@@ -2064,7 +2063,7 @@ public class Methods {
     }
 
     public static boolean addOrderToCookCourse(int orderID, int employeeID) {
-        if (orderID < 1 || employeeID < 0) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok = false;
@@ -2090,7 +2089,7 @@ public class Methods {
     }
 
     public static boolean removeOrderFromCookCourse(int orderID, int employeeID) {
-        if (orderID < 1 || employeeID < 0) {
+        if (orderID < 1 || employeeID < 1) {
             return false;
         }
         boolean ok = false;

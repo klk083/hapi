@@ -1052,9 +1052,9 @@ public class MethodsTest {
     }
 
     @Test
-    public void findTotalPrice() throws Exception {
+    public void findTotalPriceOrder() throws Exception {
         int orderID = 1, expRes = 1;
-        int testRes1 = Methods.findTotalPrice(orderID);
+        int testRes1 = Methods.findTotalPriceOrder(orderID);
 
         assertEquals(expRes, testRes1);
 
@@ -1062,7 +1062,7 @@ public class MethodsTest {
         // Test wih negative orderID
         orderID = -1;
         expRes = -1;
-        int testRes2 = Methods.findTotalPrice(orderID);
+        int testRes2 = Methods.findTotalPriceOrder(orderID);
 
         assertEquals(expRes, testRes2);
     }
@@ -1184,6 +1184,35 @@ public class MethodsTest {
         orderID = 3;
         employeeID = -1;
         boolean testRes4 = Methods.addOrderToCookCourse(orderID, employeeID);
+
+        assertEquals(false, testRes4);
+    }
+
+    @Test
+    public void removeOrderFromCookCourse() throws Exception {
+        int orderID = 3, employeeID = 4;
+        boolean testRes1 = Methods.addOrderToCookCourse(orderID, employeeID);
+
+        assertEquals(true, testRes1);
+
+
+        // Remove test addition of course
+        boolean testRes2 = Methods.removeOrderFromCookCourse(orderID, employeeID);
+
+        assertEquals(true, testRes2);
+
+
+        // Test with negative orderID
+        orderID = -1;
+        boolean testRes3 = Methods.removeOrderFromCookCourse(orderID, employeeID);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative employeeID
+        orderID = 3;
+        employeeID = -1;
+        boolean testRes4 = Methods.removeOrderFromCookCourse(orderID, employeeID);
 
         assertEquals(false, testRes4);
     }
