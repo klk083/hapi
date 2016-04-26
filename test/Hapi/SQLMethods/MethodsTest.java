@@ -145,7 +145,7 @@ public class MethodsTest {
 
     @Test
     public void createCustomer() throws Exception {
-        String name = "Billy Bob 2", address = "Bobgata 4", tlf = "1";
+        String name = "Bob Billy", address = "Bobgata 4", tlf = "1";
         boolean isCompany = false;
 
         boolean testRes1 = Methods.createCustomer(name, address, tlf, isCompany);
@@ -1328,6 +1328,33 @@ public class MethodsTest {
         search = Methods.getSubDates(customerID, subID);
 
         assertEquals(null, search);
+    }
+
+    @Test
+    public void setCustomerAddress() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerID = Integer.parseInt(search.get(1).get(0));
+        String address = "Redneck City";
+        boolean testRes1 = Methods.setCustomerAddress(customerID, address);
+
+        assertEquals(true, testRes1);
+
+
+        // Test with blank address
+        address = "";
+        boolean testRes2 = Methods.setCustomerAddress(customerID, address);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with negative customerID
+        address = "Redneck City";
+        customerID = -1;
+        boolean testRes3 = Methods.setCustomerAddress(customerID, address);
+
+        assertEquals(false, testRes3);
+
     }
 
 
