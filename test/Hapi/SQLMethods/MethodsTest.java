@@ -1249,6 +1249,30 @@ public class MethodsTest {
         assertEquals(false, testRes4);
     }
 
+    @Test
+    public void setOrderDeliveryTime() throws Exception {
+        int orderID = 1;
+        String deliveryTime = "2008-11-12 13:50:00";
+        boolean testRes1 = Methods.setOrderDeliveryTime(orderID, deliveryTime);
+
+        assertEquals(true, testRes1);
+
+
+        // Test with negative orderID
+        orderID = -1;
+        boolean testRes2 = Methods.setOrderDeliveryTime(orderID, deliveryTime);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with blank deliveryTime
+        orderID = 1;
+        deliveryTime = "";
+        boolean testRes3 = Methods.setOrderDeliveryTime(orderID, deliveryTime);
+
+        assertEquals(false, testRes3);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
