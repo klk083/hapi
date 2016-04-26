@@ -1,6 +1,8 @@
 package Hapi.GUI.Customer;
 
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.MainMenu.Expert;
+import Hapi.GUI.MainMenu.Sale;
 import Hapi.GUI.Order.ListeElement;
 import Hapi.SQLMethods.Methods;
 
@@ -11,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static Hapi.SQLMethods.Methods.deleteCustomer;
+import static javax.swing.JOptionPane.MESSAGE_PROPERTY;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showOptionDialog;
 
@@ -23,7 +26,7 @@ public class ManageCustomers extends JFrame {
     private JButton searchButton;
     private JButton editButton;
     private JButton createButton;
-    private JButton cancelButton;
+    private JButton mainMenuButton;
     private JButton deleteButton;
     private JPanel customerPanel;
 
@@ -44,7 +47,7 @@ public class ManageCustomers extends JFrame {
         DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
 
-        for (int i = 0; i < list.get(0).size(); i++) {
+        for (int i = 0; i < list.get(1).size(); i++) {
             String name = list.get(0).get(i);
             String id = list.get(1).get(i);
             listModel.addElement(new ListeElement(id, name));
@@ -63,7 +66,7 @@ public class ManageCustomers extends JFrame {
                 DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
 
-                for (int i = 0; i < list.get(0).size(); i++) {
+                for (int i = 0; i < list.get(1).size(); i++) {
                     String name = list.get(0).get(i);
                     String id = list.get(1).get(i);
                     listModel.addElement(new ListeElement(id, name));
@@ -84,7 +87,7 @@ public class ManageCustomers extends JFrame {
                 DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
 
-                for (int i = 0; i < list.get(0).size(); i++) {
+                for (int i = 0; i < list.get(1).size(); i++) {
                     String name = list.get(0).get(i);
                     String id = list.get(1).get(i);
                     listModel.addElement(new ListeElement(id, name));
@@ -135,11 +138,18 @@ public class ManageCustomers extends JFrame {
                 }
             }
         });
-        cancelButton.addActionListener(new ActionListener() {
+        mainMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                CEO ceo = new CEO();
+                int idL = Methods.getRoleID(Methods.getEmployeeName(Methods.getID()));
+                if(idL==1 || idL ==2){
+                    dispose();
+                    CEO ceo = new CEO();
+                } else if(idL==5){
+                    dispose();
+                    Sale sale = new Sale();
+                }
+
             }
         });
     }

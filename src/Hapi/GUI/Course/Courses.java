@@ -1,6 +1,8 @@
 package Hapi.GUI.Course;
 
 import Hapi.GUI.MainMenu.CEO;
+import Hapi.GUI.MainMenu.Expert;
+import Hapi.GUI.MainMenu.Sale;
 import Hapi.GUI.Order.ListeElement;
 import Hapi.SQLMethods.Methods;
 
@@ -170,8 +172,14 @@ public class Courses extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                CEO ceo = new CEO();
-                dispose();
+                int idL = Methods.getRoleID(Methods.getEmployeeName(Methods.getID()));
+                if(idL==1 || idL ==2){
+                    dispose();
+                    CEO ceo = new CEO();
+                } else if(idL==6){
+                    dispose();
+                    Expert expert = new Expert();
+                }
             }
         });
     }

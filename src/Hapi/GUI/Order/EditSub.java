@@ -49,14 +49,14 @@ public class EditSub extends JFrame {
 
 
 
-        for (int i = 0; i < list.get(0).size(); i++) {
+        for (int i = 0; i < list.get(1).size(); i++) {
             String name = list.get(0).get(i);
             String id = list.get(1).get(i);
             listModel.addElement(new ListeElement(id, name));
         }
         subNotInOrder.setModel(listModel);
 
-        for (int i = 0; i < list2.get(0).size(); i++) {
+        for (int i = 0; i < list2.get(1).size(); i++) {
             String name = list2.get(0).get(i);
             String id = list2.get(1).get(i);
             listModel2.addElement(new ListeElement(id, name));
@@ -93,7 +93,7 @@ public class EditSub extends JFrame {
                 DefaultListModel<ListeElement> listModel = new DefaultListModel<ListeElement>();
 
                 //    String[] user = list;
-                for (int i = 0; i < list.get(0).size(); i++) {
+                for (int i = 0; i < list.get(1).size(); i++) {
                     String name = list.get(0).get(i);
                     String id = list.get(1).get(i);
                     listModel.addElement(new ListeElement(id, name));

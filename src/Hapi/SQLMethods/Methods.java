@@ -367,14 +367,14 @@ public class Methods {
         String output = null;
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT name FROM employee WHERE employee_id = ?";
+            String selectSQL = "SELECT username FROM employee WHERE employee_id = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, id);
             res = stm.executeQuery();
 
             res.next();
 
-            output = res.getString("name");
+            output = res.getString("username");
 
         } catch (SQLException e) {
             String errorMessage = "SQL Exception during retrieval of employee name, Code: 8000048";
@@ -1782,7 +1782,7 @@ public class Methods {
         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT order_id,customer_address FROM orders NATURAL JOIN  customer WHERE ready = true AND orders.order_id NOT IN (SELECT  order_id FROM order_chauffeur) ORDER BY customer_address ASC";
+            String selectSQL = "SELECT order_id,customer_address FROM orders NATURAL JOIN customer WHERE ready = true AND orders.order_id NOT IN (SELECT  order_id FROM order_chauffeur) ORDER BY customer_address ASC";
             stm = con.prepareStatement(selectSQL);
             res = stm.executeQuery();
 

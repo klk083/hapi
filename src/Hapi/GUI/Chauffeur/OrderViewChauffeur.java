@@ -16,7 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class OrderViewChauffeur extends JFrame {
     private JButton nextButton;
-    private JList viewReady;
+  //  private JList viewReady;
     private JList viewOnChauffeur;
     private JButton addButton;
     private JButton removeButton;
@@ -49,7 +49,7 @@ public class OrderViewChauffeur extends JFrame {
 
             modelReady.addElement(listReadyOrders.get(1).get(i) + " - " + listReadyOrders.get(0).get(i));
         }
-        viewReady.setModel(modelReady);
+        viewOrders.setModel(modelReady);
 
         listChauffeur = Methods.listOrdersForChauffeur(employeeID);
 
@@ -66,10 +66,10 @@ public class OrderViewChauffeur extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(viewReady.isSelectionEmpty()) {
+                if(viewOrders.isSelectionEmpty()) {
                     showMessageDialog(null,"You didnt select any orders to add");
                 } else {
-                    if (Methods.addOrderToChauffeur(Integer.parseInt(listReadyOrders.get(1).get(viewReady.getSelectedIndex())), employeeID)) {
+                    if (Methods.addOrderToChauffeur(Integer.parseInt(listReadyOrders.get(1).get(viewOrders.getSelectedIndex())), employeeID)) {
                         showMessageDialog(null, "Order added");
                         OrderViewChauffeur temp = new OrderViewChauffeur();
                         dispose();

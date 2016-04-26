@@ -1,5 +1,7 @@
 package Hapi.GUI.Subscription;
 
+import Hapi.GUI.MainMenu.Expert;
+import Hapi.GUI.MainMenu.Sale;
 import Hapi.GUI.Order.ListeElement;
 import Hapi.SQLMethods.Methods;
 import Hapi.GUI.MainMenu.CEO;
@@ -132,8 +134,14 @@ public class ManageSub extends JFrame {
         backButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                dispose();
-                CEO mainmenu = new CEO();
+                int idL = Methods.getRoleID(Methods.getEmployeeName(Methods.getID()));
+                if(idL==1 || idL ==2){
+                    dispose();
+                    CEO ceo = new CEO();
+                } else if(idL==6){
+                    dispose();
+                    Expert expert = new Expert();
+                }
             }
         });
 

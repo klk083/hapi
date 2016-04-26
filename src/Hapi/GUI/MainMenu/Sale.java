@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class Sale extends JFrame {
     private JButton customersButton;
     private JButton orders;
-    private JButton statistics;
     private JButton signOut;
     private JPanel sale;
     private JLabel nameL;
@@ -29,6 +28,7 @@ public class Sale extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setVisible(true);
+
         nameL.setText("Logged in as: "+ Methods.getEmployeeName(Methods.getID()));
         orders.addActionListener(new ActionListener() {
             /**
