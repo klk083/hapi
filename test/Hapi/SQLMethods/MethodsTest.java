@@ -1288,6 +1288,23 @@ public class MethodsTest {
         assertEquals(true, search.get(6));
     }
 
+    @Test
+    public void listSubOnCustomer() throws Exception {
+        int customerID = 1;
+        String expName = "Burger Abonnement", expID = "1";
+        ArrayList<ArrayList<String>> search = Methods.listSubOnCustomer(customerID);
+
+        assertEquals(expName, search.get(0).get(0));
+        assertEquals(expID, search.get(1).get(0));
+
+
+        // Test with negative customerID
+        customerID = -1;
+        search = Methods.listSubOnCustomer(customerID);
+
+        assertEquals(null, search);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
