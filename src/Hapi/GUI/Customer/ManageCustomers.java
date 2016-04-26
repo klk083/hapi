@@ -107,7 +107,7 @@ public class ManageCustomers extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (displayList.isSelectionEmpty()) {
-                    showMessageDialog(null, "DO ar dum din tolling");
+                    showMessageDialog(null, "You need to select a customer");
                 } else {
                     int choice = showOptionDialog(null,
                             "You really want to delete that customer?",
@@ -130,7 +130,7 @@ public class ManageCustomers extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (displayList.isSelectionEmpty()) {
-                    showMessageDialog(null, "DO ar dum din tolling");
+                    showMessageDialog(null, "You need to select a customer");
                 } else {
                     ArrayList<String> info = Methods.getCustomerContactInfo(Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));
                     EditCustomer edit = new EditCustomer(info.get(0), info.get(1),Integer.parseInt(list.get(1).get(displayList.getSelectedIndex())));

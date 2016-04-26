@@ -72,7 +72,7 @@ public class ManageUsers extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(displayList.isSelectionEmpty() ) {
-                    showMessageDialog(null, "DO ar dum din tolling");
+                    showMessageDialog(null, "You need to select a user");
                 }
                 else {
                     EditPassword edit = new EditPassword((String) displayList.getSelectedValue());
@@ -85,7 +85,7 @@ public class ManageUsers extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(displayList.isSelectionEmpty() ) {
-                    showMessageDialog(null, "DO ar dum din tolling");
+                    showMessageDialog(null, "You need to select a user");
                 }
                 else {
                     int choice = showOptionDialog(null,

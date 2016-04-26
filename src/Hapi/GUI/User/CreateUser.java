@@ -51,11 +51,11 @@ public class CreateUser extends JFrame {
                 try {
                     if (Methods.createUser(user.getText(), passord.getText(), name.getText(), Integer.parseInt(role.getText())) && passord.getText().equals(rpassord.getText()
                     )) {
-                        showMessageDialog(null, "Brukeren din er registrert: " + name.getText());
+                        showMessageDialog(null, "Your user registered: " + name.getText());
                         dispose();
                         ManageUsers users = new ManageUsers();
                     } else {
-                        showMessageDialog(null, "Ugyldig innfylling");
+                        showMessageDialog(null, "Invalid");
                     }
                 } catch (NumberFormatException e1) {
                     showMessageDialog(null, "Invalid role");

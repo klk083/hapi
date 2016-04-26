@@ -40,7 +40,7 @@ public class EditPassword extends JFrame {
                          ManageUsers users = new ManageUsers();
                      }
                 }
-                else showMessageDialog(null, "Kenneth sier nei");
+                else showMessageDialog(null, "Invalid");
             }
         });
         cancelButton.addActionListener(new ActionListener() {
