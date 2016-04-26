@@ -546,12 +546,19 @@ public class Methods {
             return false;
         }
 
+        int number;
+        try {
+            number = Integer.parseInt(phone);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
         boolean ok = false;
         try {
             con = SQLConnection.openConnection();
             String selectSQL = "UPDATE customer SET customer_tlf = ? WHERE customer_id = ?";
             stm = con.prepareStatement(selectSQL);
-            stm.setString(1, phone);
+            stm.setInt(1, number);
             stm.setInt(2, customerID);
 
             stm.executeUpdate();
