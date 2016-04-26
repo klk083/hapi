@@ -16,17 +16,17 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by Knut on 19.04.2016.
  */
 public class ManageCustomerOrders extends JFrame {
-    private JTextField textField1;
+    private JTextField searchField;
     private JButton searchButton;
     private JList displayList;
     private JButton createCustomerButton;
     private JButton backButton;
     private JButton nextButton;
-    private JPanel manageCustomerOrderPannel;
+    private JPanel manageCustomerOrderPanel;
 
     public ManageCustomerOrders() {
         super("eFood");
-        setContentPane(manageCustomerOrderPannel);
+        setContentPane(manageCustomerOrderPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -64,7 +64,7 @@ public class ManageCustomerOrders extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField;
 
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 

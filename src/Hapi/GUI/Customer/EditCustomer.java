@@ -1,8 +1,5 @@
 package Hapi.GUI.Customer;
 
-import Hapi.GUI.Order.ManageCustomerOrders;
-import Hapi.GUI.Order.ManageOrders;
-import Hapi.GUI.User.ManageUsers;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -10,7 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static Hapi.SQLMethods.Methods.changePassword;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -19,15 +15,15 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class EditCustomer extends JFrame {
     private JButton cancleButton;
     private JButton changeButton;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JPanel EditCustomerPannel;
+    private JTextField newAddressField;
+    private JTextField newPhoneField;
+    private JPanel editCustomerPanel;
     private JLabel oldPhone;
     private JLabel oldAdress;
 
     public EditCustomer(String address, String tlfNr, int customerId) {
         super("Create customer");
-        setContentPane(EditCustomerPannel);
+        setContentPane(editCustomerPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -40,19 +36,19 @@ public class EditCustomer extends JFrame {
         changeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(oldAdress.getText().equals(textField2.getText())){
+                if(oldAdress.getText().equals(newAddressField.getText())){
                     showMessageDialog(null, "This address is already registered");
                 } else {
-                    Methods.setCustomerAddress(customerId, textField2.getText());
+                    Methods.setCustomerAddress(customerId, newAddressField.getText());
                 }
-                if(oldPhone.getText().equals(textField3.getText())) {
+                if(oldPhone.getText().equals(newPhoneField.getText())) {
                     showMessageDialog(null, "This phonenumber is already registered");
-                } else if ((Methods.setCustomerPhone(customerId, textField3.getText()) == false) && !textField3.getText().equals("") ){
+                } else if ((Methods.setCustomerPhone(customerId, newPhoneField.getText()) == false) && !newPhoneField.getText().equals("") ){
                    showMessageDialog(null, "This is not a phonenumber");
 
                 }
                 else {
-                    Methods.setCustomerPhone(customerId, textField3.getText());
+                    Methods.setCustomerPhone(customerId, newPhoneField.getText());
                     dispose();
                     ManageCustomers customer = new ManageCustomers();
                 }

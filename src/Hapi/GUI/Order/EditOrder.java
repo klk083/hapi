@@ -20,19 +20,18 @@ public class EditOrder extends JFrame {
     private JButton searchCourseButton;
     private JList menuNotInOrder;
     private JList menuInOrder;
-    private JButton createCourseButton;
     private JButton addButton;
     private JButton removeButton;
     private JButton confirmOrderButton;
     private JButton backButton;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
+    private JComboBox dayBox;
+    private JComboBox monthBox;
+    private JComboBox yearBox;
+    private JComboBox hourBox;
+    private JComboBox minuteBox;
     private JTextField quantity;
-    private JTextField textField1;
-    private JPanel editOrderPannel;
+    private JTextField searchField;
+    private JPanel editOrderPanel;
     private JTextField description;
     private JLabel customerLabel;
 
@@ -47,7 +46,7 @@ public class EditOrder extends JFrame {
         this.orderId = orderId;
         customerLabel.setText(selected);
 
-        setContentPane(editOrderPannel);
+        setContentPane(editOrderPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -98,7 +97,7 @@ public class EditOrder extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField;
 
                 ArrayList<ArrayList<String>> list = Methods.listMenu(text.getText());
 
@@ -178,14 +177,14 @@ public class EditOrder extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if ((comboBox1.getSelectedIndex() > -1) && (comboBox2.getSelectedIndex() > -1) && (comboBox3.getSelectedIndex() > -1) && (comboBox4.getSelectedIndex() > -1) && (comboBox5.getSelectedIndex() > -1)) {
+                if ((dayBox.getSelectedIndex() > -1) && (monthBox.getSelectedIndex() > -1) && (yearBox.getSelectedIndex() > -1) && (hourBox.getSelectedIndex() > -1) && (minuteBox.getSelectedIndex() > -1)) {
 
 
-                    String year =  comboBox3.getSelectedItem().toString() ;
-                    String month = comboBox2.getSelectedItem().toString();
-                    String day = comboBox1.getSelectedItem().toString();
-                    String hour =  comboBox4.getSelectedItem().toString();
-                    String minute =  comboBox5.getSelectedItem().toString();
+                    String year =  yearBox.getSelectedItem().toString() ;
+                    String month = monthBox.getSelectedItem().toString();
+                    String day = dayBox.getSelectedItem().toString();
+                    String hour =  hourBox.getSelectedItem().toString();
+                    String minute =  minuteBox.getSelectedItem().toString();
 
                     String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
                     showMessageDialog(null, delivery);
@@ -198,7 +197,7 @@ public class EditOrder extends JFrame {
         });
 
 
-        comboBox1.addPopupMenuListener(new PopupMenuListener() {
+        dayBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -225,7 +224,7 @@ public class EditOrder extends JFrame {
 
             }
         });
-        comboBox2.addPopupMenuListener(new PopupMenuListener() {
+        monthBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -252,7 +251,7 @@ public class EditOrder extends JFrame {
 
             }
         });
-        comboBox3.addPopupMenuListener(new PopupMenuListener() {
+        yearBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -275,7 +274,7 @@ public class EditOrder extends JFrame {
 
             }
         });
-        comboBox4.addPopupMenuListener(new PopupMenuListener() {
+        hourBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 
@@ -303,7 +302,7 @@ public class EditOrder extends JFrame {
             }
         });
 
-        comboBox5.addPopupMenuListener(new PopupMenuListener() {
+        minuteBox.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 

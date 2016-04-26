@@ -14,9 +14,9 @@ import java.awt.event.ActionListener;
  * Created by klk94 on 16.03.2016.
  */
 public class Expert extends JFrame {
-        private JButton coursesButton;
-        private JButton subscriptionsButton;
-        private JLabel nameL;
+    private JButton coursesButton;
+    private JButton subscriptionsButton;
+    private JLabel nameL;
     private JPanel expert;
     private JButton signOut;
 

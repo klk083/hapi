@@ -1,7 +1,6 @@
 package Hapi.GUI.Customer;
 
 import Hapi.GUI.Order.ManageCustomerOrders;
-import Hapi.GUI.Order.ManageOrders;
 import Hapi.SQLMethods.Methods;
 
 import javax.swing.*;
@@ -15,17 +14,17 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by klk94 on 13.03.2016.
  */
 public class CreateCustomer extends JFrame{
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField nameField;
+    private JTextField addressField;
+    private JTextField phoneField;
     private JButton cancelButton;
     private JButton OKButton;
-    private JPanel CreateCustomerpannel;
+    private JPanel createCustomerPanel;
     private JCheckBox companyCheckBox;
 
     public CreateCustomer(int back) {
         super("Create customer");
-        setContentPane(CreateCustomerpannel);
+        setContentPane(createCustomerPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -36,9 +35,9 @@ public class CreateCustomer extends JFrame{
         OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField name = textField1;
-                JTextField address = textField2;
-                JTextField phone = textField3;
+                JTextField name = nameField;
+                JTextField address = addressField;
+                JTextField phone = phoneField;
                 JCheckBox isCompany = companyCheckBox;
 
                 if (Methods.createCustomer(name.getText(), address.getText(), phone.getText(), isCompany.isSelected())

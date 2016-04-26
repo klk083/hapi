@@ -1,7 +1,5 @@
 package Hapi.GUI.Course;
 
-import Hapi.SQLMethods.Methods;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
  * Created by klk94 on 14.04.2016.
  */
 public class ViewCourse extends JFrame{
-    private JList list1;
+    private JList displayList;
     private JButton closeButton;
     private JPanel viewCourses;
     private JLabel nameL;
@@ -46,7 +44,7 @@ public class ViewCourse extends JFrame{
         }
 
 
-        list1.setModel(listModel);
+        displayList.setModel(listModel);
 
         closeButton.addActionListener(new ActionListener() {
             /**

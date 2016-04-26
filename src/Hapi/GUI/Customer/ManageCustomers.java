@@ -19,19 +19,19 @@ import static javax.swing.JOptionPane.showOptionDialog;
  */
 public class ManageCustomers extends JFrame {
     private JList displayList;
-    private JTextField textField1;
+    private JTextField searchField1;
     private JButton searchButton;
     private JButton editButton;
     private JButton createButton;
     private JButton cancelButton;
     private JButton deleteButton;
-    private JPanel Customerpannel;
+    private JPanel customerPanel;
 
 
     public ManageCustomers() {
 
         super("Manage customers");
-        setContentPane(Customerpannel);
+        setContentPane(customerPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -55,7 +55,7 @@ public class ManageCustomers extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField1;
 
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 
@@ -73,10 +73,10 @@ public class ManageCustomers extends JFrame {
             }
         });
 
-        textField1.addActionListener(new ActionListener() {
+        searchField1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField text = textField1;
+                JTextField text = searchField1;
 
                 ArrayList<ArrayList<String>> list = Methods.listCustomers(text.getText());
 

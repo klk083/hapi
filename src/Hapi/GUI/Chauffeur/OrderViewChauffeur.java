@@ -21,7 +21,7 @@ public class OrderViewChauffeur extends JFrame {
     private JButton addButton;
     private JButton removeButton;
     private JButton signOutButton;
-    private JPanel View;
+    private JPanel view;
     private JLabel employee;
     private JList viewOrders;
 
@@ -37,7 +37,7 @@ public class OrderViewChauffeur extends JFrame {
         super("eFood");
         employeeID = Methods.getID();
         employee.setText("Logged in as: "+ Methods.getEmployeeName(employeeID));
-        setContentPane(View);
+        setContentPane(view);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
