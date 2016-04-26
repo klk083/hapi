@@ -2374,7 +2374,7 @@ public class Methods {
         }
     }
 
-    public static ArrayList<String> getSubDates(int customerID) {
+    public static ArrayList<String> getSubDates(int customerID, int subID) {
         if (customerID < 1) {
             return null;
         }
@@ -2382,9 +2382,10 @@ public class Methods {
         ArrayList<String> dates = new ArrayList<String>();
         try {
             con = SQLConnection.openConnection();
-            String selectSQL = "SELECT from_date, to_date FROM subscription_customer WHERE customer_id = ?";
+            String selectSQL = "SELECT from_date, to_date FROM subscription_customer WHERE customer_id = ? AND subscription_id = ?";
             stm = con.prepareStatement(selectSQL);
             stm.setInt(1, customerID);
+            stm.setInt(2, subID);
             res = stm.executeQuery();
             res.next();
 
