@@ -197,7 +197,7 @@ public class MethodsTest {
         ArrayList<String> search = Methods.getCustomerContactInfo(id);
 
         // Customer data from @Before
-        assertEquals("Bobgata 4", search.get(0));
+        assertEquals("Redneck City", search.get(0));
         assertEquals("0", search.get(1));
     }
 
@@ -263,7 +263,7 @@ public class MethodsTest {
     @Test
     public void getOrderInfo() throws Exception {
         int orderID = 1;
-        String expOrderID = "1", expCustomerID = "2", expDelivery = "2008-11-11", expReady = "true";
+        String expOrderID = "1", expCustomerID = "2", expDelivery = "2008-11-11 12:50:00.0", expReady = "true";
         ArrayList<String> search = Methods.getOrderInfo(orderID);
 
         assertEquals(expOrderID, search.get(0));
@@ -440,7 +440,7 @@ public class MethodsTest {
 
     @Test
     public void listIngredients() throws Exception {
-        String expName1 = "Burger", expName2 = "Ost";
+        String expName1 = "Blod", expName2 = "Burger";
         int expAmount = 6;
 
         // Blank search lists all ingredients
@@ -461,7 +461,7 @@ public class MethodsTest {
     @Test
     public void listIngredientsInMenu() throws Exception {
         int menuID = 5, expAmount = 2;
-        String expName1 = "Ost", expName2 = "Luft";
+        String expName1 = "Luft", expName2 = "Ost";
         ArrayList<ArrayList<String>> search = Methods.listIngredientsInMenu(menuID);
 
         assertEquals(expName1, search.get(0).get(0));
@@ -477,7 +477,7 @@ public class MethodsTest {
 
     @Test
     public void isMenuInOrder() throws Exception {
-        int menuID = 1;
+        int menuID = 0;
         boolean testRes1 = Methods.isMenuInOrder(menuID);
 
         assertEquals(true, testRes1);
@@ -623,7 +623,7 @@ public class MethodsTest {
     @Test
     public void getMenuInfo() throws Exception {
         String expName = "Dummymat", expDescription = "Dummy", expPrice = "1", expID = "1";
-        int menuID = 1;
+        int menuID = 0;
         ArrayList<String> search = Methods.getMenuInfo(menuID);
 
         assertEquals(expName, search.get(0));
@@ -736,7 +736,7 @@ public class MethodsTest {
     @Test
     public void getSubInfo() throws Exception {
         int subscriptionID = 1;
-        String expName = "Burger Abonnement", expDescription = "For den som vil automatisk få levert burger", expPrice = "100", expCostPrice = "100";
+        String expName = "Burger Abonnement", expDescription = "For den som vil automatisk få levert burger", expPrice = "100", expCostPrice = "1";
         ArrayList<String> search = Methods.getSubInfo(subscriptionID);
 
         assertEquals(expName, search.get(0));
@@ -1154,7 +1154,7 @@ public class MethodsTest {
     @Test
     public void listOrdersForCourses() throws Exception {
         ArrayList<String> search = Methods.listOrdersForCourses();
-        String expRes = "3";
+        String expRes = "4";
 
         assertEquals(expRes, search.get(0));
     }
@@ -1362,7 +1362,7 @@ public class MethodsTest {
         String name = "Billy Bob";
         ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
         int customerID = Integer.parseInt(search.get(1).get(0));
-        String phone = "1234";
+        String phone = "0";
         boolean testRes1 = Methods.setCustomerPhone(customerID, phone);
 
         assertEquals(true, testRes1);

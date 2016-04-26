@@ -1,6 +1,8 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 DROP TABLE IF EXISTS subscription_menu;
 DROP TABLE IF EXISTS subscription_customer;
+DROP TABLE IF EXISTS order_chauffeur;
+DROP TABLE IF EXISTS order_cook;
 DROP TABLE IF EXISTS menu_order;
 DROP TABLE IF EXISTS menu_ingredient;
 DROP TABLE IF EXISTS ingredient;
@@ -11,6 +13,7 @@ DROP TABLE IF EXISTS statistics;
 DROP TABLE IF EXISTS menu;
 DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS sub_delivery_days;
 DROP TABLE IF EXISTS subscription;
 
 CREATE TABLE customer(
