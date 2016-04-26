@@ -1357,6 +1357,39 @@ public class MethodsTest {
 
     }
 
+    @Test
+    public void setCustomerPhone() throws Exception {
+        String name = "Billy Bob";
+        ArrayList<ArrayList<String>> search = Methods.listCustomers(name);
+        int customerID = Integer.parseInt(search.get(1).get(0));
+        String phone = "1234";
+        boolean testRes1 = Methods.setCustomerPhone(customerID, phone);
+
+        assertEquals(true, testRes1);
+
+
+        // Test with blank phone number
+        phone = "";
+        boolean testRes2 = Methods.setCustomerPhone(customerID, phone);
+
+        assertEquals(false, testRes2);
+
+
+        // Test with phone number with letters in it
+        phone = "abc";
+        boolean testRes3 = Methods.setCustomerPhone(customerID, phone);
+
+        assertEquals(false, testRes3);
+
+
+        // Test with negative customerID
+        phone = "1234";
+        customerID = -1;
+        boolean testRes4 = Methods.setCustomerPhone(customerID, phone);
+
+        assertEquals(false, testRes4);
+    }
+
 
     @AfterClass
     public static void after() throws Exception {
