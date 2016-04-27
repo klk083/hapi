@@ -52,7 +52,7 @@ public class ManageCustomerOrders extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int idL = Methods.getRoleID(Methods.getEmployeeName(Methods.getID()));
-                if(idL==1){
+                if(idL==1 || idL ==2){
                     dispose();
                     CEO ceo = new CEO();
                 } else if(idL==5){

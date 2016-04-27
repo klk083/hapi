@@ -187,7 +187,6 @@ public class EditOrder extends JFrame {
                     String minute =  minuteBox.getSelectedItem().toString();
 
                     String delivery = year + "-" + month + "-" + day + " " + hour + ":" + minute;
-                    showMessageDialog(null, delivery);
                     Methods.setOrderDeliveryTime(orderId, delivery);
                     ManageOrders orders = new ManageOrders(selected, selectedId);
                     dispose();
